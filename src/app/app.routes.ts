@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { DoctorAdd } from './features/doctor/doctor-add/doctor-add';
 
 // Public & Auth Pages
 import { LandingPage } from './features/landing-page/landing-page';
@@ -28,6 +29,48 @@ import { AppointmentBooking } from './features/appointment/appointment-booking/a
 import { DoctorDashboard } from './features/doctor/doctor-dashboard/doctor-dashboard';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'doctor/add',
+    pathMatch: 'full',
+  },
+  {
+    path: 'doctor/add',
+    component: DoctorAdd,
+  },
+
+  {
+    path: '',
+    redirectTo: 'appointment',
+        pathMatch: 'full',
+
+  },
+
+  {
+    path: 'patient',
+    component: PatientRegistration,
+  },
+
+  {
+    path: 'doctor',
+    component: DoctorManagement,
+  },
+
+  {
+    path: 'appointment',
+    component: AppointmentBooking,
+  },
+
+  {
+    path: 'doctor-dashboard',
+    component: DoctorDashboard,
+  },
+
+  {
+    path: '**',
+    redirectTo: 'appointment',
+  },
+
   // Public & Auth Routes
   { path: '', component: LandingPage, pathMatch: 'full' },
   { path: 'about-us', component: AboutUs },
@@ -56,6 +99,7 @@ export const routes: Routes = [
   { path: 'doctor-dashboard', component: DoctorDashboard },
 
   // Fallback Route
+  { path: '**', redirectTo: '' },
   { path: '**', redirectTo: '' }
 ];
 
