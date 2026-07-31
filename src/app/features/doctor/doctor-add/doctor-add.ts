@@ -117,6 +117,16 @@ export class DoctorAdd implements OnInit {
       return;
     }
 
-    console.log(this.doctorForm.value);
+    this.doctorService.registerDoctor(this.doctorForm.value).subscribe({
+      next: (response) => {
+        console.log(response);
+        alert('Doctor Registered Successfully');
+        this.doctorForm.reset();
+      },
+      error: (error) => {
+        console.error(error);
+        alert('Registration Failed');
+      },
+    });
   }
 }
