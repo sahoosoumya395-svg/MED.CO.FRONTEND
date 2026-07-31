@@ -24,6 +24,16 @@ const angularApp = new AngularNodeAppEngine();
  * ```
  */
 
+app.get('/api/invoice-number', (req, res) => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const randomSuffix = Math.floor(100000 + Math.random() * 900000);
+
+  res.json({ invoiceNumber: `INV-${year}${month}${day}-${randomSuffix}` });
+});
+
 /**
  * Serve static files from /browser
  */

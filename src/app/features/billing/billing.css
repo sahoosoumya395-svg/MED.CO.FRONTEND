@@ -1,0 +1,335 @@
+/* ==========================
+   Page
+========================== */
+
+:host {
+    display: block;
+    padding: 30px;
+    background: #f5f7fb;
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ==========================
+   Header
+========================== */
+
+.billing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-section img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.logo-section h2 {
+    margin: 0;
+    color: #1976d2;
+    font-size: 26px;
+}
+
+.logo-section p {
+    margin: 5px 0 0;
+    color: #555;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.invoice-section {
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+}
+
+.invoice-section label {
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.logout-btn {
+    background: #d32f2f;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    height: 42px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.logout-btn:hover {
+    background: #b71c1c;
+    transform: translateY(-1px);
+}
+
+/* ==========================
+   Cards
+========================== */
+
+.card {
+    padding-bottom: 70px;
+    background: #ffffff;
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #1976d2;
+}
+
+/* ==========================
+   Grid
+========================== */
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+/* ==========================
+   Form
+========================== */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d5d5d5;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    border-color: #1976d2;
+}
+
+/* ==========================
+   Table
+========================== */
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #1976d2;
+    color: white;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #e4e4e4;
+}
+
+tbody tr:nth-child(even) {
+    background: #fafafa;
+}
+
+tfoot td {
+    border: none;
+    padding-top: 12px;
+}
+
+.tfoot-empty {
+    border: none !important;
+}
+
+.action-add-cell {
+    border: none !important;
+    text-align: center;
+}
+
+.table-container {
+    width: 100%;
+}
+
+/* ==========================
+   Buttons
+========================== */
+
+.add-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #2e7d32;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.add-btn:hover {
+    background: #1b5e20;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: #d32f2f;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.delete-btn:hover {
+    background: #b71c1c;
+    transform: scale(1.05);
+}
+
+/* ==========================
+   Summary
+========================== */
+
+.summary {
+    max-width: 400px;
+    margin-left: auto;
+}
+
+.summary div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.summary hr {
+    margin: 18px 0;
+}
+
+.grand-total {
+    font-size: 20px;
+    color: #1976d2;
+    font-weight: bold;
+}
+
+/* ==========================
+   Footer Button
+/* ==========================
+   Footer Buttons
+========================== */
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.logout-btn {
+    background: #d32f2f;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.logout-btn:hover {
+    background: #b71c1c;
+    transform: translateY(-1px);
+}
+
+.generate-btn {
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    background: #1976d2;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.generate-btn:hover {
+    background: #125aa2;
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media (max-width: 992px) {
+
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .billing-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .invoice-section {
+        width: 100%;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .summary {
+        max-width: 100%;
+    }
+
+}
