@@ -1,14 +1,4 @@
 import { Component } from '@angular/core';
-
-
-@Component({
-  selector: 'app-forgot-password',
-  imports: [],
-  templateUrl: './forgot-password.html',
-  styleUrl: './forgot-password.css',
-})
-export class ForgotPassword {}
-
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
@@ -17,10 +7,9 @@ import { Router, RouterLink } from '@angular/router';
   standalone: true,
   imports: [FormsModule, RouterLink],
   templateUrl: './forgot-password.html',
-  styleUrls: ['./forgot-password.css']
+  styleUrl: './forgot-password.css'
 })
 export class ForgotPassword {
-
   email: string = '';
 
   constructor(private router: Router) {}
@@ -33,8 +22,4 @@ export class ForgotPassword {
   resendOtp() {
     console.log('Resend OTP');
   }
-
 }
-
-
-

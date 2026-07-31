@@ -20,9 +20,11 @@
     "@angular/platform-server": "^22.0.0",
     "@angular/router": "^22.0.0",
     "@angular/ssr": "^22.0.9",
+    "apexcharts": "^5.16.0",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "express": "^5.1.0",
+    "ng-apexcharts": "^2.4.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "^0.16.2"
