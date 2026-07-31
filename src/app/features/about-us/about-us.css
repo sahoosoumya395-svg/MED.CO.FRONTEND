@@ -8,7 +8,7 @@
 
 .about-page-wrapper {
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -16,14 +16,14 @@
 
 /* Header Navbar */
 .navbar {
+  position: sticky;
+  top: 0;
   width: 100%;
   background-color: #ffffff;
   border-bottom: 1px solid #e8f0f8;
   padding: 14px 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .nav-container {
