@@ -70,6 +70,7 @@ export const routes: Routes = [
     path: '**',
     redirectTo: 'appointment',
   },
+
   // Public & Auth Routes
   { path: '', component: LandingPage, pathMatch: 'full' },
   { path: 'about-us', component: AboutUs },
@@ -99,4 +100,6 @@ export const routes: Routes = [
 
   // Fallback Route
   { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '' }
 ];
+
