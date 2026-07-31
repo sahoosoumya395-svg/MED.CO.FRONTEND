@@ -1,4 +1,14 @@
 import { Component } from '@angular/core';
+
+
+@Component({
+  selector: 'app-login',
+  imports: [],
+  templateUrl: './login.html',
+  styleUrl: './login.css',
+})
+export class Login {}
+=======
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -30,5 +40,6 @@ export class Login {
   }
 
 }
+
 
 

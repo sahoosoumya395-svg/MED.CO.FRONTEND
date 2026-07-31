@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
+
 
 import { Billing } from './billing';
 
@@ -10,7 +13,11 @@ describe('Billing', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+
+      imports: [Billing],
+
       imports: [Billing, HttpClientTestingModule],
+
     }).compileComponents();
 
     fixture = TestBed.createComponent(Billing);
@@ -21,6 +28,8 @@ describe('Billing', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
 
   it('should add a medicine row when addMedicine() is called', () => {
     const initial = component.medicines.length;
@@ -51,4 +60,5 @@ describe('Billing', () => {
 
     expect(component.medicines.length).toBe(initial + 1);
   });
+
 });
