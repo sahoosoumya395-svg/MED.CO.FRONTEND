@@ -23,6 +23,18 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+
+  {
+    "glob": "**/*",
+    "input": "public"
+  },
+  {
+    "glob": "**/*",
+    "input": "src/assets",
+    "output": "assets"
+  }
+],
+
               {
                 "glob": "**/*",
                 "input": "public"
@@ -32,6 +44,7 @@
                 "output": "assets"
               }
             ],
+
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",

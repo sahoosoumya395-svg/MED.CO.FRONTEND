@@ -1,5 +1,14 @@
 import { Component } from '@angular/core';
 
+
+@Component({
+  selector: 'app-forgot-password',
+  imports: [],
+  templateUrl: './forgot-password.html',
+  styleUrl: './forgot-password.css',
+})
+export class ForgotPassword {}
+
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
@@ -26,5 +35,6 @@ export class ForgotPassword {
   }
 
 }
+
 
 

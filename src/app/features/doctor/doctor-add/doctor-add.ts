@@ -1,3 +1,14 @@
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-doctor-add',
+  imports: [],
+  templateUrl: './doctor-add.html',
+  styleUrl: './doctor-add.css',
+})
+export class DoctorAdd {}
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
@@ -130,3 +141,4 @@ export class DoctorAdd implements OnInit {
     });
   }
 }
+

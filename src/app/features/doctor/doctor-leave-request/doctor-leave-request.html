@@ -1,0 +1,302 @@
+<div class="dashboard-container">
+
+    <!-- ===========================
+            SIDEBAR
+    ============================ -->
+
+    <aside class="sidebar">
+
+        <div class="logo-section">
+
+            <img src="assets/images/HEALTH-BRIDGE2.png" alt="Logo">
+
+            <h2>HEALTH BRIDGE</h2>
+
+        </div>
+
+        <nav>
+
+            <button class="dashboard-btn">
+                Dashboard
+            </button>
+
+            <div class="menu">
+
+                <h3>Management</h3>
+
+                <a href="#">Patient Management</a>
+
+                <a href="#">Doctor Management</a>
+
+            </div>
+
+            <div class="menu">
+
+                <h3>Settings</h3>
+
+                <a href="#">Users</a>
+
+                <a href="#">System Settings</a>
+
+                <a href="#">Profile</a>
+
+                <a href="#">Logout</a>
+
+            </div>
+
+        </nav>
+
+    </aside>
+
+    <!-- ===========================
+            MAIN CONTENT
+    ============================ -->
+
+    <main class="content">
+
+        <div class="page-header">
+
+            <h1>Leave Requests</h1>
+
+            <p>
+                Review and manage leave applications submitted by doctors.
+            </p>
+
+        </div>
+
+        <!-- ===========================
+                FILTERS
+        ============================ -->
+
+        <div class="filters">
+
+            <input
+                type="text"
+                placeholder="Search by doctor name or email..."
+            >
+
+            <select>
+
+                <option>All Status</option>
+                <option>Pending</option>
+                <option>Approved</option>
+                <option>Rejected</option>
+
+            </select>
+
+            <select>
+
+                <option>All Leave Types</option>
+                <option>Casual</option>
+                <option>Sick</option>
+                <option>Emergency</option>
+                <option>Maternity</option>
+
+            </select>
+
+            <input type="date">
+
+            <input type="date">
+
+            <button class="reset-btn">
+                Reset
+            </button>
+
+        </div>
+
+        <!-- ===========================
+                TABLE
+        ============================ -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Request ID</th>
+                        <th>Doctor</th>
+                        <th>Leave Type</th>
+                        <th>From Date</th>
+                        <th>To Date</th>
+                        <th>Reason</th>
+                        <th>Status Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>LV001</td>
+                        <td>Dr. Rahul</td>
+                        <td>Sick</td>
+                        <td>22 Jul</td>
+                        <td>30 Jul</td>
+                        <td>Fever</td>
+
+                        <td>
+
+                            <button class="accept-btn">
+                                ACCEPT
+                            </button>
+
+                            <button class="reject-btn">
+                                REJECT
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>LV002</td>
+                        <td>Dr. Sruti</td>
+                        <td>Casual</td>
+                        <td>22 Jul</td>
+                        <td>30 Jul</td>
+                        <td>Marriage</td>
+
+                        <td>
+
+                            <button class="accept-btn">
+                                ACCEPT
+                            </button>
+
+                            <button class="reject-btn">
+                                REJECT
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>LV003</td>
+                        <td>Dr. Jinu</td>
+                        <td>Emergency</td>
+                        <td>29 Jul</td>
+                        <td>22 Aug</td>
+                        <td>Medical Emergency</td>
+
+                        <td>
+
+                            <button class="accept-btn">
+                                ACCEPT
+                            </button>
+
+                            <button class="reject-btn">
+                                REJECT
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>LV004</td>
+                        <td>Dr. Happy</td>
+                        <td>Emergency</td>
+                        <td>22 Aug</td>
+                        <td>22 Sep</td>
+                        <td>Medical Emergency</td>
+
+                        <td>
+
+                            <button class="accept-btn">
+                                ACCEPT
+                            </button>
+
+                            <button class="reject-btn">
+                                REJECT
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>LV005</td>
+                        <td>Dr. Sumudu</td>
+                        <td>Maternity</td>
+                        <td>14 Aug</td>
+                        <td>01 Sep</td>
+                        <td>Child Birth</td>
+
+                        <td>
+
+                            <button class="accept-btn">
+                                ACCEPT
+                            </button>
+
+                            <button class="reject-btn">
+                                REJECT
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>LV006</td>
+                        <td>Dr. Aditya</td>
+                        <td>Casual</td>
+                        <td>30 Jul</td>
+                        <td>03 Aug</td>
+                        <td>Family Function</td>
+
+                        <td>
+
+                            <button class="accept-btn">
+                                ACCEPT
+                            </button>
+
+                            <button class="reject-btn">
+                                REJECT
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>LV007</td>
+                        <td>Dr. Soumya</td>
+                        <td>Casual</td>
+                        <td>22 Jul</td>
+                        <td>25 Jul</td>
+                        <td>Marriage</td>
+
+                        <td>
+
+                            <button class="accept-btn">
+                                ACCEPT
+                            </button>
+
+                            <button class="reject-btn">
+                                REJECT
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
+
+</div>
