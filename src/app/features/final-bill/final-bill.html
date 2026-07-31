@@ -1,0 +1,132 @@
+<div class="page-container">
+
+  <!-- Printable Invoice Document -->
+  <div class="invoice-card" id="print-area">
+
+    <!-- Header Section -->
+    <header class="invoice-header">
+      <div class="brand">
+        <img src="assets/logo/logo.png" alt="Health Bridge Logo" class="brand-logo">
+        <div class="brand-info">
+          <h1>HEALTH BRIDGE</h1>
+          <p class="tagline">WHERE CARE MEETS TECHNOLOGY</p>
+          <p class="hospital-address">123 Healthcare Ave, Medical District | Phone: (555) 019-2831</p>
+        </div>
+      </div>
+
+      <div class="invoice-meta">
+        <div class="invoice-badge">FINAL INVOICE</div>
+        <div class="meta-rows">
+          <div class="meta-row">
+            <span class="meta-label">Invoice Number:</span>
+            <div class="value-box">{{ invoice.invoiceNumber }}</div>
+          </div>
+
+          <div class="meta-row">
+            <span class="meta-label">Date:</span>
+            <div class="value-box">{{ invoice.invoiceDate }}</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <hr class="divider">
+
+    <!-- Details Section -->
+    <section class="details-section">
+      <div class="details-box">
+        <h3>Patient Information</h3>
+        <p><strong>Patient ID:</strong> {{ invoice.patientId }}</p>
+        <p><strong>Patient Name:</strong> {{ invoice.patientName }}</p>
+      </div>
+
+      <div class="details-box">
+        <h3>Doctor Consultation</h3>
+        <p><strong>Doctor Name:</strong> {{ invoice.doctorName }}</p>
+        <p><strong>Specialization:</strong> {{ invoice.specialization }}</p>
+      </div>
+    </section>
+
+    <!-- Medicines Table -->
+    <section class="items-section">
+      <h3>Prescribed Medicines & Supplies</h3>
+
+      <table class="items-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Medicine Name</th>
+            <th class="text-right">Quantity</th>
+            <th class="text-right">Unit Price (₹)</th>
+            <th class="text-right">Total Amount (₹)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of invoice.medicines; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.medicineName }}</td>
+            <td class="text-right">{{ item.quantity }}</td>
+            <td class="text-right">{{ item.unitPrice | number:'1.2-2' }}</td>
+            <td class="text-right">{{ getMedicineRowTotal(item) | number:'1.2-2' }}</td>
+          </tr>
+          <tr *ngIf="!invoice.medicines || invoice.medicines.length === 0">
+            <td colspan="5" class="empty-msg">No medicines added</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Summary Section -->
+    <section class="summary-section">
+      <div class="summary-box">
+        <div class="summary-row">
+          <span>Doctor Consultation Fee:</span>
+          <span>₹ {{ invoice.doctorFee | number:'1.2-2' }}</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Medicines Total:</span>
+          <span>₹ {{ getMedicineTotal() | number:'1.2-2' }}</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Service Charge:</span>
+          <span>₹ {{ invoice.serviceCharge | number:'1.2-2' }}</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Tax (GST):</span>
+          <span>₹ {{ invoice.tax | number:'1.2-2' }}</span>
+        </div>
+
+        <hr class="summary-divider">
+
+        <div class="summary-row total-row">
+          <span>Grand Total:</span>
+          <span>₹ {{ getGrandTotal() | number:'1.2-2' }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="invoice-footer">
+      <div class="thank-you">
+        <p class="wish">Wish you a speedy recovery!</p>
+        <p class="terms">This is a computer generated invoice and does not require a physical stamp.</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Bottom Action Bar (Hidden during print) -->
+  <div class="bottom-action-bar no-print">
+    <button type="button" class="back-btn" (click)="goBack()">
+      ← Back to Billing
+    </button>
+
+    <button type="button" class="print-btn" (click)="printInvoice()">
+      🖨️ Print Final Invoice
+    </button>
+  </div>
+
+</div>

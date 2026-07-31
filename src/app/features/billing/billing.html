@@ -1,1 +1,210 @@
-<p>billing works!</p>
+
+
+<form [formGroup]="billingForm" (ngSubmit)="generateInvoice()">
+
+  <!-- Header -->
+  <div class="billing-header">
+
+    <div class="logo-section">
+      <img src="assets/logo/logo.png" alt="Health Bridge Logo">
+      <div>
+        <h2>HEALTH BRIDGE</h2>
+        <p>Hospital Billing</p>
+      </div>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <!-- Patient Details -->
+  <div class="card">
+
+    <h3>Patient Details</h3>
+
+    <div class="grid-3">
+
+      <div class="form-group">
+        <label>Patient ID</label>
+
+        <input
+          type="text"
+          formControlName="patientId">
+      </div>
+
+      <div class="form-group">
+        <label>Patient Name</label>
+
+        <input
+          type="text"
+          formControlName="patientName">
+      </div>
+
+      <div class="form-group">
+        <label>Invoice Date</label>
+
+        <input
+          type="date"
+          formControlName="invoiceDate">
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Doctor Details -->
+  <div class="card">
+
+    <h3>Doctor Consultation</h3>
+
+    <div class="grid-3">
+
+      <div class="form-group">
+        <label>Doctor Name</label>
+
+        <input
+          type="text"
+          formControlName="doctorName">
+      </div>
+
+      <div class="form-group">
+        <label>Specialization</label>
+
+        <input
+          type="text"
+          formControlName="specialization">
+      </div>
+
+      <div class="form-group">
+        <label>Doctor Fee</label>
+
+        <input
+          type="number"
+          formControlName="doctorFee"
+          placeholder="0"
+          (focus)="clearInputOnFocus($event)">
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Medicines -->
+  <div class="card">
+
+    <div class="table-header">
+
+      <h3>Medicines</h3>
+
+    </div>
+
+    <table>
+
+      <thead>
+
+      <tr>
+
+        <th>Medicine Name</th>
+
+        <th>Quantity</th>
+
+        <th>Unit Price</th>
+
+        <th>Action</th>
+
+      </tr>
+
+      </thead>
+
+      <tbody formArrayName="medicines">
+
+      <tr
+        *ngFor="let medicine of medicines.controls; let i = index"
+        [formGroupName]="i">
+
+        <td>
+
+          <input
+            type="text"
+            formControlName="medicineName">
+
+        </td>
+
+        <td>
+
+          <input
+            type="number"
+            formControlName="quantity"
+            placeholder="0"
+            (focus)="clearInputOnFocus($event)">
+
+        </td>
+
+        <td>
+
+          <input
+            type="number"
+            formControlName="unitPrice"
+            placeholder="0"
+            (focus)="clearInputOnFocus($event)">
+
+        </td>
+
+        <td>
+
+          <button
+            type="button"
+            class="delete-btn"
+            (click)="removeMedicine(i)">
+
+            −
+
+          </button>
+
+        </td>
+
+      </tr>
+
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="3" class="tfoot-empty"></td>
+          <td class="action-add-cell">
+            <button
+              type="button"
+              class="add-btn"
+              (click)="onAddMedicine()">
+              +
+            </button>
+          </td>
+        </tr>
+      </tfoot>
+
+    </table>
+
+  </div>
+
+  <div class="button-container">
+
+    <button
+      type="button"
+      class="logout-btn"
+      (click)="logout()">
+
+      Logout
+
+    </button>
+
+    <button
+      type="submit"
+      class="generate-btn">
+
+      Generate Invoice
+
+    </button>
+
+  </div>
+
+</form>
+
