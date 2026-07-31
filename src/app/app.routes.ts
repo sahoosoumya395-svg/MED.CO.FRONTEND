@@ -21,6 +21,12 @@ import { Reports } from './features/reports/reports';
 import { Profile } from './features/profile/profile';
 import { Settings } from './features/settings/settings';
 
+// Patient & Doctor Management
+import { PatientRegistration } from './features/patient/patient-registration/patient-registration';
+import { DoctorManagement } from './features/doctor/doctor-management/doctor-management';
+import { AppointmentBooking } from './features/appointment/appointment-booking/appointment-booking';
+import { DoctorDashboard } from './features/doctor/doctor-dashboard/doctor-dashboard';
+
 export const routes: Routes = [
   // Public & Auth Routes
   { path: '', component: LandingPage, pathMatch: 'full' },
@@ -43,6 +49,13 @@ export const routes: Routes = [
   { path: 'profile', component: Profile },
   { path: 'settings', component: Settings },
 
+  // Patient & Doctor Routes
+  { path: 'patient', component: PatientRegistration },
+  { path: 'doctor', component: DoctorManagement },
+  { path: 'appointment', component: AppointmentBooking },
+  { path: 'doctor-dashboard', component: DoctorDashboard },
+
   // Fallback Route
   { path: '**', redirectTo: '' }
 ];
+
