@@ -1,0 +1,522 @@
+/* ==========================================
+   GLOBAL
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #ececec;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ==========================================
+   PAGE
+========================================== */
+
+.prescription-container {
+
+    width: 210mm;
+    min-height: 297mm;
+
+    margin: 25px auto;
+    background: #ffffff;
+
+    padding: 28px;
+
+    box-shadow: 0 0 15px rgba(0,0,0,.15);
+
+    position: relative;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.prescription-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+}
+
+.doctor-section{
+
+    display:flex;
+
+    gap:18px;
+
+    align-items:flex-start;
+
+}
+
+.doctor-logo img{
+
+    width:98px;
+    height: 109px;
+
+}
+
+.doctor-details h1{
+
+    color:#2b6672;
+
+    font-size:34px;
+
+    font-weight:700;
+
+}
+
+.doctor-details h2{
+
+    margin-top:6px;
+
+    color:#2b6672;
+
+    font-size:30px;
+
+}
+
+.doctor-details h3{
+
+    color:#444;
+
+    font-size:22px;
+
+    margin-top:2px;
+
+    font-weight:500;
+
+}
+
+.doctor-details p{
+
+    margin-top:6px;
+
+    font-size:18px;
+
+    color:#555;
+
+}
+
+.hospital-section{
+
+    text-align:right;
+
+}
+
+.hospital-section h1{
+
+    color:#2b6672;
+
+    font-size:56px;
+
+    font-weight:bold;
+
+}
+
+.hospital-section img{
+
+    width:200px;
+    height:100px;
+  
+
+}
+
+.header-line{
+
+    width:100%;
+
+    border-top:2px solid #5b5b5b;
+
+    margin:18px 0;
+
+}
+
+/* ==========================================
+   PATIENT DETAILS
+========================================== */
+
+.patient-details{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.patient-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:30px;
+
+}
+
+.patient-field{
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.patient-field label{
+
+    font-size:20px;
+
+    font-weight:600;
+
+    color:#234d58;
+
+    margin-right:10px;
+
+    white-space:nowrap;
+
+}
+
+.patient-field span{
+
+    display:block;
+
+    border-bottom:2px solid #234d58;
+
+    padding-bottom:4px;
+
+    font-size:20px;
+
+    color:#333;
+
+}
+
+.patient-name{
+
+    width:70%;
+
+}
+
+.patient-name span{
+
+    width:100%;
+
+}
+
+.patient-age{
+
+    width:20%;
+
+}
+
+.patient-age span{
+
+    width:80px;
+
+}
+
+.patient-date{
+
+    width:45%;
+
+}
+
+.patient-date span{
+
+    width:180px;
+
+}
+
+.patient-mrn{
+
+    width:45%;
+
+}
+
+.patient-mrn span{
+
+    width:180px;
+
+}
+
+.patient-address{
+
+    width:100%;
+
+}
+
+.patient-address span{
+
+    width:100%;
+
+}
+
+/* ==========================================
+   PRESCRIPTION BODY
+========================================== */
+
+.prescription-body{
+
+    display:flex;
+
+    margin-top:20px;
+
+}
+
+.rx-symbol{
+
+    width:90px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+}
+
+.rx-symbol span:first-child{
+
+    font-size:70px;
+
+    font-weight:bold;
+
+    color:#234d58;
+
+    line-height:60px;
+
+}
+
+.rx-symbol span:last-child{
+
+    font-size:65px;
+
+    font-weight:bold;
+
+    color:#234d58;
+
+    margin-top:-12px;
+
+}
+
+.medicine-content{
+
+    flex:1;
+
+    min-height:640px;
+
+    padding-left:15px;
+
+}
+
+/* ==========================================
+   DIAGNOSIS
+========================================== */
+
+.diagnosis-section{
+
+    margin-bottom:30px;
+
+}
+
+.diagnosis-section h3{
+
+    color:#2b6672;
+
+    margin-bottom:12px;
+
+    font-size:24px;
+
+}
+
+.diagnosis-section p{
+
+    font-size:18px;
+
+    line-height:30px;
+
+    color:#444;
+
+}
+
+/* ==========================================
+   MEDICINE TABLE
+========================================== */
+
+.medicine-section{
+
+    margin-bottom:30px;
+
+}
+
+.medicine-section h3{
+
+    color:#2b6672;
+
+    margin-bottom:15px;
+
+    font-size:24px;
+
+}
+
+.medicine-section table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.medicine-section th{
+
+    background:#2b6672;
+
+    color:#fff;
+
+    padding:12px;
+
+    border:1px solid #d7d7d7;
+
+    font-size:16px;
+
+}
+
+.medicine-section td{
+
+    border:1px solid #ddd;
+
+    padding:12px;
+
+    text-align:center;
+
+    font-size:16px;
+
+}
+
+.medicine-section td:first-child{
+
+    text-align:left;
+
+}
+
+/* ==========================================
+   ADVICE
+========================================== */
+
+.advice-section h3{
+
+    color:#2b6672;
+
+    margin-bottom:15px;
+
+    font-size:24px;
+
+}
+
+.advice-section ul{
+
+    padding-left:25px;
+
+}
+
+.advice-section li{
+
+    font-size:18px;
+
+    margin-bottom:12px;
+
+    color:#444;
+
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.prescription-footer{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-top:40px;
+
+}
+
+.doctor-signature{
+
+    width:250px;
+
+    text-align:center;
+
+}
+
+.doctor-signature img{
+
+    width:160px;
+
+}
+
+.signature-line{
+
+    border-top:2px solid #234d58;
+
+    margin-top:-8px;
+
+}
+
+.doctor-signature h3{
+
+    margin-top:10px;
+
+    color:#234d58;
+
+    font-weight:500;
+
+}
+
+/* ==========================================
+   PRINT
+========================================== */
+
+@page{
+
+    size:A4;
+
+    margin:0;
+
+}
+
+@media print{
+
+    body{
+
+        background:white;
+
+    }
+
+    .prescription-container{
+
+        width:210mm;
+
+        min-height:297mm;
+
+        margin:0;
+
+        box-shadow:none;
+
+        border:none;
+
+    }
+
+}

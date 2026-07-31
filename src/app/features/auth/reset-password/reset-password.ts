@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-reset-password',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './reset-password.html',
-  styleUrls: ['./reset-password.css']
+  styleUrl: './reset-password.css'
 })
 export class ResetPassword {
-
   newPassword: string = '';
   confirmPassword: string = '';
 
@@ -23,7 +23,4 @@ export class ResetPassword {
     }
     this.router.navigate(['/reset-password-success']);
   }
-
 }
-
-
