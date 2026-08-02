@@ -1,0 +1,147 @@
+<div class="billing-page-layout">
+
+  <!-- ================= TOP NAVBAR ================= -->
+  <header class="top-navbar">
+    <div class="brand-logo" routerLink="/patient-dashboard" style="cursor: pointer;">
+      <img src="assets/logo/logo.png" alt="Health Bridge Logo" class="brand-img">
+      <div class="brand-text">
+        <h1 class="brand-title">HEALTH BRIDGE</h1>
+        <p class="brand-subtitle">Your Health, Our Priority</p>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <!-- Notification Bell -->
+      <div class="notification-wrapper">
+        <button class="icon-btn" routerLink="/patient-dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="bell-icon">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          <span class="notification-badge">3</span>
+        </button>
+      </div>
+
+      <!-- User Profile -->
+      <div class="user-profile-trigger">
+        <img [src]="userAvatar" alt="User Avatar" class="user-avatar">
+        <div class="user-info">
+          <span class="user-name">{{ userName }}</span>
+          <span class="user-role">{{ userRole }}</span>
+        </div>
+        <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="main-content">
+    
+    <!-- PAGE TITLE HEADER BANNER -->
+    <section class="page-title-banner">
+      <div class="title-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2" class="doc-icon">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+      </div>
+      <div class="title-text">
+        <h2 class="title-heading">Billing Details</h2>
+        <p class="title-subheading">View all your invoices and payment history.</p>
+      </div>
+    </section>
+
+    <!-- SEARCH & INFO GRID (ROW 2) -->
+    <section class="search-info-grid">
+      <!-- Card 1: Enter Patient Name Input -->
+      <div class="input-card">
+        <label class="input-label">Enter Patient Name</label>
+        <div class="search-field-wrap">
+          <div class="input-inner-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" class="person-icon">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input 
+              type="text" 
+              [(ngModel)]="patientNameSearch" 
+              (keyup.enter)="onSearchClick()"
+              placeholder="Type patient name (e.g., John Doe)" 
+              class="patient-input"
+            />
+          </div>
+          <button type="button" (click)="onSearchClick()" class="search-submit-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-btn-icon">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            Search
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2: Info Alert Box -->
+      <div class="info-alert-card">
+        <div class="info-icon-box">
+          <span class="info-symbol">i</span>
+        </div>
+        <p class="info-text">Billing records are shown for the entered patient name.</p>
+      </div>
+    </section>
+
+    <!-- INVOICES TABLE CARD (ROW 3) -->
+    <section class="invoices-table-card">
+      <div class="table-responsive">
+        <table class="invoices-table">
+          <thead>
+            <tr>
+              <th>Invoice Number</th>
+              <th>Invoice ID</th>
+              <th>Date</th>
+              <th>Total Amount</th>
+              <th>Bill Created At</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (inv of filteredInvoices; track inv.invoiceNumber) {
+              <tr>
+                <td class="inv-num-cell">{{ inv.invoiceNumber }}</td>
+                <td class="inv-id-cell">{{ inv.invoiceId }}</td>
+                <td class="date-cell">{{ inv.date }}</td>
+                <td class="amount-cell">{{ inv.totalAmount }}</td>
+                <td class="created-at-cell">{{ inv.billCreatedAt }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- BOTTOM SUPPORT BANNER (ROW 4) -->
+    <section class="bottom-support-banner">
+      <div class="support-text-wrap">
+        <div class="headphones-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2" class="headphones-svg">
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+          </svg>
+        </div>
+        <span class="support-prompt">If you have any questions about your bills, please contact our support team.</span>
+      </div>
+
+      <a routerLink="/contact-us" class="contact-support-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2" class="btn-headphones-icon">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+        </svg>
+        Contact Support
+      </a>
+    </section>
+
+  </main>
+</div>
