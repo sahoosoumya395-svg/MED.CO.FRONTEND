@@ -5,7 +5,7 @@ import { LandingPage } from './features/landing-page/landing-page';
 import { AboutUs } from './features/about-us/about-us';
 import { PreRegister } from './features/pre-register/pre-register';
 import { ContactUs } from './features/contact-us/contact-us';
-import { Services } from './features/services/services';
+import { Services } from './features/app-services/app-services';
 import { Language } from './features/language/language';
 import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
@@ -20,6 +20,7 @@ import { PatientDashboard } from './features/dashboard/patient-dashboard/patient
 
 // Financial, Medical, User Profile & Settings
 import { Billing } from './features/billing/billing';
+import { PatientBillingDetails } from './features/patient-billing-details/patient-billing-details';
 import { FinalBill } from './features/final-bill/final-bill';
 import { Medicine } from './features/medicine/medicine';
 import { Reports } from './features/reports/reports';
@@ -67,6 +68,7 @@ export const routes: Routes = [
   { path: 'pre-register', component: PreRegister },
   { path: 'contact-us', component: ContactUs },
   { path: 'services', component: Services },
+  { path: 'app-services', component: Services },
   { path: 'language', component: Language },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
@@ -81,10 +83,14 @@ export const routes: Routes = [
 
   // Financial & Medical Routes
   { path: 'billing', component: Billing },
+  { path: 'patient-billing-details', component: PatientBillingDetails },
+  { path: 'billing-details', component: PatientBillingDetails },
   { path: 'final-bill', component: FinalBill },
   { path: 'medicine', component: Medicine },
   { path: 'reports', component: Reports },
+  { path: 'medical-history', component: Reports },
   { path: 'profile', component: Profile },
+  { path: 'patient-profile', component: Profile },
   { path: 'settings', component: Settings },
 
   // Patient Routes
@@ -101,6 +107,8 @@ export const routes: Routes = [
   { path: 'doctor/add', component: DoctorAdd },
   { path: 'doctor/edit', component: DoctorEdit },
   { path: 'doctor/list', component: DoctorList },
+  { path: 'doctor-list', component: DoctorList },
+  { path: 'doctors', component: DoctorList },
   { path: 'doctor/profile', component: DoctorProfile },
   { path: 'doctor/status', component: DoctorStatus },
   { path: 'doctor/department-availability', component: DepartmentAvailability },
@@ -112,14 +120,18 @@ export const routes: Routes = [
   // Appointment Routes
   { path: 'appointment', component: AppointmentBooking },
   { path: 'appointment/booking', component: AppointmentBooking },
+  { path: 'appointment-booking', component: AppointmentBooking },
   { path: 'appointment/add', component: AppointmentAdd },
   { path: 'appointment/list', component: AppointmentList },
+  { path: 'appointment-list', component: AppointmentList },
+  { path: 'my-appointments', component: AppointmentList },
   { path: 'appointment/calendar', component: AppointmentCalendar },
 
-  // Prescription Routes
+  // Prescription & Messages Routes
   { path: 'prescription/add', component: PrescriptionAdd },
   { path: 'prescription/list', component: PrescriptionList },
   { path: 'prescription/view', component: PrescriptionView },
+  { path: 'messages', component: PatientDashboard },
 
   // Fallback Route
   { path: '**', redirectTo: '' }

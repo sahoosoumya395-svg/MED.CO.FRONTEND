@@ -939,3 +939,84 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ==========================================================================
+   APPOINTMENTS BY STATUS CARD STYLES
+   ========================================================================== */
+.status-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  min-height: 220px;
+}
+
+.status-chart-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+}
+
+.status-legend-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.status-legend-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.status-legend-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-color-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.status-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+}
+
+.status-legend-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.status-count {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.status-percentage {
+  color: #64748b;
+  font-weight: 400;
+}
+
+@media (max-width: 576px) {
+  .status-card-body {
+    flex-direction: column;
+    align-items: center;
+  }
+  .status-legend-list {
+    width: 100%;
+  }
+}

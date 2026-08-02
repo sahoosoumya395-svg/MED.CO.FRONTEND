@@ -69,15 +69,17 @@ export class AdminDashboard implements OnInit {
     revenueGrowth: 15
   };
 
-  // ApexChart Options: Appointments Overview Spline Area Chart
+  // ApexChart Options: Appointments Overview Spline Area Chart & Status Donut Chart
   public appointmentsChartOptions!: ChartOptions;
+  public appointmentStatusChartOptions!: DonutChartOptions;
+  totalAppointmentsCount = 136;
 
   // Appointments Status Breakdown
   appointmentsByStatus = [
-    { label: 'Scheduled', count: 72, percentage: '52.94%', color: '#2563eb' },
-    { label: 'Completed', count: 38, percentage: '27.94%', color: '#10b981' },
-    { label: 'Cancelled', count: 16, percentage: '11.76%', color: '#ef4444' },
-    { label: 'No Show', count: 10, percentage: '7.35%', color: '#f59e0b' }
+    { label: 'Scheduled', count: 72, percentage: '52.94%', color: '#1865f2' },
+    { label: 'Completed', count: 38, percentage: '27.94%', color: '#00c853' },
+    { label: 'Cancelled', count: 16, percentage: '11.76%', color: '#ff3547' },
+    { label: 'No Show', count: 10, percentage: '7.35%', color: '#ff9f00' }
   ];
 
   // Recent Appointments List
@@ -198,6 +200,45 @@ export class AdminDashboard implements OnInit {
         theme: 'light',
         y: {
           formatter: (val: number) => `${val} Appointments`
+        }
+      }
+    };
+
+    // Appointments by Status Donut Chart
+    this.appointmentStatusChartOptions = {
+      series: [72, 38, 16, 10],
+      chart: {
+        type: 'donut',
+        height: 180,
+        width: 180,
+        fontFamily: 'Inter, sans-serif'
+      },
+      labels: ['Scheduled', 'Completed', 'Cancelled', 'No Show'],
+      colors: ['#1865f2', '#00c853', '#ff3547', '#ff9f00'],
+      legend: { show: false },
+      dataLabels: { enabled: false },
+      plotOptions: {
+        pie: {
+          donut: {
+            size: '72%',
+            labels: {
+              show: true,
+              total: {
+                show: true,
+                label: 'Total',
+                fontSize: '12px',
+                color: '#94a3b8',
+                formatter: () => `${this.totalAppointmentsCount}`
+              },
+              value: {
+                show: true,
+                fontSize: '22px',
+                fontWeight: 700,
+                color: '#0f172a',
+                offsetY: 2
+              }
+            }
+          }
         }
       }
     };
