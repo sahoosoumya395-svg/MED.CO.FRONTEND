@@ -13,12 +13,34 @@
 
         <h3>Management</h3>
 
-        <ul>
-            <li>Patient Management</li>
-            <li>Doctor Management</li>
-            <li class="active">Appointment Booking</li>
-        </ul>
+<ul class="menu">
+  <li>
+    <a routerLink="/patient" class="menu-link">
+      Patient Register
+    </a>
+  </li>
 
+  <li>
+    <a routerLink="/doctor" class="menu-link">
+      Doctor Management
+    </a>
+  </li>
+
+  <li class="active">
+    <a routerLink="/appointment" class="menu-link">
+      Appointment Booking
+    </a>
+  </li>
+</ul>
+
+<h3>Settings</h3>
+
+<ul class="menu">
+  <li><a class="menu-link">Users</a></li>
+  <li><a class="menu-link">System Settings</a></li>
+  <li><a class="menu-link">Profile</a></li>
+  <li><a class="menu-link">Logout</a></li>
+</ul>
     </aside>
 
     <!-- Main Content -->
@@ -41,88 +63,100 @@
 
             <div class="card">
 
-                <h3>Select Department</h3>
+    <h3>Select Department</h3>
 
-                <select>
 
-                    <option>Select Department</option>
+    <select
+    [(ngModel)]="selectedDepartmentId"
+    (change)="loadDoctors()">
 
-                    <option>Cardiology</option>
+        <option [ngValue]="null">Select Department</option>
 
-                    <option>Neurology</option>
+        <option
+            *ngFor="let dept of departments"
+            [ngValue]="dept.departmentId">
 
-                    <option>Orthopedic</option>
+            {{ dept.departmentName }}
 
-                    <option>ENT</option>
+        </option>
 
-                    <option>Dermatology</option>
+    </select>
 
-                    <option>General Medicine</option>
-
-                </select>
-
-            </div>
+</div>
 
             <!-- Doctor -->
 
-            <div class="card">
+       <!-- Doctor -->
 
-                <h3>Choose Doctor</h3>
+<div class="card">
 
-                <div class="doctor-card">
+    <h3>Choose Doctor</h3>
 
-                    <h4>Dr. Rahul Sharma</h4>
+    <div class="doctor-list">
 
-                    <p>Cardiology</p>
+        <div
+            *ngFor="let doctor of doctors"
+            class="doctor-item"
+            (click)="selectDoctor(doctor.id)">
 
-                    <p>10+ Years Experience</p>
+            <h4>
+                Dr. {{ doctor.firstName }} {{ doctor.lastName }}
+            </h4>
 
-                </div>
+            <p>{{ doctor.specialization }}</p>
 
-                <div class="doctor-card">
+            <p>{{ doctor.experience }} Years Experience</p>
 
-                    <h4>Dr. Priya Patel</h4>
+        </div>
 
-                    <p>Neurology</p>
+    </div>
 
-                    <p>8+ Years Experience</p>
-
-                </div>
-
-                <div class="doctor-card">
-
-                    <h4>Dr. Amit Verma</h4>
-
-                    <p>Orthopedic</p>
-
-                    <p>12+ Years Experience</p>
-
-                </div>
-
-            </div>
+</div>
 
             <!-- Date -->
+<div class="card">
 
-            <div class="card">
+    <h3>Select Date</h3>
 
-                <h3>Select Date & Time</h3>
+    <div
+        class="doctor-item"
+        *ngFor="let item of availability"
+        (click)="selectDate(item)">
 
-                <input type="date">
+        {{ item.availableDate }}
 
-                <div class="time-grid">
+    </div>
 
-                    <button>09:00 AM</button>
-                    <button>09:30 AM</button>
-                    <button>10:00 AM</button>
-                    <button>10:30 AM</button>
-                    <button>11:00 AM</button>
-                    <button>04:00 PM</button>
-                    <button>04:30 PM</button>
-                    <button>05:00 PM</button>
+</div>
 
-                </div>
 
-            </div>
+
+<!-- time -->
+<div class="card">
+
+    <h3>Select Time</h3>
+
+    <div class="time-grid">
+
+       <button
+    *ngFor="let time of timeSlots"
+    (click)="selectTime(time)"
+    [class.selected]="selectedTime === time">
+
+    {{ time }}
+
+</button>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
 
             <!-- Patient Details -->
 
@@ -135,56 +169,75 @@
                 <div class="search-box">
 
                     <input
-                        type="text"
-                        placeholder="Enter MRN Number">
+    type="text"
+    [(ngModel)]="mrnNo"
+    placeholder="Enter MRN Number">
 
-                    <button>Search</button>
-
+<button (click)="searchPatient()">
+    Search
+</button>
                 </div>
 
                 <label>Patient Name</label>
 
-                <input
-                    type="text"
-                    readonly>
-
+               <input
+    type="text"
+    [(ngModel)]="patientName"
+    readonly>
                 <label>Age</label>
 
                 <input
-                    type="number"
-                    readonly>
+    type="number"
+    [(ngModel)]="age"
+    readonly>
 
                 <label>Gender</label>
 
                 <input
-                    type="text"
-                    readonly>
-
+    type="text"
+    [(ngModel)]="gender"
+    readonly>
                 <label>Mobile Number</label>
 
-                <input
-                    type="text"
-                    readonly>
+               <input
+    type="text"
+    [(ngModel)]="mobileNumber"
+    readonly>
 
                 <label>Email</label>
 
-                <input
-                    type="email"
-                    readonly>
-
+              <input
+    type="email"
+    [(ngModel)]="email">
                 <label>Address</label>
 
                 <textarea
-                    rows="3"
-                    readonly>
-                </textarea>
+    rows="3"
+    [(ngModel)]="address"
+    readonly>
+</textarea>
 
-                <button class="book-btn">
+<label>Reason</label>
 
-                    Book Appointment
+<textarea
+    rows="3"
+    [(ngModel)]="reason"
+    placeholder="Enter appointment reason">
+</textarea>
 
-                </button>
+<button
+    class="book-btn"
+    (click)="bookAppointment()"
+    [disabled]="
+        !patientId ||
+        !selectedDoctorId ||
+        !selectedDate ||
+        !selectedTime ||
+        !reason">
 
+    Book Appointment
+
+</button>
             </div>
 
         </div>

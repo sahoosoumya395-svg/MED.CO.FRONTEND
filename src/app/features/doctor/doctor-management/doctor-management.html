@@ -2,25 +2,50 @@
 
   <!-- Sidebar -->
   <aside class="sidebar">
+<!-- Sidebar -->
+<aside class="sidebar">
 
-    <div class="logo">
-      <h2>MED.CO</h2>
-    </div>
+  <div class="logo">
+    <!-- Add image later -->
+    <!-- <img src="assets/image/logo.jpeg" alt="Logo"> -->
+    <h2>MED.CO</h2>
+  </div>
 
-    <button class="dashboard-btn">
-      Dashboard
-    </button>
+  <button class="dashboard-btn">Dashboard</button>
 
-    <h3>Management</h3>
+  <h3>Management</h3>
 
-    <ul class="menu">
-      <li>Patient Management</li>
-      <li class="active">Doctor Management</li>
-      <li>Appointment</li>
-      <li>Billing</li>
-      <li>Department</li>
-    </ul>
+  <ul class="menu">
 
+  <li>
+    <a routerLink="/patient" class="menu-link">
+      Patient Register
+    </a>
+  </li>
+
+  <li>
+    <a routerLink="/doctor" class="menu-link">
+      Doctor Management
+    </a>
+  </li>
+
+  <li>
+    <a routerLink="/appointment" class="menu-link">
+      Appointment Booking
+    </a>
+  </li>
+
+</ul>
+  <h3>Settings</h3>
+
+  <ul class="menu">
+    <li>Users</li>
+    <li>System Settings</li>
+    <li>Profile</li>
+    <li>Logout</li>
+  </ul>
+
+</aside>
   </aside>
 
   <!-- Main Content -->
