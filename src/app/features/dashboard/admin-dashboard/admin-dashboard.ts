@@ -1,6 +1,7 @@
 import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Appointment } from '../../../core/services/appointment';
 import {
   NgApexchartsModule,
   ApexAxisChartSeries,
@@ -124,13 +125,25 @@ export class AdminDashboard implements OnInit {
     { title: 'Generate Report', icon: 'bi-file-earmark-text', link: '/reports', color: '#f59e0b', bg: '#fffbeb' }
   ];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private appointmentService: Appointment) {}
 
   ngOnInit(): void {
     this.isBrowser = isPlatformBrowser(this.platformId);
     if (this.isBrowser) {
       this.initCharts();
     }
+    this.loadAppointmentsTodayCount();
+  }
+
+  loadAppointmentsTodayCount(): void {
+    this.appointmentService.getAppointmentsTodayCount().subscribe({
+      next: (count) => {
+        this.stats.appointmentsToday = count;
+      },
+      error: (err) => {
+        console.error('Failed to load today\'s appointment count', err);
+      }
+    });
   }
 
   toggleSidebar(): void {

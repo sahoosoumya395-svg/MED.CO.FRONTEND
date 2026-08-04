@@ -3,6 +3,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Billing as BillingService } from '../../core/services/billing';
 import {
   FormArray,
   FormBuilder,
@@ -22,8 +23,15 @@ export class Billing implements OnInit {
 
   billingForm!: FormGroup;
   private lastAddMedicineClick = 0;
+  
+  isLoading = false;
+  errorMessage = '';
 
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router,
+    private billingService: BillingService
+  ) { }
 
   logout(): void {
     console.log("Logging out...");
@@ -250,16 +258,15 @@ export class Billing implements OnInit {
     }
 
     const rawData = this.billingForm.getRawValue();
-    const invoiceData = {
-      ...rawData,
-      invoiceNumber: rawData.invoiceNumber || 'INV-' + Math.floor(100000 + Math.random() * 900000),
-      patientId: rawData.patientId || 'PAT-101',
-      patientName: rawData.patientName || 'Patient Name',
-      doctorName: rawData.doctorName || 'Dr. Consultant',
-      specialization: rawData.specialization || 'General Medicine',
-      doctorFee: Number(rawData.doctorFee || 0),
-      serviceCharge: Number(rawData.serviceCharge || 0),
-      tax: Number(rawData.tax || 0),
+    const payload = {
+      patientId: Number(rawData.patientId),
+      patientName: rawData.patientName,
+      invoiceDate: rawData.invoiceDate,
+      doctorConsultation: {
+        doctorName: rawData.doctorName,
+        specialization: rawData.specialization,
+        doctorFee: Number(rawData.doctorFee || 0)
+      },
       medicines: (rawData.medicines || [])
         .filter((m: any) => m && m.medicineName && m.medicineName.trim() !== '')
         .map((m: any) => ({
@@ -269,8 +276,30 @@ export class Billing implements OnInit {
         }))
     };
 
-    console.log('Generating final bill:', invoiceData);
-    this.router.navigate(['/final-bill'], { state: { invoiceData } });
+    console.log('Sending final bill payload:', payload);
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.billingService.createInvoice(payload).subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+        console.log('Invoice generation success:', res);
+        
+        // Pass the actual backend response (res.data) to the final-bill page
+        if (res && res.data) {
+          this.router.navigate(['/final-bill'], { state: { invoiceData: res.data } });
+        } else {
+           this.errorMessage = 'Generated invoice details missing from server.';
+           alert(this.errorMessage);
+        }
+      },
+      error: (err: any) => {
+        this.isLoading = false;
+        console.error('Invoice generation failed:', err);
+        this.errorMessage = err.error?.message || 'Failed to generate invoice. Please check the inputs.';
+        alert(this.errorMessage);
+      }
+    });
 
   }
 

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PatientService, PatientDashboardData } from '../../../core/services/patient';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-patient-dashboard',
@@ -50,7 +51,8 @@ export class PatientDashboard implements OnInit {
 
   constructor(
     private patientService: PatientService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -63,6 +65,10 @@ export class PatientDashboard implements OnInit {
       next: (data) => {
         if (data) {
           this.dashboardData = data;
+          const savedName = this.authService.getUserName();
+          if (savedName) {
+             this.dashboardData.patientName = savedName;
+          }
         }
         this.isLoading = false;
       },

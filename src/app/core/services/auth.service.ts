@@ -3,23 +3,20 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 export interface LoginRequest {
-  email?: string;
-  username?: string;
-  password?: string;
-  captchaId?: string;
-  captchaAnswer?: string;
+  email: string;
+  password: string;
+  captcha: string;
+  captchaId: string;
 }
 
 export interface LoginResponse {
-  token?: string;
-  jwtToken?: string;
-  accessToken?: string;
-  role?: string;
-  username?: string;
-  email?: string;
-  message?: string;
-  status?: boolean | string;
-  [key: string]: any;
+  statusCode: number;
+  message: string;
+  data: {
+    role: string;
+    name: string;
+    token: string;
+  };
 }
 
 export interface ForgotPasswordRequest {
@@ -50,97 +47,56 @@ export interface CaptchaResponse {
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor(private http?: HttpClient) {}
+  private apiUrl = 'http://localhost:8082/api/auth';
+  constructor(private http: HttpClient) {}
 
   /**
    * 1. Mock Captcha (JSON response)
    */
-  createCaptcha(): Observable<CaptchaResponse> {
-    return of({
-      captchaId: 'MOCK_CAPTCHA_123',
-      captchaText: 'XGPTQ',
-      status: true
-    });
+  createCaptcha(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/create-captcha`);
   }
 
-  /**
-   * 1b. Mock Captcha Blob
-   */
   createCaptchaBlob(): Observable<Blob> {
-    return of(new Blob([], { type: 'image/png' }));
+    return this.http.get(`${this.apiUrl}/create-captcha`, { responseType: 'blob' });
   }
 
-  /**
-   * 1c. Mock Captcha Text
-   */
   createCaptchaText(): Observable<string> {
-    return of('XGPTQ');
+    return this.http.get(`${this.apiUrl}/create-captcha`, { responseType: 'text' });
   }
+ login(credentials: LoginRequest): Observable<LoginResponse> {
+  return this.http.post<LoginResponse>(
+    `${this.apiUrl}/login`,
+    credentials
+  );
+}
 
   /**
-   * 2. Mock Login
-   */
-  login(credentials: LoginRequest): Observable<LoginResponse> {
-    const userRole = credentials.email?.toLowerCase().includes('doctor') ? 'DOCTOR' :
-                     credentials.email?.toLowerCase().includes('patient') ? 'PATIENT' : 'ADMIN';
-    return of({
-      token: 'mock-jwt-token-xyz-12345',
-      jwtToken: 'mock-jwt-token-xyz-12345',
-      accessToken: 'mock-jwt-token-xyz-12345',
-      role: userRole,
-      username: credentials.username || credentials.email || 'mockuser',
-      email: credentials.email || 'user@healthbridge.com',
-      message: 'Login successful (Mock Mode)',
-      status: true
-    });
-  }
-
-  /**
-   * 3. Mock Forgot Password
+   * 3. Forgot Password
    */
   forgotPassword(data: ForgotPasswordRequest): Observable<any> {
-    return of({
-      status: true,
-      success: true,
-      message: 'OTP sent successfully to your email address (Mock Mode)',
-      otp: '123456'
-    });
+    return this.http.post(`${this.apiUrl}/forgot-password`, data);
   }
 
   /**
-   * 3b. Mock Resend OTP
+   * 3b. Resend OTP
    */
   resendOtp(data: ForgotPasswordRequest): Observable<any> {
-    return of({
-      status: true,
-      success: true,
-      message: 'A new OTP has been sent successfully to your email address (Mock Mode)',
-      otp: '123456'
-    });
+    return this.http.post(`${this.apiUrl}/forgot-password`, data);
   }
 
   /**
-   * 4. Mock Verify OTP
+   * 4. Verify OTP
    */
   verifyOtp(data: VerifyOtpRequest): Observable<any> {
-    return of({
-      status: true,
-      success: true,
-      valid: true,
-      message: 'OTP verified successfully (Mock Mode)'
-    });
+    return this.http.post(`${this.apiUrl}/verify-otp`, data);
   }
 
   /**
-   * 5. Mock Reset Password
+   * 5. Reset Password
    */
   resetPassword(data: ResetPasswordRequest): Observable<any> {
-    return of({
-      status: true,
-      success: true,
-      message: 'Password reset successfully (Mock Mode)'
-    });
+    return this.http.post(`${this.apiUrl}/reset-password`, data);
   }
 
   /**
@@ -159,6 +115,21 @@ export class AuthService {
   saveToken(token: string): void {
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.setItem('auth_token', token);
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const name = payload.name || payload.userName || payload.sub;
+        if (name) {
+          localStorage.setItem('user_name', name);
+        }
+      } catch (e) {
+        // ignore decoding errors
+      }
+    }
+  }
+
+  saveUserName(name: string): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('user_name', name);
     }
   }
 
@@ -169,10 +140,18 @@ export class AuthService {
     return null;
   }
 
+  getUserName(): string | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem('user_name');
+    }
+    return null;
+  }
+
   clearToken(): void {
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.removeItem('auth_token');
       localStorage.removeItem('user_role');
+      localStorage.removeItem('user_name');
     }
   }
 }

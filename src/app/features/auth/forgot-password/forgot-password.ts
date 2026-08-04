@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -14,20 +14,31 @@ import { AuthService } from '../../../core/services/auth.service';
 export class ForgotPassword implements OnDestroy {
   email = '';
   otpDigits: string[] = ['', '', '', '', '', ''];
-  newPassword = '';
-  confirmPassword = '';
 
   isLoading = false;
-  isOtpVerified = false;
   successMessage = '';
   errorMessage = '';
   resendCooldown = 0;
   sentOtp: string | null = null;
   private timerInterval: any = null;
+  private errorTimer: any = null;
+
+  private showError(message: string): void {
+    this.errorMessage = message;
+    this.cdr.detectChanges();
+    if (this.errorTimer) {
+      clearTimeout(this.errorTimer);
+    }
+    this.errorTimer = setTimeout(() => {
+      this.errorMessage = '';
+      this.cdr.detectChanges();
+    }, 5000);
+  }
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnDestroy(): void {
@@ -38,7 +49,13 @@ export class ForgotPassword implements OnDestroy {
 
   getOtp(): void {
     if (!this.email) {
-      this.errorMessage = 'Please enter your registered email address.';
+      this.showError('Please enter your registered email address.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(this.email)) {
+      this.showError('Invalid email address format.');
       return;
     }
 
@@ -50,14 +67,25 @@ export class ForgotPassword implements OnDestroy {
       next: (res) => {
         this.isLoading = false;
         console.log('Forgot Password OTP sent response:', res);
+
+        if (res.statusCode !== 200) {
+          this.showError(res.message || 'Failed to send OTP.');
+          return;
+        }
+
         this.sentOtp = res?.otp || res?.data?.otp || res?.otpCode || res?.code || null;
-        this.successMessage = res.message || 'OTP sent successfully to your email address.';
+        this.successMessage = 'OTP sent successfully to your email';
         this.startResendTimer(30);
+        this.cdr.detectChanges();
+        setTimeout(() => {
+          this.successMessage = '';
+          this.cdr.detectChanges();
+        }, 5000);
       },
       error: (err) => {
         this.isLoading = false;
         console.error('Forgot Password API error:', err);
-        this.errorMessage = err.error?.message || err.error?.error || 'Failed to send OTP. Please check your email.';
+        this.showError(err.error?.message || err.error?.error || 'Failed to send OTP. Please check your email.');
       }
     });
   }
@@ -72,7 +100,7 @@ export class ForgotPassword implements OnDestroy {
     }
 
     if (!this.email) {
-      this.errorMessage = 'Please enter your registered email address.';
+      this.showError('Please enter your registered email address.');
       return;
     }
 
@@ -102,14 +130,19 @@ export class ForgotPassword implements OnDestroy {
     this.isLoading = false;
     console.log('Resend OTP response:', res);
     this.sentOtp = res?.otp || res?.data?.otp || res?.otpCode || res?.code || null;
-    this.successMessage = res.message || 'A new OTP has been sent successfully to your email address.';
+    this.successMessage = 'OTP sent successfully to your email';
     this.startResendTimer(30);
+    this.cdr.detectChanges();
+    setTimeout(() => {
+      this.successMessage = '';
+      this.cdr.detectChanges();
+    }, 5000);
   }
 
   private handleResendError(err: any): void {
     this.isLoading = false;
     console.error('Resend OTP API error:', err);
-    this.errorMessage = err.error?.message || err.error?.error || 'Failed to resend OTP. Please check your email.';
+    this.showError(err.error?.message || err.error?.error || 'Failed to resend OTP. Please check your email.');
   }
 
   startResendTimer(seconds: number): void {
@@ -127,20 +160,20 @@ export class ForgotPassword implements OnDestroy {
 
   verifyAndProceed(): void {
     if (!this.email) {
-      this.errorMessage = 'Please enter your registered email address.';
+      this.showError('Please enter your registered email address.');
       return;
     }
 
     const fullOtp = this.otpDigits.join('').trim();
     if (!fullOtp || fullOtp.length < 4) {
-      this.errorMessage = 'Please enter the full OTP received in your email.';
+      this.showError('Please enter the full OTP received in your email.');
       return;
     }
 
-    // Check local sentOtp if captured from response
+    // Strict local OTP verification check if captured from response
     if (this.sentOtp && fullOtp !== String(this.sentOtp).trim()) {
-      this.errorMessage = 'Incorrect OTP. Please enter the correct OTP sent in your email.';
-      return;
+      this.showError('Incorrect OTP. Please enter the correct OTP sent in your email.');
+      return; // DO NOT NAVIGATE IF OTP IS INCORRECT
     }
 
     this.isLoading = true;
@@ -152,26 +185,20 @@ export class ForgotPassword implements OnDestroy {
         this.isLoading = false;
         console.log('OTP Verification response:', res);
 
-        if (res && (res.status === false || res.success === false || res.valid === false || res.error)) {
-          this.errorMessage = res.message || res.error || 'Incorrect OTP. Please enter the correct OTP sent in your email.';
-          return;
+        if (res && (res.statusCode !== 200 || res.status === false || res.success === false || res.valid === false || res.error)) {
+          this.showError(res.message || res.error || 'Incorrect OTP. Please enter the correct OTP sent in your email.');
+          return; // DO NOT NAVIGATE IF OTP IS INCORRECT
         }
 
-        // OTP is correct -> Go to Reset Password page!
+        // ONLY NAVIGATE TO RESET PASSWORD WHEN OTP IS VALID & VERIFIED!
         this.navigateToResetPassword(fullOtp);
       },
       error: (err) => {
         this.isLoading = false;
         console.error('Verify OTP API error:', err);
 
-        // If backend endpoint doesn't exist (404), allow proceeding to reset-password page
-        if (err.status === 404) {
-          this.navigateToResetPassword(fullOtp);
-          return;
-        }
-
-        // Show error for invalid/incorrect OTP (400, 401, 422, etc.)
-        this.errorMessage = err.error?.message || err.error?.error || 'Incorrect OTP. Please check the OTP sent in your email and try again.';
+        // DO NOT NAVIGATE AUTOMATICALLY ON ERROR OR INCORRECT OTP
+        this.showError(err.error?.message || err.error?.error || 'Incorrect OTP. Verification failed. Please check your OTP and try again.');
       }
     });
   }
