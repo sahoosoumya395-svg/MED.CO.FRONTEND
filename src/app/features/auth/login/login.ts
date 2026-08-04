@@ -1,9 +1,10 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AuthService } from '../../../core/services/auth.service';
+import { encryptPassword } from '../../../core/utils/encryption.util';
 
 export interface CaptchaChar {
   char: string;
@@ -34,21 +35,50 @@ export class Login implements OnInit {
   successMessage = '';
   errorMessage = '';
 
+  private errorTimer: any = null;
+  private successTimer: any = null;
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private sanitizer: DomSanitizer,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private cdr: ChangeDetectorRef
   ) {
-    // Generate initial captcha code immediately on creation
-    this.captchaDisplayCode = this.generateRandomCaptcha();
-    this.captchaId = 'CAPTCHA_' + this.captchaDisplayCode;
+    this.captchaDisplayCode = 'BRIDGE';
+    this.captchaId = 'CAPTCHA_BRIDGE';
     this.updateCaptchaChars();
+  }
+
+  private showError(message: string): void {
+    this.errorMessage = message;
+    this.cdr.detectChanges();
+    if (this.errorTimer) {
+      clearTimeout(this.errorTimer);
+    }
+    this.errorTimer = setTimeout(() => {
+      this.errorMessage = '';
+      this.cdr.detectChanges();
+    }, 5000);
+  }
+
+  private showSuccess(message: string): void {
+    this.successMessage = message;
+    this.cdr.detectChanges();
+    if (this.successTimer) {
+      clearTimeout(this.successTimer);
+    }
+    this.successTimer = setTimeout(() => {
+      this.successMessage = '';
+      this.cdr.detectChanges();
+    }, 5000);
   }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      // Automatically load real Captcha from API on page open
+      this.captchaDisplayCode = this.generateRandomCaptcha();
+      this.captchaId = 'CAPTCHA_' + this.captchaDisplayCode;
+      this.updateCaptchaChars();
       this.loadCaptcha();
     }
   }
@@ -81,11 +111,12 @@ export class Login implements OnInit {
       next: (res: any) => {
         console.log('GET /api/auth/create-captcha JSON response:', res);
         if (res) {
-          this.captchaId = res.captchaId || res.id || res.key || res.captchaKey || (typeof res === 'string' ? res : this.captchaId);
-          this.captchaDisplayCode = res.captchaText || res.captchaCode || res.text || (typeof res === 'string' ? res : this.captchaDisplayCode);
+          const data = res.data || res;
+          this.captchaId = data.captchaId || data.id || data.key || data.captchaKey || (typeof res === 'string' ? res : this.captchaId);
+          this.captchaDisplayCode = data.captchaText || data.captchaCode || data.text || (typeof res === 'string' ? res : this.captchaDisplayCode);
           this.updateCaptchaChars();
 
-          const rawImage = res.captchaImage || res.captchaBase64 || res.image || res.captchaUrl || '';
+          const rawImage = data.captchaImage || data.captchaBase64 || data.image || data.captchaUrl || '';
           if (rawImage && rawImage.length > 20) {
             if (rawImage.startsWith('data:image') || rawImage.startsWith('http') || rawImage.startsWith('/')) {
               this.captchaImageSrc = this.sanitizer.bypassSecurityTrustUrl(rawImage);
@@ -142,9 +173,21 @@ export class Login implements OnInit {
     this.loadCaptcha();
   }
 
-  login(): void {
+  async login(): Promise<void> {
     if (!this.email || !this.password) {
-      this.errorMessage = 'Please enter both email/username and password.';
+      this.showError('Please enter both email/username and password.');
+      return;
+    }
+
+    if (!this.captchaAnswer) {
+      this.showError('Please enter the captcha.');
+      return;
+    }
+
+    // Local captcha check ONLY IF we aren't displaying a backend image stream
+    if (this.captchaDisplayCode && !this.captchaImageSrc && this.captchaAnswer.trim().toLowerCase() !== this.captchaDisplayCode.trim().toLowerCase()) {
+      this.showError('Invalid captcha');
+      // Intentionally not refreshing here so user can quickly fix their local typo
       return;
     }
 
@@ -152,56 +195,93 @@ export class Login implements OnInit {
     this.errorMessage = '';
     this.successMessage = '';
 
+    const encryptedPassword = await encryptPassword(this.password);
+
     const credentials = {
       email: this.email,
-      username: this.email,
-      password: this.password,
-      captchaId: this.captchaId,
-      captchaAnswer: this.captchaAnswer
+      password: encryptedPassword,
+      captcha: this.captchaAnswer,
+      captchaId: this.captchaId
+
     };
 
     console.log('Sending login credentials payload:', credentials);
 
-    this.authService.login(credentials).subscribe({
-      next: (res) => {
-        this.isLoading = false;
-        this.successMessage = 'Login Successful! Redirecting to Dashboard...';
-        console.log('Login API success response:', res);
-        
-        // Save JWT token if provided by backend
-        const token = res.token || res.jwtToken || res.accessToken;
-        if (token) {
-          this.authService.saveToken(token);
-        }
+   this.authService.login(credentials).subscribe({
+  next: (res: any) => {
 
-        // Redirect based on role or default to admin dashboard
-        setTimeout(() => {
-          const role = (res.role || '').toUpperCase();
-          if (role === 'DOCTOR') {
-            this.router.navigate(['/doctor-dashboard']);
-          } else if (role === 'PATIENT') {
-            this.router.navigate(['/patient-dashboard']);
-          } else {
-            this.router.navigate(['/admin-dashboard']);
-          }
-        }, 800);
-      },
-      error: (err) => {
-        this.isLoading = false;
-        console.error('Login API error details:', err);
-        this.errorMessage = err.error?.message || err.error?.error || 'Invalid credentials or server connection error. Please try again.';
+    this.isLoading = false;
+
+    // Check if backend returned 200 HTTP but a custom error status inside
+    if (res && res.statusCode !== undefined && res.statusCode !== 200) {
+      const errorMsg = res.message?.toLowerCase() || '';
+      if (errorMsg.includes('captcha')) {
+        this.showError('Invalid captcha');
+      } else {
+        // As a best security practice, combine email and password errors
+        this.showError('Incorrect email or password');
       }
-    });
-  }
+      this.refreshCaptcha();
+      return;
+    }
 
+    this.showSuccess('Login successfully');
+
+    const token = res.data?.token;
+    const role = res.data?.role;
+    const name = res.data?.name;
+
+    if (token) {
+      this.authService.saveToken(token);
+    }
+    
+    if (name) {
+      this.authService.saveUserName(name);
+    }
+
+    setTimeout(() => {
+      switch (role) {
+        case 'ADMIN':
+          this.router.navigate(['/admin-dashboard']);
+          break;
+
+        case 'DOCTOR':
+          this.router.navigate(['/doctor-dashboard']);
+          break;
+
+        case 'PATIENT':
+          this.router.navigate(['/patient-dashboard']);
+          break;
+
+        default:
+          this.router.navigate(['/']);
+      }
+    }, 800);
+  },
+
+  error: (err) => {
+    this.isLoading = false;
+    console.error('Login API error:', err);
+    
+    const backendMsg = err.error?.message || err.error?.error || '';
+    const lowerMsg = backendMsg.toLowerCase();
+
+    if (lowerMsg.includes('captcha')) {
+      this.showError('Invalid captcha');
+    } else {
+      // Standard security practice to not leak whether email is registered or password is wrong
+      this.showError('Incorrect email or password');
+    }
+    
+    this.refreshCaptcha();
+  }
+});
+  }
   goToRegister(): void {
     this.router.navigate(['/register']);
   }
 
-  forgotPassword(event?: Event): void {
-    if (event) {
-      event.preventDefault();
-    }
+  forgotPassword(): void {
     this.router.navigate(['/forgot-password']);
   }
 }

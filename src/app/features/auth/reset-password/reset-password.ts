@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { encryptPassword } from '../../../core/utils/encryption.util';
 
 @Component({
   selector: 'app-reset-password',
@@ -42,7 +43,7 @@ export class ResetPassword implements OnInit {
   ngOnInit(): void {
   }
 
-  resetPassword(): void {
+  async resetPassword(): Promise<void> {
     if (!this.email) {
       this.errorMessage = 'Please enter your registered email address.';
       return;
@@ -61,17 +62,28 @@ export class ResetPassword implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
+    const encryptedNewPassword = await encryptPassword(this.newPassword);
+    const encryptedConfirmPassword = await encryptPassword(this.confirmPassword);
+
     const payload = {
       email: this.email,
       otp: this.otp,
-      newPassword: this.newPassword,
-      confirmPassword: this.confirmPassword
+      newPassword: encryptedNewPassword,
+      confirmPassword: encryptedConfirmPassword
     };
 
     this.authService.resetPassword(payload).subscribe({
       next: (res) => {
         this.isLoading = false;
-        console.log('Reset Password success response:', res);
+        console.log('Reset Password response:', res);
+
+        // Check if the custom statusCode indicates failure
+        if (res && res.statusCode !== 200) {
+          this.errorMessage = res.message || 'Failed to reset password. Please check requirement criteria.';
+          return; // Block navigation on failure
+        }
+
+        // Navigate to the success page only if successful
         this.router.navigate(['/reset-password-success']);
       },
       error: (err) => {

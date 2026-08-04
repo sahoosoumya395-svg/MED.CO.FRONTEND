@@ -6,8 +6,9 @@ import {
 import { provideRouter } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
-
 import { routes } from './app.routes';
+import { withInterceptors } from '@angular/common/http';
+import { jwtInterceptor } from './core/authentication/interceptors/jwt-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +16,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([jwtInterceptor])),
   ],
 };
