@@ -1,3 +1,36 @@
+.menu-link {
+    text-decoration: none;
+    color: black;
+    display: block;
+    width: 100%;
+}
+
+.menu-link:hover {
+    color: #0d6efd;
+    cursor: pointer;
+}
+
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: black;
+    display: block;
+    width: 100%;
+}
+
+.sidebar ul li a:hover {
+    color: #007bff;
+}
+
+
+
+
+
+
+
+
+
+
 *{
     margin:0;
     padding:0;
