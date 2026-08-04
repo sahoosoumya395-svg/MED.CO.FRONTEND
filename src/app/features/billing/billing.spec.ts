@@ -14,8 +14,6 @@ describe('Billing', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
 
-      imports: [Billing],
-
       imports: [Billing, HttpClientTestingModule],
 
     }).compileComponents();

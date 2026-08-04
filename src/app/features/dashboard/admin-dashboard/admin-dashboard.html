@@ -253,16 +253,34 @@
           <div class="card-header">
             <h3 class="card-title">Appointments by Status</h3>
           </div>
-          <div class="card-body status-list">
-            @for (item of appointmentsByStatus; track item.label) {
-              <div class="status-row">
-                <span class="status-name">{{ item.label }}</span>
-                <span class="status-colon">:</span>
-                <span class="status-count-pct">
-                  <strong>{{ item.count }}</strong> ({{ item.percentage }})
-                </span>
-              </div>
-            }
+          <div class="card-body status-card-body">
+            <div class="status-chart-wrapper">
+              @if (isBrowser) {
+                <apx-chart
+                  [series]="appointmentStatusChartOptions.series"
+                  [chart]="appointmentStatusChartOptions.chart"
+                  [labels]="appointmentStatusChartOptions.labels"
+                  [colors]="appointmentStatusChartOptions.colors"
+                  [legend]="appointmentStatusChartOptions.legend"
+                  [plotOptions]="appointmentStatusChartOptions.plotOptions"
+                  [dataLabels]="appointmentStatusChartOptions.dataLabels"
+                ></apx-chart>
+              }
+            </div>
+            <div class="status-legend-list">
+              @for (item of appointmentsByStatus; track item.label) {
+                <div class="status-legend-item">
+                  <div class="status-legend-left">
+                    <span class="status-color-dot" [style.backgroundColor]="item.color"></span>
+                    <span class="status-label">{{ item.label }}</span>
+                  </div>
+                  <div class="status-legend-right">
+                    <strong class="status-count">{{ item.count }}</strong>
+                    <span class="status-percentage">({{ item.percentage }})</span>
+                  </div>
+                </div>
+              }
+            </div>
           </div>
         </div>
 

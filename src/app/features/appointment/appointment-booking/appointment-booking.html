@@ -168,10 +168,16 @@
 
                 <div class="search-box">
 
+
                     <input
     type="text"
     [(ngModel)]="mrnNo"
     placeholder="Enter MRN Number">
+
+                    <input type="text" placeholder="Enter MRN Number">
+
+                    <button>Search</button>
+
 
 <button (click)="searchPatient()">
     Search
@@ -179,6 +185,7 @@
                 </div>
 
                 <label>Patient Name</label>
+
 
                <input
     type="text"
@@ -238,6 +245,37 @@
     Book Appointment
 
 </button>
+
+                <input type="text" readonly>
+
+                <label>Age</label>
+
+                <input type="number" readonly>
+
+                <label>Gender</label>
+
+                <input type="text" readonly>
+
+                <label>Mobile Number</label>
+
+                <input type="text" readonly>
+
+                <label>Email</label>
+
+                <input type="email" readonly>
+
+                <label>Address</label>
+
+                <textarea rows="3" readonly>
+                </textarea>
+
+                <button class="book-btn">
+
+                    Book Appointment
+
+                </button>
+
+
             </div>
 
         </div>
