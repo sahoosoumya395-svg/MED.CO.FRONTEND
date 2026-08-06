@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { DoctorService } from '../services/doctor';
+import { Router } from '@angular/router';
 export const passwordMatchValidator: ValidatorFn = (
   control: AbstractControl,
 ): ValidationErrors | null => {
@@ -30,10 +31,14 @@ export class DoctorAdd implements OnInit {
   doctorForm!: FormGroup;
   showPassword = false;
   showConfirmPassword = false;
+  loading = false;
+  successMessage = '';
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
     private doctorService: DoctorService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +56,9 @@ export class DoctorAdd implements OnInit {
 
         bloodGroup: ['', Validators.required],
 
-        nationality: ['Indian', Validators.required],
+        nationality: ['', Validators.required],
+
+        registrationCode: ['', [Validators.required, Validators.pattern(/^7$/)]],
 
         mobileNumber: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
 
@@ -65,7 +72,7 @@ export class DoctorAdd implements OnInit {
 
         state: ['', Validators.required],
 
-        country: ['India', Validators.required],
+        country: ['', Validators.required],
 
         pinCode: ['', [Validators.required, Validators.pattern(/^\d{6}$/)]],
 
@@ -103,6 +110,10 @@ export class DoctorAdd implements OnInit {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
+  goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
   passwordsMatch(): boolean {
     return this.doctorForm.get('password')?.value === this.doctorForm.get('confirmPassword')?.value;
   }
@@ -114,19 +125,46 @@ export class DoctorAdd implements OnInit {
     }
 
     if (!this.passwordsMatch()) {
-      alert('Password and Confirm Password do not match');
+      this.errorMessage = 'Password and Confirm Password do not match';
       return;
     }
 
+    this.successMessage = '';
+    this.errorMessage = '';
+    this.loading = true;
+
     this.doctorService.registerDoctor(this.doctorForm.value).subscribe({
       next: (response) => {
+        this.loading = false;
+
         console.log(response);
-        alert('Doctor Registered Successfully');
-        this.doctorForm.reset();
+
+        this.successMessage = 'Doctor Registered Successfully.';
+        this.errorMessage = '';
+
+        this.doctorForm.reset({
+          nationality: 'Indian',
+          country: 'India',
+          acceptTerms: false,
+        });
+
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
       },
+
       error: (error) => {
-        console.error(error);
-        alert('Registration Failed');
+        this.loading = false;
+
+        this.successMessage = '';
+
+        if (error.error?.message) {
+          this.errorMessage = error.error.message;
+        } else if (error.error?.errors) {
+          this.errorMessage = Object.values(error.error.errors).join(', ');
+        } else {
+          this.errorMessage = 'Registration Failed. Please try again.';
+        }
       },
     });
   }

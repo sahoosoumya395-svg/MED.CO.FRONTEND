@@ -8,6 +8,8 @@ export interface Doctor {
   bloodGroup: string;
   nationality: string;
 
+  registrationCode: number;
+
   mobileNumber: string;
   alternateMobileNumber?: string;
 

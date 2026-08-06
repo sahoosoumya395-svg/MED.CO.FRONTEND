@@ -18,7 +18,7 @@ import { AdminDashboard } from './features/dashboard/admin-dashboard/admin-dashb
 import { DoctorDashboard } from './features/doctor/doctor-dashboard/doctor-dashboard';
 import { PatientDashboard } from './features/dashboard/patient-dashboard/patient-dashboard';
 
-// Financial, Medical, User Profile & Settings
+// Financial & Medical
 import { Billing } from './features/billing/billing';
 import { PatientBillingDetails } from './features/patient-billing-details/patient-billing-details';
 import { FinalBill } from './features/final-bill/final-bill';
@@ -27,14 +27,14 @@ import { Reports } from './features/reports/reports';
 import { Profile } from './features/profile/profile';
 import { Settings } from './features/settings/settings';
 
-// Patient Management
+// Patient
 import { PatientRegistration } from './features/patient/patient-registration/patient-registration';
 import { PatientAdd } from './features/patient/patient-add/patient-add';
 import { PatientEdit } from './features/patient/patient-edit/patient-edit';
 import { PatientList } from './features/patient/patient-list/patient-list';
 import { PatientDetails } from './features/patient/patient-details/patient-details';
 
-// Doctor Management
+// Doctor
 import { DoctorManagement } from './features/doctor/doctor-management/doctor-management';
 import { DoctorAdd } from './features/doctor/doctor-add/doctor-add';
 import { DoctorEdit } from './features/doctor/doctor-edit/doctor-edit';
@@ -47,53 +47,53 @@ import { LeaveHistory } from './features/doctor/leave-history/leave-history';
 import { MyProfile } from './features/doctor/my-profile/my-profile';
 import { MyShedule } from './features/doctor/my-shedule/my-shedule';
 
-// Appointment Management
+// Appointment
 import { AppointmentBooking } from './features/appointment/appointment-booking/appointment-booking';
 import { AppointmentAdd } from './features/appointment/appointment-add/appointment-add';
 import { AppointmentList } from './features/appointment/appointment-list/appointment-list';
 import { AppointmentCalendar } from './features/appointment/appointment-calendar/appointment-calendar';
 
-// Prescription Management
+// Prescription
 import { PrescriptionAdd } from './features/prescription/prescription-add/prescription-add';
 import { PrescriptionList } from './features/prescription/prescription-list/prescription-list';
 import { PrescriptionView } from './features/prescription/prescription-view/prescription-view';
 
 export const routes: Routes = [
-  // Default Landing Page Route (Main URL: /)
+  // ==========================
+  // Landing Page
+  // ==========================
   { path: '', component: LandingPage, pathMatch: 'full' },
   { path: 'landing-page', redirectTo: '', pathMatch: 'full' },
 
-  // Public & Auth Routes
+  // ==========================
+  // Public Pages
+  // ==========================
   { path: 'about-us', component: AboutUs },
   { path: 'pre-register', component: PreRegister },
   { path: 'contact-us', component: ContactUs },
   { path: 'services', component: Services },
   { path: 'app-services', component: Services },
   { path: 'language', component: Language },
+
+  // ==========================
+  // Authentication
+  // ==========================
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'forgot-password', component: ForgotPassword },
   { path: 'reset-password', component: ResetPassword },
   { path: 'reset-password-success', component: ResetPasswordSuccess },
 
-  // Dashboard Routes
+  // ==========================
+  // Dashboards
+  // ==========================
   { path: 'admin-dashboard', component: AdminDashboard },
   { path: 'doctor-dashboard', component: DoctorDashboard },
   { path: 'patient-dashboard', component: PatientDashboard },
 
-  // Financial & Medical Routes
-  { path: 'billing', component: Billing },
-  { path: 'patient-billing-details', component: PatientBillingDetails },
-  { path: 'billing-details', component: PatientBillingDetails },
-  { path: 'final-bill', component: FinalBill },
-  { path: 'medicine', component: Medicine },
-  { path: 'reports', component: Reports },
-  { path: 'medical-history', component: Reports },
-  { path: 'profile', component: Profile },
-  { path: 'patient-profile', component: Profile },
-  { path: 'settings', component: Settings },
-
-  // Patient Routes
+  // ==========================
+  // Patient
+  // ==========================
   { path: 'patient', component: PatientRegistration },
   { path: 'patient/register', component: PatientRegistration },
   { path: 'patient/add', component: PatientAdd },
@@ -101,7 +101,9 @@ export const routes: Routes = [
   { path: 'patient/list', component: PatientList },
   { path: 'patient/details', component: PatientDetails },
 
-  // Doctor Routes
+  // ==========================
+  // Doctor
+  // ==========================
   { path: 'doctor', component: DoctorManagement },
   { path: 'doctor/management', component: DoctorManagement },
   { path: 'doctor/add', component: DoctorAdd },
@@ -117,7 +119,9 @@ export const routes: Routes = [
   { path: 'doctor/my-profile', component: MyProfile },
   { path: 'doctor/my-schedule', component: MyShedule },
 
-  // Appointment Routes
+  // ==========================
+  // Appointment
+  // ==========================
   { path: 'appointment', component: AppointmentBooking },
   { path: 'appointment/booking', component: AppointmentBooking },
   { path: 'appointment-booking', component: AppointmentBooking },
@@ -127,12 +131,42 @@ export const routes: Routes = [
   { path: 'my-appointments', component: AppointmentList },
   { path: 'appointment/calendar', component: AppointmentCalendar },
 
-  // Prescription & Messages Routes
+  // ==========================
+  // Billing & Finance
+  // ==========================
+  { path: 'billing', component: Billing },
+  { path: 'patient-billing-details', component: PatientBillingDetails },
+  { path: 'billing-details', component: PatientBillingDetails },
+  { path: 'final-bill', component: FinalBill },
+
+  // ==========================
+  // Medical
+  // ==========================
+  { path: 'medicine', component: Medicine },
+  { path: 'reports', component: Reports },
+  { path: 'medical-history', component: Reports },
+
+  // ==========================
+  // Prescription
+  // ==========================
   { path: 'prescription/add', component: PrescriptionAdd },
   { path: 'prescription/list', component: PrescriptionList },
   { path: 'prescription/view', component: PrescriptionView },
+
+  // ==========================
+  // Profile & Settings
+  // ==========================
+  { path: 'profile', component: Profile },
+  { path: 'patient-profile', component: Profile },
+  { path: 'settings', component: Settings },
+
+  // ==========================
+  // Miscellaneous
+  // ==========================
   { path: 'messages', component: PatientDashboard },
 
-  // Fallback Route
-  { path: '**', redirectTo: '' }
+  // ==========================
+  // 404
+  // ==========================
+  { path: '**', redirectTo: '' },
 ];
