@@ -12,13 +12,13 @@
 
             <div class="doctor-details">
 
-                <h1>Dr name</h1>
+                <h1>{{ doctorName }}</h1>
 
-                <h3>General Practitioner</h3>
+                <h3>{{ specialization }}</h3>
 
-                <h2>Borcelle Medical Clinic</h2>
+                <h2>{{ hospitalName }}</h2>
 
-                <p>123 Anywhere St., Any City</p>
+                <p>{{ hospitalAddress }}</p>
 
             </div>
 
@@ -46,7 +46,7 @@
 
                 <label>Patient Name :</label>
 
-                <span>patient name</span>
+                <span>{{ patientName }}</span>
 
             </div>
 
@@ -54,7 +54,7 @@
 
                 <label>Age :</label>
 
-                <span>xx</span>
+                <span>{{ age }}</span>
 
             </div>
 
@@ -66,7 +66,7 @@
 
                 <label>Date :</label>
 
-                <span>xx/xxx/xxxx</span>
+                <span>{{ date }}</span>
 
             </div>
 
@@ -74,7 +74,7 @@
 
                 <label>MRN No :</label>
 
-                <span>MRN-xxx</span>
+                <span>{{ mrnNo }}</span>
 
             </div>
 
@@ -86,7 +86,7 @@
 
                 <label>Address :</label>
 
-                <span>xxx</span>
+                <span>{{ address }}</span>
 
             </div>
 
@@ -101,11 +101,7 @@
     <section class="prescription-body">
 
         <div class="rx-symbol">
-
             <span>Rx</span>
-
-           
-
         </div>
 
         <div class="medicine-content">
@@ -116,11 +112,11 @@
 
                 <h3>Diagnosis</h3>
 
-                <p>
-
-                    Viral Fever with Mild Cold
-
-                </p>
+                <textarea
+                    [(ngModel)]="diagnosis"
+                    rows="4"
+                    placeholder="Enter diagnosis">
+                </textarea>
 
             </div>
 
@@ -130,73 +126,11 @@
 
                 <h3>Medicines</h3>
 
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Medicine</th>
-
-                            <th>Morning</th>
-
-                            <th>Afternoon</th>
-
-                            <th>Night</th>
-
-                            <th>Days</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        <tr>
-
-                            <td>Paracetamol 650 mg</td>
-
-                            <td>✔</td>
-
-                            <td>-</td>
-
-                            <td>✔</td>
-
-                            <td>5</td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>Cetirizine</td>
-
-                            <td>-</td>
-
-                            <td>-</td>
-
-                            <td>✔</td>
-
-                            <td>3</td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td>Vitamin C</td>
-
-                            <td>✔</td>
-
-                            <td>✔</td>
-
-                            <td>✔</td>
-
-                            <td>7</td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
+                <textarea
+                    [(ngModel)]="medicines"
+                    rows="8"
+                    placeholder="Enter medicines">
+                </textarea>
 
             </div>
 
@@ -206,25 +140,42 @@
 
                 <h3>Advice</h3>
 
-                <ul>
-
-                    <li>Drink plenty of water.</li>
-
-                    <li>Take complete bed rest.</li>
-
-                    <li>Avoid oily and spicy food.</li>
-
-                    <li>Complete the medicine course.</li>
-
-                    <li>Visit again after 5 days if symptoms persist.</li>
-
-                </ul>
+                <textarea
+                    [(ngModel)]="advice"
+                    rows="6"
+                    placeholder="Enter advice">
+                </textarea>
 
             </div>
 
         </div>
 
     </section>
+
+    <!-- SAVE BUTTON -->
+
+    <div class="button-section">
+
+        <button
+            class="save-btn"
+            (click)="savePrescription()">
+
+            Save Prescription
+
+        </button>
+
+
+    <button
+        class="print-btn"
+        (click)="printPrescription()"
+        [disabled]="!prescriptionHtml">
+
+        Print Prescription
+
+    </button>
+
+
+    </div>
 
     <!-- ================= FOOTER ================= -->
 

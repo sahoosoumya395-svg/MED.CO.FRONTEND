@@ -55,7 +55,7 @@ body{
     padding:14px;
     border:none;
     border-radius:8px;
-    background:#1184d1;
+    background:#2b6672;
     color:white;
     font-size:20px;
     font-weight:bold;
@@ -64,7 +64,7 @@ body{
 }
 
 .dashboard-btn:hover{
-    background:#0f73b6;
+    background:#4b7b83;
 }
 
 .menu{
@@ -152,16 +152,16 @@ body{
 .reset-btn{
     height:45px;
     padding:0 20px;
-    border:1px solid #4f8df7;
+    border:1px solid #2b6672;
     background:white;
-    color:#4f8df7;
+    color:#2b6672;
     border-radius:6px;
     cursor:pointer;
     font-weight:bold;
 }
 
 .reset-btn:hover{
-    background:#4f8df7;
+    background:#2b6672;
     color:white;
 }
 

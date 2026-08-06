@@ -1,0 +1,198 @@
+<div class="container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      <h2>MED.CO</h2>
+    </div>
+
+    <button class="dashboard-btn">
+      Dashboard
+    </button>
+
+    <h3>Management</h3>
+
+    <ul class="menu">
+      <li>Patient Management</li>
+      <li class="active">Doctor Management</li>
+      <li>Appointment</li>
+      <li>Billing</li>
+      <li>Department</li>
+    </ul>
+
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <!-- Top Navbar -->
+    <header class="topbar">
+
+      <div>
+        <h2>Doctor Management</h2>
+        <p>Dashboard / Doctor Management</p>
+      </div>
+
+      <button class="add-btn">
+        + Add Doctor
+      </button>
+
+    </header>
+
+    <!-- Statistics Cards -->
+    <div class="cards">
+
+      <div class="card">
+        <h3>Total Doctors</h3>
+        <span>0</span>
+      </div>
+
+      <div class="card">
+        <h3>Available</h3>
+        <span>0</span>
+      </div>
+
+      <div class="card">
+        <h3>On Leave</h3>
+        <span>0</span>
+      </div>
+
+      <div class="card">
+        <h3>Departments</h3>
+        <span>0</span>
+      </div>
+
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-box">
+
+      <div class="filter-header">
+        <h3>Search Doctors</h3>
+      </div>
+
+      <div class="filters">
+
+        <input
+          type="text"
+          placeholder="Search by Doctor Name">
+
+        <input
+          type="text"
+          placeholder="Doctor ID">
+
+        <select>
+          <option>Select Department</option>
+        </select>
+
+        <select>
+          <option>Status</option>
+        </select>
+
+        <button class="search-btn">
+          Search
+        </button>
+
+        <button class="reset-btn">
+          Reset
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Doctor Table will come in Part 2 -->
+
+  </div>
+
+</div>
+
+<!-- Doctor List Section -->
+
+<div class="table-section">
+
+    <div class="table-header">
+
+        <h3>Doctor List</h3>
+
+        <div class="table-actions">
+
+            <button class="export-btn">
+                Export
+            </button>
+
+        </div>
+
+    </div>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Doctor ID</th>
+                <th>Doctor Name</th>
+                <th>Department</th>
+                <th>Specialization</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <!-- Empty State -->
+
+            <tr>
+
+                <td colspan="8" class="empty-data">
+
+                    <div class="empty-box">
+
+                        <h3>No Doctor Records Found</h3>
+
+                        <p>
+                            Click <strong>+ Add Doctor</strong> to register your first doctor.
+                        </p>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- Pagination -->
+
+<div class="pagination">
+
+    <span>
+        Showing 0 of 0 Doctors
+    </span>
+
+    <div class="page-buttons">
+
+        <button disabled>
+            Previous
+        </button>
+
+        <button class="page-number active">
+            1
+        </button>
+
+        <button disabled>
+            Next
+        </button>
+
+    </div>
+
+</div>

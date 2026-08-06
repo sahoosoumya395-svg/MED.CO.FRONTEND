@@ -1,0 +1,194 @@
+<div class="appointment-container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <h2>MED.CO</h2>
+        </div>
+
+        <button class="dashboard-btn">
+            Dashboard
+        </button>
+
+        <h3>Management</h3>
+
+        <ul>
+            <li>Patient Management</li>
+            <li>Doctor Management</li>
+            <li class="active">Appointment Booking</li>
+        </ul>
+
+    </aside>
+
+    <!-- Main Content -->
+
+    <div class="content">
+
+        <!-- Header -->
+
+        <div class="header">
+
+            <h2>Appointment Booking</h2>
+
+        </div>
+
+        <!-- Appointment Steps -->
+
+        <div class="appointment-grid">
+
+            <!-- Department -->
+
+            <div class="card">
+
+                <h3>Select Department</h3>
+
+                <select>
+
+                    <option>Select Department</option>
+
+                    <option>Cardiology</option>
+
+                    <option>Neurology</option>
+
+                    <option>Orthopedic</option>
+
+                    <option>ENT</option>
+
+                    <option>Dermatology</option>
+
+                    <option>General Medicine</option>
+
+                </select>
+
+            </div>
+
+            <!-- Doctor -->
+
+            <div class="card">
+
+                <h3>Choose Doctor</h3>
+
+                <div class="doctor-card">
+
+                    <h4>Dr. Rahul Sharma</h4>
+
+                    <p>Cardiology</p>
+
+                    <p>10+ Years Experience</p>
+
+                </div>
+
+                <div class="doctor-card">
+
+                    <h4>Dr. Priya Patel</h4>
+
+                    <p>Neurology</p>
+
+                    <p>8+ Years Experience</p>
+
+                </div>
+
+                <div class="doctor-card">
+
+                    <h4>Dr. Amit Verma</h4>
+
+                    <p>Orthopedic</p>
+
+                    <p>12+ Years Experience</p>
+
+                </div>
+
+            </div>
+
+            <!-- Date -->
+
+            <div class="card">
+
+                <h3>Select Date & Time</h3>
+
+                <input type="date">
+
+                <div class="time-grid">
+
+                    <button>09:00 AM</button>
+                    <button>09:30 AM</button>
+                    <button>10:00 AM</button>
+                    <button>10:30 AM</button>
+                    <button>11:00 AM</button>
+                    <button>04:00 PM</button>
+                    <button>04:30 PM</button>
+                    <button>05:00 PM</button>
+
+                </div>
+
+            </div>
+
+            <!-- Patient Details -->
+
+            <div class="card patient-card">
+
+                <h3>Patient Details</h3>
+
+                <label>MRN Number</label>
+
+                <div class="search-box">
+
+                    <input
+                        type="text"
+                        placeholder="Enter MRN Number">
+
+                    <button>Search</button>
+
+                </div>
+
+                <label>Patient Name</label>
+
+                <input
+                    type="text"
+                    readonly>
+
+                <label>Age</label>
+
+                <input
+                    type="number"
+                    readonly>
+
+                <label>Gender</label>
+
+                <input
+                    type="text"
+                    readonly>
+
+                <label>Mobile Number</label>
+
+                <input
+                    type="text"
+                    readonly>
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    readonly>
+
+                <label>Address</label>
+
+                <textarea
+                    rows="3"
+                    readonly>
+                </textarea>
+
+                <button class="book-btn">
+
+                    Book Appointment
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,538 @@
+:host {
+  display: block;
+  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  background-color: #f4f8fc;
+  color: #1e293b;
+  min-height: 100vh;
+}
+
+.contact-page-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header Navbar */
+.navbar {
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e8f0f8;
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.logo-box {
+  width: 42px;
+  height: 42px;
+}
+
+.brand-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.logo-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-brand {
+  font-size: 22px;
+  font-weight: 800;
+  color: #0c2d48;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.3px;
+}
+
+.logo-sub {
+  font-size: 9px;
+  font-weight: 700;
+  color: #00b4d8;
+  letter-spacing: 1.4px;
+  margin: 2px 0 0;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #64748b;
+  transition: color 0.2s ease;
+  position: relative;
+  padding: 6px 0;
+}
+
+.nav-link:hover {
+  color: #0c2d48;
+}
+
+.nav-link.active {
+  color: #0c2d48;
+  font-weight: 700;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #00b4d8;
+  border-radius: 2px;
+}
+
+.login-pill-btn {
+  background: linear-gradient(180deg, #1f85de 0%, #1565c0 100%);
+  color: #ffffff !important;
+  padding: 9px 30px;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-pill-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(21, 101, 192, 0.45);
+}
+
+/* Main Container */
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 30px 60px;
+  width: 100%;
+}
+
+/* Section Header & Dividers */
+.details-header-section {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: #0c2d48;
+  margin: 0 0 14px;
+  letter-spacing: -0.5px;
+}
+
+.cross-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.divider-line {
+  height: 2.5px;
+  width: 80px;
+  background-color: #00b4d8;
+  border-radius: 2px;
+}
+
+.plus-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Grids & Cards */
+.top-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.middle-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.info-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 36px 30px;
+  display: flex;
+  align-items: flex-start;
+  gap: 22px;
+  box-shadow: 0 10px 30px rgba(12, 45, 72, 0.05);
+  border: 1px solid #e8f0f8;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(12, 45, 72, 0.1);
+}
+
+.icon-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.small-badge {
+  width: 48px;
+  height: 48px;
+}
+
+.card-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.small-card-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Badge Color Themes */
+.badge-blue {
+  background-color: #eef7fe;
+  color: #1976d2;
+}
+
+.badge-green {
+  background-color: #eaf7ed;
+  color: #2e7d32;
+}
+
+.badge-purple {
+  background-color: #f4ecfb;
+  color: #7b1fa2;
+}
+
+.badge-yellow {
+  background-color: #fff8e7;
+  color: #f57f17;
+}
+
+.badge-red {
+  background-color: #fdebee;
+  color: #d32f2f;
+}
+
+.card-text-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0c2d48;
+  margin: 0 0 14px;
+  letter-spacing: -0.2px;
+}
+
+.card-desc {
+  font-size: 15px;
+  font-weight: 500;
+  color: #475569;
+  margin: 0 0 4px;
+  line-height: 1.5;
+}
+
+.hours-row {
+  display: flex;
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.hours-label {
+  font-weight: 700;
+  color: #334155;
+  width: 90px;
+}
+
+.hours-val {
+  font-weight: 500;
+  color: #475569;
+}
+
+.italic-tagline {
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 600;
+  color: #1976d2;
+  margin: 14px 0 0;
+}
+
+.emergency-label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #d32f2f;
+  margin: 14px 0 4px;
+}
+
+.emergency-number {
+  font-size: 26px;
+  font-weight: 800;
+  color: #d32f2f;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* Location Section & Map */
+.location-section {
+  margin-bottom: 50px;
+}
+
+.map-card-wrapper {
+  background-color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(12, 45, 72, 0.05);
+  border: 1px solid #e8f0f8;
+}
+
+.map-container {
+  width: 100%;
+  height: 380px;
+  position: relative;
+  background-color: #e2e8f0;
+}
+
+.map-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.map-marker-overlay {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+}
+
+.marker-pin-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  padding: 6px 14px;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  border: 1px solid #fee2e2;
+}
+
+.pin-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.marker-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: #d32f2f;
+}
+
+.location-bottom-bar {
+  background-color: #f0f7ff;
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  border-top: 1px solid #e2edf8;
+}
+
+.location-info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.location-h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #0c2d48;
+  margin: 0 0 2px;
+}
+
+.location-p {
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Red Emergency Helpline Banner */
+.emergency-banner {
+  background-color: #d32f2f;
+  border-radius: 20px;
+  padding: 26px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #ffffff;
+  box-shadow: 0 12px 28px rgba(211, 47, 47, 0.28);
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.banner-phone-icon-box {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-phone-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.banner-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.banner-subtitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  opacity: 0.92;
+}
+
+.banner-phone {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.badge-24-7 {
+  background-color: #ffffff;
+  color: #d32f2f;
+  padding: 10px 24px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.badge-247-top {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1;
+
+}
+
+.badge-247-sub {
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* Footer Bar */
+.footer-bar {
+  background-color: #072440;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer-text {
+  color: #ffffff;
+  font-size: 14px;
+  margin: 0;
+  font-weight: 500;
+}
+
+.footer-text strong {
+  font-weight: 800;
+}
+
+/* Responsive Styles */
+@media (max-width: 960px) {
+  .top-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .middle-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .emergency-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 30px;
+  }
+
+  .banner-left {
+    flex-direction: column;
+  }
+
+  .banner-phone {
+    font-size: 28px;
+  }
+
+  .nav-menu {
+    gap: 16px;
+  }
+
+  .nav-container {
+    padding: 0 20px;
+  }
+
+  .main-container {
+    padding: 30px 20px 40px;
+  }
+}

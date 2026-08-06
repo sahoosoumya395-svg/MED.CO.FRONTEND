@@ -1,0 +1,235 @@
+<div class="dashboard-container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      <img src="assets/images/logo.png" alt="Logo">
+      <h2>MED.CO</h2>
+    </div>
+
+    <ul class="menu">
+
+      <li class="active">
+        <span>🏠</span>
+        <span>Dashboard</span>
+      </li>
+
+      <li>
+        <span>👤</span>
+        <span>My Profile</span>
+      </li>
+
+      <li>
+        <span>📅</span>
+        <span>My Schedule</span>
+      </li>
+
+      <li>
+        <span>📝</span>
+        <span>Apply Leave</span>
+      </li>
+
+      <li>
+        <span>📄</span>
+        <span>Leave History</span>
+      </li>
+
+      <li>
+        <span>👨‍⚕️</span>
+        <span>Doctors Status</span>
+      </li>
+
+      <li>
+        <span>🏥</span>
+        <span>Department Availability</span>
+      </li>
+
+      <li class="logout">
+        <span>🚪</span>
+        <span>Logout</span>
+      </li>
+
+    </ul>
+
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Header -->
+    <header class="topbar">
+
+      <div>
+        <h1>Doctor Dashboard</h1>
+        <p>Welcome back, Dr. John Doe</p>
+      </div>
+
+      <div class="doctor-info">
+        <span>Cardiology</span>
+        <button>Logout</button>
+      </div>
+
+    </header>
+
+    <!-- Dashboard Cards -->
+    <section class="cards">
+
+      <div class="card">
+        <h3>Today's Appointments</h3>
+        <h2>{{ todayAppointments }}</h2>
+      </div>
+
+      <div class="card">
+        <h3>Today's Patients</h3>
+        <h2>{{ todayPatients }}</h2>
+      </div>
+
+      <div class="card">
+        <h3>Doctors in Department</h3>
+        <h2>{{ departmentDoctors }}</h2>
+      </div>
+
+    </section>
+
+    <!-- My Information -->
+    <section class="info-section">
+
+      <div class="info-card">
+
+        <h2>My Information</h2>
+
+        <div class="info-grid">
+
+          <div>
+            <label>Doctor ID</label>
+            <p>{{ doctor.doctorId }}</p>
+          </div>
+
+          <div>
+            <label>Name</label>
+            <p>{{ doctor.name }}</p>
+          </div>
+
+          <div>
+            <label>Department</label>
+            <p>{{ doctor.department }}</p>
+          </div>
+
+          <div>
+            <label>Specialization</label>
+            <p>{{ doctor.specialization }}</p>
+          </div>
+
+          <div>
+            <label>Email</label>
+            <p>{{ doctor.email }}</p>
+          </div>
+
+          <div>
+            <label>Phone</label>
+            <p>{{ doctor.phone }}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- My Schedule -->
+    <section class="schedule-section">
+
+      <div class="table-card">
+
+        <h2>My Schedule</h2>
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Shift</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of schedule">
+              <td>{{ item.day }}</td>
+              <td>{{ item.shift }}</td>
+              <td>{{ item.time }}</td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+    <!-- Department Availability -->
+    <section class="department-section">
+
+      <div class="table-card">
+
+        <h2>Department Availability</h2>
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Department</th>
+              <th>Total Doctors</th>
+              <th>Available</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let dept of departments">
+              <td>{{ dept.name }}</td>
+              <td>{{ dept.total }}</td>
+              <td>{{ dept.available }}</td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+    <!-- Doctors Status -->
+    <section class="status-section">
+
+      <div class="table-card">
+
+        <h2>Doctors Status</h2>
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Doctor Name</th>
+              <th>Department</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let doctor of doctorsStatus">
+              <td>{{ doctor.name }}</td>
+              <td>{{ doctor.department }}</td>
+              <td>{{ doctor.status }}</td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
