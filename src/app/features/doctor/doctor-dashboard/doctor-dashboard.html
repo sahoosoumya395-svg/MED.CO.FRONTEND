@@ -26,8 +26,10 @@
       </li>
 
       <li>
-        <span>📝</span>
-        <span>Apply Leave</span>
+        <a routerLink="/doctor/leave" class="menu-link">
+          <span>📝</span>
+          <span>Apply Leave</span>
+        </a>
       </li>
 
       <li>
@@ -35,10 +37,7 @@
         <span>Leave History</span>
       </li>
 
-      <li>
-        <span>👨‍⚕️</span>
-        <span>Doctors Status</span>
-      </li>
+     
 
       <li>
         <span>🏥</span>
@@ -62,12 +61,17 @@
 
       <div>
         <h1>Doctor Dashboard</h1>
-        <p>Welcome back, Dr. John Doe</p>
+        <p>
+  Welcome back,
+  {{ doctor.firstName }}
+  {{ doctor.middleName }}
+  {{ doctor.lastName }}
+</p>
       </div>
 
       <div class="doctor-info">
-        <span>Cardiology</span>
-        <button>Logout</button>
+       <span>{{ doctor.departmentName }}</span>
+        <button (click)="logout()">Logout</button>
       </div>
 
     </header>
@@ -76,18 +80,13 @@
     <section class="cards">
 
       <div class="card">
-        <h3>Today's Appointments</h3>
-        <h2>{{ todayAppointments }}</h2>
-      </div>
-
-      <div class="card">
-        <h3>Today's Patients</h3>
-        <h2>{{ todayPatients }}</h2>
-      </div>
-
-      <div class="card">
         <h3>Doctors in Department</h3>
         <h2>{{ departmentDoctors }}</h2>
+      </div>
+
+      <div class="card">
+        <h3>Today's Appointments</h3>
+        <h2>{{ todayAppointments }}</h2>
       </div>
 
     </section>
@@ -103,17 +102,17 @@
 
           <div>
             <label>Doctor ID</label>
-            <p>{{ doctor.doctorId }}</p>
+            <p>{{ doctor.id }}</p>
           </div>
 
           <div>
             <label>Name</label>
-            <p>{{ doctor.name }}</p>
+            <p>{{ doctor.firstName }} {{ doctor.middleName }} {{ doctor.lastName }}</p>
           </div>
 
           <div>
             <label>Department</label>
-            <p>{{ doctor.department }}</p>
+            <p>{{ doctor.departmentName }}</p>
           </div>
 
           <div>
@@ -128,7 +127,7 @@
 
           <div>
             <label>Phone</label>
-            <p>{{ doctor.phone }}</p>
+            <p>{{ doctor.mobileNumber }}</p>
           </div>
 
         </div>
@@ -146,20 +145,22 @@
 
         <table>
 
-          <thead>
-            <tr>
-              <th>Day</th>
-              <th>Shift</th>
-              <th>Time</th>
-            </tr>
-          </thead>
+         <thead>
+<tr>
+<th>Date</th>
+<th>Start Time</th>
+<th>End Time</th>
+<th>Status</th>
+</tr>
+</thead>
 
           <tbody>
-            <tr *ngFor="let item of schedule">
-              <td>{{ item.day }}</td>
-              <td>{{ item.shift }}</td>
-              <td>{{ item.time }}</td>
-            </tr>
+           <tr *ngFor="let item of schedule">
+<td>{{ item.availableDate }}</td>
+<td>{{ item.startTime }}</td>
+<td>{{ item.endTime }}</td>
+<td>{{ item.available ? 'Available' : 'Unavailable' }}</td>
+</tr>
           </tbody>
 
         </table>
@@ -186,10 +187,10 @@
           </thead>
 
           <tbody>
-            <tr *ngFor="let dept of departments">
-              <td>{{ dept.name }}</td>
-              <td>{{ dept.total }}</td>
-              <td>{{ dept.available }}</td>
+            <tr *ngFor="let dept of departmentAvailability">
+              <td>{{ dept.departmentName }}</td>
+<td>{{ dept.totalDoctors }}</td>
+<td>{{ dept.availableDoctors }}</td>
             </tr>
           </tbody>
 
@@ -199,36 +200,6 @@
 
     </section>
 
-    <!-- Doctors Status -->
-    <section class="status-section">
-
-      <div class="table-card">
-
-        <h2>Doctors Status</h2>
-
-        <table>
-
-          <thead>
-            <tr>
-              <th>Doctor Name</th>
-              <th>Department</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let doctor of doctorsStatus">
-              <td>{{ doctor.name }}</td>
-              <td>{{ doctor.department }}</td>
-              <td>{{ doctor.status }}</td>
-            </tr>
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </section>
 
   </main>
 
