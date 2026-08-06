@@ -1,9 +1,3 @@
-
-
-
-
-
-
 :host {
   display: block;
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
@@ -149,6 +143,10 @@
     border: 1px solid #e2e8f0;
 }
 
+/* ===========================
+   Section Header
+=========================== */
+
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -180,6 +178,10 @@
     font-size: 13px;
     line-height: 1.6;
 }
+
+/* ===========================
+   Form Grid & Inputs
+=========================== */
 
 .form-grid {
     display: grid;
@@ -236,6 +238,16 @@
     grid-column: span 3;
 }
 
+hr {
+    margin: 32px 0;
+    border: none;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* ===========================
+   Form Actions
+=========================== */
+
 .form-actions {
     display: flex;
     justify-content: space-between;
@@ -285,15 +297,9 @@
     cursor: not-allowed;
 }
 
-hr {
-    margin: 32px 0;
-    border: none;
-    border-top: 1px solid #e2e8f0;
-}
-
-label input[type="checkbox"] {
-    margin-right: 8px;
-}
+/* ===========================
+   Login Link
+=========================== */
 
 .login-btn {
     display: inline-flex;

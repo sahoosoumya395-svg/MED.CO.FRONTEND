@@ -226,18 +226,23 @@ export class Login implements OnInit {
     }
 
     this.showSuccess('Login successfully');
+const token = res.data?.token;
+const role = res.data?.role;
+const name = res.data?.name;
+const doctorId = res.data?.id;
 
-    const token = res.data?.token;
-    const role = res.data?.role;
-    const name = res.data?.name;
 
-    if (token) {
-      this.authService.saveToken(token);
-    }
-    
-    if (name) {
-      this.authService.saveUserName(name);
-    }
+if (token) {
+  this.authService.saveToken(token);
+}
+
+if (name) {
+  this.authService.saveUserName(name);
+}
+
+if (doctorId != null) {
+  localStorage.setItem('doctorId', doctorId.toString());
+}
 
     setTimeout(() => {
       switch (role) {
@@ -262,7 +267,7 @@ export class Login implements OnInit {
   error: (err) => {
     this.isLoading = false;
     console.error('Login API error:', err);
-    
+
     const backendMsg = err.error?.message || err.error?.error || '';
     const lowerMsg = backendMsg.toLowerCase();
 
@@ -272,7 +277,7 @@ export class Login implements OnInit {
       // Standard security practice to not leak whether email is registered or password is wrong
       this.showError('Incorrect email or password');
     }
-    
+
     this.refreshCaptcha();
   }
 });

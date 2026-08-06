@@ -2,148 +2,124 @@
    Main Layout
 =========================== */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+:host {
+  display: block;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+  min-height: 100vh;
 }
 
-body{
-    background:#f4f6f9;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.appointment-container{
-    display:flex;
-    min-height:100vh;
+.appointment-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
 }
 
 /* ===========================
-   Sidebar
+   Top Navbar
 =========================== */
 
-.sidebar{
-    width:250px;
-    height:100vh;
-    position:fixed;
-    top:0;
-    left:0;
-    background:#ffffff;
-    color:#000;
-    padding:20px;
-    overflow-y:auto;
-    border-right:1px solid #ddd;
-    z-index:1000;
-    overflow-y: auto;
-
-}
-.logo{
-    text-align:center;
-    margin-bottom:30px;
-}
-.logo img{
-    width:80px;
-    height:80px;
-    border-radius:50%;
-    object-fit:cover;
-    margin-bottom:10px;
+.sidebar {
+    height: 72px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    width: 100%;
+    position: static;
+    height: auto;
+    border-right: none;
+    flex-direction: row;
 }
 
-.logo h2{
-    color:#00d4ff;
-    font-size:24px;
-    font-weight:500;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0;
 }
 
-.dashboard-btn{
-    width:100%;
-    padding:12px;
-    background:#2196f3;
-    color:#fff;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-    font-size:16px;
-    margin-bottom:30px;
-}
-.sidebar h3{
-    margin:20px 0 10px;
-    color:#444;
-    font-size:18px;
-    font-weight:600;
+.logo h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0066ff;
+    margin: 0;
 }
 
-.sidebar ul{
-    list-style:none;
-}
-
-.sidebar li{
-    padding:8px 0;
-    color:#555;
-    cursor:pointer;
-    transition:.3s;
-    font-size:16px;
-    font-weight:400;
-    margin-bottom: 8px;
-}
-.sidebar li:hover{
-    color:#2196f3;
-    padding-left:6px;
-}
-
-
-.menu-link{
-    text-decoration:none;
-    color:#555;
-    display:block;
-    width:100%;
-    font-size: 16px;
-    white-space:nowrap;
-}
-
-
-.menu-link:hover{
-    color:#2196f3;
-}
-
-.sidebar li.active{
-    background:#eaf3ff;
-    border-radius:8px;
-    padding:12px;
-}
-
-.sidebar li.active .menu-link{
-    color:#2196f3;
-    font-weight:bold;
-}
-
-
-
-.active{
-    background:#2196f3;
+.dashboard-btn {
+    width: auto;
+    padding: 12px 24px;
+    background: #0066ff;
     color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 0;
+    transition: all 0.2s ease;
+}
+
+.dashboard-btn:hover {
+    background: #0052cc;
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+}
+
+.sidebar h3 {
+    display: none;
+}
+
+.sidebar ul {
+    display: none;
+}
+
+.sidebar li {
+    display: none;
+}
+
+.menu-link {
+    display: none;
 }
 
 /* ===========================
    Content
 =========================== */
 
-.content{
-    flex:1;
-    margin-left:250px;
-    padding:30px;
+.content {
+    flex: 1;
+    margin-left: 0;
+    padding: 28px;
+    background-color: #f8fafc;
 }
 
-.header{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:25px;
-    box-shadow:0 2px 8px rgba(0,0,0,.1);
+.header {
+    background: white;
+    padding: 24px;
+    border-radius: 14px;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e2e8f0;
 }
 
-.header h2{
-    color:#1f2937;
+.header h2 {
+    color: #0f172a;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
 }
 
 /* ===========================
@@ -173,31 +149,48 @@ body{
 }
 
 .card label{
-    display:block;
-    margin-top:15px;
-    margin-bottom:8px;
-    font-weight:bold;
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* ===========================
-   Input
+   Input Styles
 =========================== */
 
 input,
 select,
 textarea{
-    width:100%;
-    padding:12px;
-    border:1px solid #d1d5db;
-    border-radius:8px;
-    outline:none;
-    font-size:15px;
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+    font-family: inherit;
+    background-color: #ffffff;
+    color: #1e293b;
+    transition: all 0.2s ease;
 }
 
 input:focus,
 select:focus,
 textarea:focus{
-    border:1px solid #2196f3;
+    border-color: #0066ff;
+    box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.12);
+    background-color: #ffffff;
+}
+
+input[readonly],
+textarea[readonly] {
+    background-color: #f1f5f9;
+    color: #475569;
+    cursor: not-allowed;
 }
 
 /* ===========================
@@ -205,26 +198,61 @@ textarea:focus{
 =========================== */
 
 .search-box{
-    display:flex;
-    gap:10px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 18px;
 }
 
 .search-box input{
-    flex:1;
+    flex: 1;
+    padding: 12px 14px;
 }
 
-.search-box button{
-    width:110px;
-    border:none;
-    border-radius:8px;
-    background:#2196f3;
-    color:white;
-    cursor:pointer;
-    font-size:15px;
+.search-btn {
+    min-width: 120px;
+    border: none;
+    border-radius: 10px;
+    background: #0066ff;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 18px;
+    transition: all 0.2s ease;
 }
 
-.search-box button:hover{
-    background:#2196f3;
+.search-btn:hover {
+    background: #0052cc;
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.patient-header{
+    margin-bottom: 20px;
+}
+
+.patient-header h3{
+    margin-bottom: 6px;
+    color: #1e293b;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.patient-header p{
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.patient-grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.patient-grid label{
+    margin-top: 0;
 }
 
 /* ===========================
@@ -232,75 +260,136 @@ textarea:focus{
 =========================== */
 
 .doctor-list{
-    border:1px solid #d1d5db;
-    border-radius:10px;
-    padding:10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #ffffff;
 }
-
 
 .doctor-item{
-    padding:15px;
-    border-bottom:1px solid #ddd;
-    cursor:pointer;
-    transition:.3s;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fff;
 }
-
 
 .doctor-item:last-child{
-    border-bottom:none;
+    border-bottom: none;
 }
-
 
 .doctor-item:hover{
-    background:#eff6ff;
+    background: #f0f9ff;
 }
 
+.doctor-item.selected,
+.doctor-item.active{
+    background: #e0f2fe;
+    border-left: 4px solid #0066ff;
+}
 
 .doctor-item h4{
-    color:#111827;
-    margin-bottom:8px;
+    color: #0f172a;
+    margin-bottom: 6px;
+    font-size: 15px;
+    font-weight: 600;
 }
-
 
 .doctor-item p{
-    color:#6b7280;
-    margin-bottom:4px;
+    color: #475569;
+    margin-bottom: 4px;
+    font-size: 13px;
 }
 
+.doctor-item p:last-of-type{
+    color: #0066ff;
+    font-weight: 600;
+}
 
+.status-message{
+    padding: 16px;
+    text-align: center;
+    color: #475569;
+    font-size: 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
 
+.select-wrapper{
+    position: relative;
+}
+
+.select-wrapper select{
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    font-size: 14px;
+    color: #0f172a;
+}
+
+.helper-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    gap: 10px;
+}
+
+.helper-text{
+    color: #64748b;
+    font-size: 13px;
+}
+
+.loading-pill{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 13px;
+    font-weight: 600;
+}
 
 /* ===========================
    Time Grid
 =========================== */
 
 .time-grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
-    margin-top:20px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 20px;
 }
 
 .time-grid button{
-    padding:12px;
-    border:none;
-    border-radius:8px;
-    background:#2196f3;
-    color:white;
-    cursor:pointer;
-    transition:.3s;
+    padding: 12px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+    color: #0066ff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 600;
+    font-size: 13px;
 }
 
 .time-grid button:hover{
-    background:#1976d2;
+    background: #e0f2fe;
+    border-color: #0066ff;
 }
 
 .time-grid button.selected{
-    background:#28a745;
-    color:white;
-    border:2px solid #1e7e34;
-    font-weight:bold;
-    transform:scale(1.05);
+    background: #0066ff;
+    color: white;
+    border-color: #0066ff;
+    box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+    transform: translateY(-1px);
 }
 /* ===========================
    Patient Card
@@ -310,8 +399,12 @@ textarea:focus{
     grid-column:span 2;
 }
 
+.patient-card{
+    grid-column: span 2;
+}
+
 .patient-card textarea{
-    resize:none;
+    resize: none;
 }
 
 /* ===========================
@@ -319,72 +412,134 @@ textarea:focus{
 =========================== */
 
 .book-btn{
-    width:100%;
-    margin-top:25px;
-    padding:15px;
-    border:none;
-    border-radius:8px;
-    background:#16a34a;
-    color:white;
-    font-size:18px;
-    cursor:pointer;
-    transition:.3s;
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 10px;
+    background: #16a34a;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
 }
 
-.book-btn:hover{
-    background:#15803d;
+.book-btn:hover:not(:disabled){
+    background: #15803d;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4);
+}
+
+.book-btn:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 /* ===========================
-   Responsive
+   Grid Layout
 =========================== */
 
-@media(max-width:992px){
+.appointment-grid{
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
 
+.card{
+    background: white;
+    padding: 24px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.card:hover{
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card-header{
+    margin-bottom: 20px;
+}
+
+.card-header h3{
+    color: #0066ff;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.2px;
+}
+
+.doctor-card-content{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card input[readonly],
+.card textarea[readonly]{
+    background: #f1f5f9;
+    cursor: not-allowed;
+}
+
+/* ===========================
+   Responsive Design
+=========================== */
+
+@media(max-width: 1024px){
     .appointment-grid{
-        grid-template-columns:1fr;
+        grid-template-columns: 1fr;
     }
 
     .patient-card{
-        grid-column:span 1;
+        grid-column: span 1;
     }
 
     .time-grid{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-
 }
 
-@media(max-width:768px){
-
-    .appointment-container{
-        flex-direction:column;
-    }
-
+@media(max-width: 768px){
     .sidebar{
-    position:relative;
-    width:100%;
-    height:auto;
-}
-
-.content{
-    margin-left:0;
-}
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+    }
 
     .content{
-        padding:15px;
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .appointment-grid{
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .patient-grid{
+        grid-template-columns: 1fr;
     }
 
     .time-grid{
-        grid-template-columns:1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .search-box{
-        flex-direction:column;
+        flex-direction: column;
     }
 
-    .search-box button{
-        width:100%;
+    .search-btn{
+        width: 100%;
     }
 
+    .card{
+        padding: 18px;
+    }
 }
