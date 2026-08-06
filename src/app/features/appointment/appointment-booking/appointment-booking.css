@@ -30,55 +30,94 @@ body{
     left:0;
     background:#ffffff;
     color:#000;
-    padding:25px;
+    padding:20px;
     overflow-y:auto;
     border-right:1px solid #ddd;
     z-index:1000;
+    overflow-y: auto;
 
 }
 .logo{
     text-align:center;
     margin-bottom:30px;
 }
+.logo img{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:10px;
+}
 
 .logo h2{
-    color:#000;
+    color:#00d4ff;
+    font-size:24px;
+    font-weight:500;
 }
 
 .dashboard-btn{
     width:100%;
     padding:12px;
-    border:none;
-    border-radius:8px;
     background:#2196f3;
-    color:white;
+    color:#fff;
+    border:none;
+    border-radius:6px;
     cursor:pointer;
-    margin-bottom:25px;
     font-size:16px;
+    margin-bottom:30px;
 }
-
 .sidebar h3{
-    margin-bottom:15px;
-    color:#000;
+    margin:20px 0 10px;
+    color:#444;
+    font-size:18px;
+    font-weight:600;
 }
 
 .sidebar ul{
     list-style:none;
 }
 
-.sidebar ul li{
-    padding:14px;
-    margin-bottom:10px;
-    border-radius:8px;
+.sidebar li{
+    padding:8px 0;
+    color:#555;
     cursor:pointer;
     transition:.3s;
-    color: #000;
+    font-size:16px;
+    font-weight:400;
+    margin-bottom: 8px;
+}
+.sidebar li:hover{
+    color:#2196f3;
+    padding-left:6px;
 }
 
-.sidebar ul li:hover{
-    background:#e5f0ff;
-    color: #2196f3;
+
+.menu-link{
+    text-decoration:none;
+    color:#555;
+    display:block;
+    width:100%;
+    font-size: 16px;
+    white-space:nowrap;
 }
+
+
+.menu-link:hover{
+    color:#2196f3;
+}
+
+.sidebar li.active{
+    background:#eaf3ff;
+    border-radius:8px;
+    padding:12px;
+}
+
+.sidebar li.active .menu-link{
+    color:#2196f3;
+    font-weight:bold;
+}
+
+
 
 .active{
     background:#2196f3;
@@ -192,29 +231,44 @@ textarea:focus{
    Doctor Card
 =========================== */
 
-.doctor-card{
+.doctor-list{
     border:1px solid #d1d5db;
     border-radius:10px;
+    padding:10px;
+}
+
+
+.doctor-item{
     padding:15px;
-    margin-bottom:15px;
+    border-bottom:1px solid #ddd;
     cursor:pointer;
     transition:.3s;
 }
 
-.doctor-card:hover{
-    background:#eff6ff;
-    border-color:#2196f3;
+
+.doctor-item:last-child{
+    border-bottom:none;
 }
 
-.doctor-card h4{
+
+.doctor-item:hover{
+    background:#eff6ff;
+}
+
+
+.doctor-item h4{
     color:#111827;
     margin-bottom:8px;
 }
 
-.doctor-card p{
+
+.doctor-item p{
     color:#6b7280;
     margin-bottom:4px;
 }
+
+
+
 
 /* ===========================
    Time Grid
@@ -238,9 +292,16 @@ textarea:focus{
 }
 
 .time-grid button:hover{
-    background:#2196f3;
+    background:#1976d2;
 }
 
+.time-grid button.selected{
+    background:#28a745;
+    color:white;
+    border:2px solid #1e7e34;
+    font-weight:bold;
+    transform:scale(1.05);
+}
 /* ===========================
    Patient Card
 =========================== */

@@ -1,5 +1,4 @@
 <div class="pre-register-wrapper">
-
   <!-- Top Header Branding -->
   <header class="page-header">
     <div class="brand-container" routerLink="/">
@@ -24,13 +23,12 @@
 
   <!-- Registration Option Cards -->
   <div class="cards-grid">
-
     <!-- Doctor Registration Card -->
     <div class="role-card doctor-card">
       <div class="watermark-pattern doctor-pattern"></div>
 
       <div class="avatar-container">
-        <img src="assets/images/doctor-profile.png" alt="Register as Doctor" class="avatar-image">
+        <img src="assets/images/doctor-profile.png" alt="Register as Doctor" class="avatar-image" />
       </div>
 
       <div class="card-info">
@@ -39,15 +37,27 @@
       </div>
 
       <div class="card-actions">
-        <a [routerLink]="['/register']" [queryParams]="{ role: 'doctor' }" class="continue-btn doctor-btn">
+        <a routerLink="/doctor/add" class="continue-btn doctor-btn">
           <span>Sign Up</span>
-          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <svg
+            class="btn-arrow"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
             <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
 
         <div class="signin-subtext">
-          Already have an account? <a [routerLink]="['/login']" [queryParams]="{ role: 'doctor' }" class="signin-link doctor-link">Sign In</a>
+          Already have an account?
+          <a
+            [routerLink]="['/login']"
+            [queryParams]="{ role: 'doctor' }"
+            class="signin-link doctor-link"
+            >Sign In</a
+          >
         </div>
       </div>
     </div>
@@ -57,7 +67,11 @@
       <div class="watermark-pattern patient-pattern"></div>
 
       <div class="avatar-container">
-        <img src="assets/images/patient-profile.png" alt="Register as Patient" class="avatar-image">
+        <img
+          src="assets/images/patient-profile.png"
+          alt="Register as Patient"
+          class="avatar-image"
+        />
       </div>
 
       <div class="card-info">
@@ -66,19 +80,29 @@
       </div>
 
       <div class="card-actions">
-        <a [routerLink]="['/register']" [queryParams]="{ role: 'patient' }" class="continue-btn patient-btn">
+        <a routerLink="/patient/register" class="continue-btn patient-btn">
           <span>Sign Up</span>
-          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <svg
+            class="btn-arrow"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
             <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </a>
 
         <div class="signin-subtext">
-          Already have an account? <a [routerLink]="['/login']" [queryParams]="{ role: 'patient' }" class="signin-link patient-link">Sign In</a>
+          Already have an account?
+          <a
+            [routerLink]="['/login']"
+            [queryParams]="{ role: 'patient' }"
+            class="signin-link patient-link"
+            >Sign In</a
+          >
         </div>
       </div>
     </div>
-
   </div>
-
 </div>

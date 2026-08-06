@@ -1,10 +1,7 @@
 <!-- NAVBAR -->
 <header class="navbar">
   <div class="logo" routerLink="/" style="cursor: pointer;">
-    <img
-      src="assets/logo/logo.png"
-      alt="MED.CO Logo"
-      class="logo-icon">
+    <img src="assets/logo/logo.png" alt="MED.CO Logo" class="logo-icon">
 
     <div class="logo-text">
       <span class="logo-title">HEALTH BRIDGE</span>
@@ -30,67 +27,89 @@
 
   <!-- LEFT ILLUSTRATION -->
   <section class="illustration">
-    <img 
-      src="assets/images/login_img.png"
-      alt="Healthcare Illustration">
+    <img src="assets/images/login_img.png" alt="Healthcare Illustration">
   </section>
 
   <!-- LOGIN CARD -->
   <section class="login-card">
     <div class="card-logo">
-      <img src="assets/logo/logo.png"
-           alt="MED.CO Logo"
-           class="card-logo-img">
+      <img src="assets/logo/logo.png" alt="MED.CO Logo" class="card-logo-img">
 
       <span class="card-logo-title">HEALTH BRIDGE</span>
       <span class="card-logo-sub">
-          Where Care Meets Technology
+        Where Care Meets Technology
       </span>
     </div>
 
-    <h2 class="card-heading">Lets start with
-      <br> us</h2>
+    <h2 class="card-heading">Lets start with<br> us</h2>
 
-    <form class="login-form" (submit)="$event.preventDefault()">        
+    <!-- Success Alert Message -->
+    @if (successMessage) {
+    <div class="alert alert-success py-2 px-3 mb-3 text-center" style="font-size: 13px; border-radius: 8px;">
+      {{ successMessage }}
+    </div>
+    }
+
+    <!-- Error Alert Message -->
+    @if (errorMessage) {
+    <div class="alert alert-danger py-2 px-3 mb-3 text-center" style="font-size: 13px; border-radius: 8px;">
+      {{ errorMessage }}
+    </div>
+    }
+
+    <form class="login-form" (submit)="login(); $event.preventDefault()">
       <label class="input-wrap">
-        <input type="text" placeholder="Email" required>
+        <input type="text" name="email" [(ngModel)]="email" placeholder="Email / Username" required>
         <span class="icon">&#128100;</span>
       </label>
 
       <label class="input-wrap">
-        <input type="password" placeholder="Password" required>
+        <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required>
         <span class="icon">&#128274;</span>
       </label>
 
       <div class="captcha-row">
         <span class="captcha-label">Anti-bot Validation</span>
         <div class="captcha-inputs">
-          <input type="text" class="captcha-field" placeholder="Captcha">
+          <input type="text" name="captchaAnswer" [(ngModel)]="captchaAnswer" class="captcha-field"
+            placeholder="Captcha">
           <div class="captcha-image">
-            <span class="captcha-text">CAPTCHA</span>
-            <button type="button" class="refresh-btn" title="Refresh captcha">&#8635;</button>
+            @if (captchaImageSrc) {
+            <img [src]="captchaImageSrc" alt="Captcha" style="max-height: 38px; object-fit: contain;">
+            } @else {
+            <span class="captcha-text">
+              @for (c of captchaChars; track $index) {
+              <span [style.color]="c.color" [style.font-size]="c.fontSize"
+                [style.transform]="'translateY(' + c.offsetY + ') rotate(' + c.rotate + ')'" class="captcha-char">
+                {{ c.char }}
+              </span>
+              }
+            </span>
+            }
+            <button type="button" class="refresh-btn" (click)="refreshCaptcha()"
+              title="Refresh captcha">&#8635;</button>
           </div>
         </div>
       </div>
 
-      <button type="button" class="sign-in-btn" (click)="login()">
-          SIGN IN
+      <button type="submit" class="sign-in-btn" [disabled]="isLoading">
+        @if (isLoading) {
+        <span>Signing in...</span>
+        } @else {
+        <span>SIGN IN</span>
+        }
       </button>
 
       <div class="signup-row">
         <span>NEW TO MED.CO ?</span>
-        <button
-          type="button"
-          class="sign-up-btn"
-          (click)="goToRegister()">
+        <button type="button" class="sign-up-btn" (click)="goToRegister()">
           SIGN UP
         </button>
       </div>
 
-      <a routerLink="/forgot-password" (click)="forgotPassword($event)" class="forgot-link" style="cursor: pointer;">
+      <a routerLink="/forgot-password" class="forgot-link" style="cursor: pointer;">
         Forgot Password?</a>
     </form>
   </section>
 
 </main>
-<p>login works!</p>
