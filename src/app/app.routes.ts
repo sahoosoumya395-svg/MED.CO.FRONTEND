@@ -29,61 +29,31 @@ import { AppointmentBooking } from './features/appointment/appointment-booking/a
 import { DoctorDashboard } from './features/doctor/doctor-dashboard/doctor-dashboard';
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'doctor/add',
-    pathMatch: 'full',
-  },
-  {
-    path: 'doctor/add',
-    component: DoctorAdd,
-  },
+  { path: '', redirectTo: 'doctor/add', pathMatch: 'full' },
 
-  {
-    path: '',
-    redirectTo: 'appointment',
-        pathMatch: 'full',
+  { path: 'doctor/add', component: DoctorAdd },
 
-  },
-
-  {
-    path: 'patient',
-    component: PatientRegistration,
-  },
-
-  {
-    path: 'doctor',
-    component: DoctorManagement,
-  },
-
-  {
-    path: 'appointment',
-    component: AppointmentBooking,
-  },
-
-  {
-    path: 'doctor-dashboard',
-    component: DoctorDashboard,
-  },
-
-  {
-    path: '**',
-    redirectTo: 'appointment',
-  },
-  // Public & Auth Routes
-  { path: '', component: LandingPage, pathMatch: 'full' },
+  // Public
   { path: 'about-us', component: AboutUs },
   { path: 'pre-register', component: PreRegister },
   { path: 'contact-us', component: ContactUs },
   { path: 'services', component: Services },
   { path: 'language', component: Language },
+
+  // Authentication
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'forgot-password', component: ForgotPassword },
   { path: 'reset-password', component: ResetPassword },
   { path: 'reset-password-success', component: ResetPasswordSuccess },
 
-  // Financial & Medical
+  // Main Features
+  { path: 'patient', component: PatientRegistration },
+  { path: 'doctor', component: DoctorManagement },
+  { path: 'appointment', component: AppointmentBooking },
+  { path: 'doctor-dashboard', component: DoctorDashboard },
+
+  // Other Modules
   { path: 'billing', component: Billing },
   { path: 'final-bill', component: FinalBill },
   { path: 'medicine', component: Medicine },
@@ -91,12 +61,6 @@ export const routes: Routes = [
   { path: 'profile', component: Profile },
   { path: 'settings', component: Settings },
 
-  // Patient & Doctor Routes
-  { path: 'patient', component: PatientRegistration },
-  { path: 'doctor', component: DoctorManagement },
-  { path: 'appointment', component: AppointmentBooking },
-  { path: 'doctor-dashboard', component: DoctorDashboard },
-
-  // Fallback Route
-  { path: '**', redirectTo: '' },
+  // Fallback
+  { path: '**', redirectTo: 'login' },
 ];

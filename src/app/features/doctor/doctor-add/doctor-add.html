@@ -30,11 +30,6 @@
         <i class="bi bi-person-circle"></i>
         Profile
       </li>
-
-      <li>
-        <i class="bi bi-box-arrow-right"></i>
-        Logout
-      </li>
     </ul>
   </aside>
 
@@ -47,15 +42,15 @@
 
     <header class="topbar">
       <div class="left">
-        <button class="menu-btn">
+        <!-- <button class="menu-btn">
           <i class="bi bi-list"></i>
-        </button>
+        </button> -->
       </div>
 
       <div class="right">
-        <span> Already have an account? </span>
+        <span>Already have an account?</span>
 
-        <button class="login-btn">Login</button>
+        <button type="button" class="login-btn" (click)="goToLogin()">Login</button>
       </div>
     </header>
 
@@ -65,6 +60,20 @@
         <h1>Doctor Registration</h1>
 
         <p>Please fill in your details to create your doctor account.</p>
+
+        <!-- Success Message -->
+        <div class="alert alert-success" *ngIf="successMessage">
+          <i class="bi bi-check-circle-fill me-2"></i>
+
+          {{ successMessage }}
+        </div>
+
+        <!-- Error Message -->
+        <div class="alert alert-danger" *ngIf="errorMessage">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+          {{ errorMessage }}
+        </div>
 
         <!-- ========================= -->
         <!-- Personal Information -->
@@ -188,9 +197,9 @@
               <label> Nationality <span>*</span> </label>
 
               <select formControlName="nationality">
-                <option value="">Select Nationality</option>
-                <option>Indian</option>
-                <option>Others</option>
+                <option value="" disabled>Select Nationality</option>
+                <option value="Indian">Indian</option>
+                <option value="Other">Other</option>
               </select>
               <div
                 class="error"
@@ -200,6 +209,43 @@
                 "
               >
                 Nationality is required
+              </div>
+            </div>
+
+            <!-- Registration Access Code -->
+            <div class="form-group">
+              <label>
+                Registration Access Code
+                <span>*</span>
+              </label>
+
+              <input
+                type="password"
+                maxlength="1"
+                inputmode="numeric"
+                autocomplete="off"
+                formControlName="registrationCode"
+                placeholder="Enter registration access code"
+              />
+
+              <div
+                class="error"
+                *ngIf="
+                  doctorForm.get('registrationCode')?.touched &&
+                  doctorForm.get('registrationCode')?.hasError('required')
+                "
+              >
+                Registration Access Code is required
+              </div>
+
+              <div
+                class="error"
+                *ngIf="
+                  doctorForm.get('registrationCode')?.touched &&
+                  doctorForm.get('registrationCode')?.hasError('pattern')
+                "
+              >
+                Invalid Registration Access Code
               </div>
             </div>
           </div>
@@ -679,10 +725,18 @@
         <!-- ===================================== -->
 
         <div class="register-section">
-          <button type="submit" class="register-btn">
-            <i class="bi bi-person-plus-fill"></i>
+          <button type="submit" class="register-btn" [disabled]="loading">
+            <span *ngIf="loading">
+              <span class="spinner-border spinner-border-sm me-2" role="status"> </span>
 
-            Register Now
+              Registering...
+            </span>
+
+            <span *ngIf="!loading">
+              <i class="bi bi-person-plus-fill"></i>
+
+              Register Now
+            </span>
           </button>
         </div>
       </div>
