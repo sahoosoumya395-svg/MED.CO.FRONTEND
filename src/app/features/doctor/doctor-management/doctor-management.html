@@ -1,7 +1,8 @@
+
+
 <div class="container">
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
+
 <!-- Sidebar -->
 <aside class="sidebar">
 
@@ -46,7 +47,7 @@
   </ul>
 
 </aside>
-  </aside>
+
 
   <!-- Main Content -->
   <div class="main-content">
@@ -70,125 +71,94 @@
 
       <div class="card">
         <h3>Total Doctors</h3>
-        <span>0</span>
+       <span>{{ totalDoctors }}</span>
       </div>
 
       <div class="card">
         <h3>Available</h3>
-        <span>0</span>
+       <span>{{ availableDoctors }}</span>
       </div>
 
       <div class="card">
         <h3>On Leave</h3>
-        <span>0</span>
+       <span>{{ onLeaveDoctors }}</span>
       </div>
 
       <div class="card">
         <h3>Departments</h3>
-        <span>0</span>
+       <span>{{ totalDepartments }}</span>
       </div>
 
     </div>
 
-    <!-- Filter Section -->
-    <div class="filter-box">
-
-      <div class="filter-header">
-        <h3>Search Doctors</h3>
-      </div>
-
-      <div class="filters">
-
-        <input type="text" placeholder="Search by Doctor Name">
-
-        <input type="text" placeholder="Doctor ID">
-
-        <select>
-          <option>Select Department</option>
-        </select>
-
-        <select>
-          <option>Status</option>
-        </select>
-
-        <button class="search-btn">
-          Search
-        </button>
-
-        <button class="reset-btn">
-          Reset
-        </button>
-
-      </div>
-
-    </div>
-
-    <!-- Doctor Table will come in Part 2 -->
-
+    <!-- Search Section -->
+<div class="search-section filter-box">
+  <div class="filter-header">
+    <h3>Find doctors by department</h3>
+    <p>Select a department and click search to view available doctors.</p>
   </div>
 
-</div>
+  <div class="filter-row">
+    <select [(ngModel)]="selectedDepartmentId">
+      <option [ngValue]="null">Select Department</option>
+      <option
+        *ngFor="let department of departments"
+        [value]="department.departmentId">
+        {{ department.departmentName }}
+      </option>
+    </select>
 
-<!-- Doctor List Section -->
-
-<div class="table-section">
-
-  <div class="table-header">
-
-    <h3>Doctor List</h3>
-
-    <div class="table-actions">
-
-      <button class="export-btn">
-        Export
+    <div class="search-actions">
+      <button
+        class="search-btn"
+        (click)="searchDoctors()">
+        Search
       </button>
 
+      <button
+        class="reset-btn"
+        (click)="resetSearch()">
+        Reset
+      </button>
     </div>
-
   </div>
+</div>
 
-  <table>
+<!-- Doctor Table -->
 
-    <thead>
+<div *ngIf="showTable" class="table-section">
 
-      <tr>
-        <th>Doctor ID</th>
-        <th>Doctor Name</th>
-        <th>Department</th>
-        <th>Specialization</th>
-        <th>Phone</th>
-        <th>Email</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
+<table>
 
-    </thead>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Department</th>
+      <th>Specialization</th>
+      <th>Experience</th>
+      <th>Mobile</th>
+      <th>Status</th>
+    </tr>
+  </thead>
 
-    <tbody>
+  <tbody>
 
-      <!-- Empty State -->
+    <tr *ngFor="let doctor of doctors">
 
-      <tr>
+     <td>{{doctor.id}}</td>
+     <td>{{doctor.firstName}} {{doctor.middleName}} {{doctor.lastName}}</td>
+      <td>{{doctor.departmentName}}</td>
+      <td>{{doctor.specialization}}</td>
+      <td>{{doctor.experience}}</td>
+      <td>{{doctor.mobileNumber}}</td>
+      <td>{{ getDoctorStatus(doctor) }}</td>
 
-        <td colspan="8" class="empty-data">
+    </tr>
 
-          <div class="empty-box">
+  </tbody>
 
-            <h3>No Doctor Records Found</h3>
-
-            <p>
-              Click <strong>+ Add Doctor</strong> to register your first doctor.
-            </p>
-
-          </div>
-
-        </td>
-
-      </tr>
-
-    </tbody>
-
-  </table>
+</table>
 
 </div>
 

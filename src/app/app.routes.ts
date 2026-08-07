@@ -42,8 +42,9 @@ import { DoctorList } from './features/doctor/doctor-list/doctor-list';
 import { DoctorProfile } from './features/doctor/doctor-profile/doctor-profile';
 import { DoctorStatus } from './features/doctor/doctor-status/doctor-status';
 import { DepartmentAvailability } from './features/doctor/department-availability/department-availability';
-import { LeaveRequest } from './features/doctor/leave-request/leave-request';
+import { DoctorLeaveRequest } from './features/doctor/doctor-leave-request/doctor-leave-request';
 import { LeaveHistory } from './features/doctor/leave-history/leave-history';
+import { DoctorLeave } from './features/doctor/doctor-leave/doctor-leave';
 import { MyProfile } from './features/doctor/my-profile/my-profile';
 import { MyShedule } from './features/doctor/my-shedule/my-shedule';
 
@@ -114,8 +115,9 @@ export const routes: Routes = [
   { path: 'doctor/profile', component: DoctorProfile },
   { path: 'doctor/status', component: DoctorStatus },
   { path: 'doctor/department-availability', component: DepartmentAvailability },
-  { path: 'doctor/leave-request', component: LeaveRequest },
+  { path: 'doctor/leave-request', component: DoctorLeaveRequest },
   { path: 'doctor/leave-history', component: LeaveHistory },
+  { path: 'doctor/leave', component: DoctorLeave },
   { path: 'doctor/my-profile', component: MyProfile },
   { path: 'doctor/my-schedule', component: MyShedule },
 
