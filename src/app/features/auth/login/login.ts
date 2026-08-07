@@ -283,7 +283,7 @@ if (doctorId != null) {
 });
   }
   goToRegister(): void {
-    this.router.navigate(['/register']);
+    this.router.navigate(['/pre-register']);
   }
 
   forgotPassword(): void {

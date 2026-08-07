@@ -477,6 +477,12 @@
   color: #ffffff;
 }
 
+.logo .footer-logo{
+  margin-bottom: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .footer-desc {
   font-size: 14px;
   color: #94a3b8;

@@ -37,45 +37,58 @@ body {
 =========================================*/
 
 .sidebar {
-  width: 240px;
+  width: 280px;
 
-  background: #ffffff;
-
+  background: #fff;
   border-right: 1px solid #e5e7eb;
-
   display: flex;
-
   flex-direction: column;
-
   position: fixed;
-
   left: 0;
-
   top: 0;
-
   bottom: 0;
-
   overflow: auto;
+  padding-top: 25px; /* Add this */
 }
 
 /*=========================================
  Logo
 =========================================*/
 
-.logo-area {
-  height: 90px;
-
+.logo {
   display: flex;
-
-  justify-content: center;
-
   align-items: center;
-
-  border-bottom: 1px solid #efefef;
+  gap: 10px;
 }
 
-.logo {
-  width: 145px;
+.logo-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  margin-left: 5px;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a2b63;
+  white-space: nowrap; /* Keeps HEALTH BRIDGE in one line */
+  line-height: 1;
+  margin: 0;
+}
+
+.logo-sub {
+  font-size: 11px;
+  font-weight: 600;
+  color: #34b8a5;
+  letter-spacing: 1px;
+  white-space: nowrap; /* Keeps tagline in one line */
+  margin-top: 4px;
 }
 
 /*=========================================
@@ -87,7 +100,7 @@ body {
 
   height: 48px;
 
-  margin: 22px auto;
+  margin: 60px auto 22px;
 
   border: none;
 
@@ -127,7 +140,7 @@ body {
 =========================================*/
 
 .menu-title {
-  margin: 10px 24px;
+  margin: 45px 30px 20px;
 
   font-size: 12px;
 
@@ -144,7 +157,7 @@ body {
 
 .menu {
   list-style: none;
-
+  margin-top: 5px;
   padding: 0 15px;
 }
 
@@ -185,7 +198,7 @@ body {
 .content {
   flex: 1;
 
-  margin-left: 240px;
+  margin-left: 280px;
 
   display: flex;
 
@@ -760,8 +773,8 @@ body {
 }
 
 .register-btn:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .error {
