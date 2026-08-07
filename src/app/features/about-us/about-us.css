@@ -438,6 +438,12 @@
   flex-direction: column;
 }
 
+.logo .footer-logo{
+  margin-bottom: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .brand-col .logo-brand {
   color: #ffffff;
 }

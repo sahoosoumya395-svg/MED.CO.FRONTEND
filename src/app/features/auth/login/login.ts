@@ -278,7 +278,7 @@ export class Login implements OnInit {
 });
   }
   goToRegister(): void {
-    this.router.navigate(['/register']);
+    this.router.navigate(['/pre-register']);
   }
 
   forgotPassword(): void {
