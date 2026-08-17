@@ -8,7 +8,7 @@
 
 .services-page-wrapper {
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -16,116 +16,86 @@
 
 /* Header Navbar */
 .navbar {
-  width: 100%;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e8f0f8;
-  padding: 14px 0;
   position: sticky;
   top: 0;
-  z-index: 100;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 30px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 16px 60px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 12px;
-  cursor: pointer;
-  text-decoration: none;
 }
 
-.logo-box {
-  width: 42px;
-  height: 42px;
+.logo img {
+  width: 65px;
+  height: 65px;
+  object-fit: contain;
 }
 
-.brand-svg {
-  width: 100%;
-  height: 100%;
-}
-
-.logo-text-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.logo-brand {
-  font-size: 22px;
+.logo-text {
+  font-size: 26px;
   font-weight: 800;
-  color: #0c2d48;
+  color: #1a2b63;
   margin: 0;
-  line-height: 1.1;
-  letter-spacing: -0.3px;
 }
 
-.logo-sub {
-  font-size: 9px;
+.logo-subtext {
+  font-size: 12px;
   font-weight: 700;
-  color: #00b4d8;
-  letter-spacing: 1.4px;
-  margin: 2px 0 0;
+  color: #3fbfb0;
+  letter-spacing: 0.5px;
+  margin: 0;
 }
 
-.nav-menu {
+.nav-right {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 30px;
 }
 
-.nav-link {
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.nav-links a {
   text-decoration: none;
-  font-size: 15px;
+  color: #2b3a4a;
+  font-size: 18px;
   font-weight: 600;
-  color: #64748b;
-  transition: color 0.2s ease;
-  position: relative;
-  padding: 6px 0;
 }
 
-.nav-link:hover {
-  color: #0c2d48;
+.nav-links a:hover,
+.nav-links a.active {
+  color: #0084d4;
 }
 
-.nav-link.active {
-  color: #0c2d48;
+.login-btn-nav {
+  background: #0084d4;
+  color: #ffffff !important;
+  border: none;
+  padding: 10px 26px;
+  border-radius: 8px;
   font-weight: 700;
-}
-
-.nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background-color: #00b4d8;
-  border-radius: 2px;
-}
-
-.login-pill-btn {
-  background-color: #0084d4;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 15px;
-  padding: 10px 28px;
-  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
   text-decoration: none;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 132, 212, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 132, 212, 0.2);
 }
 
-.login-pill-btn:hover {
-  background-color: #0072b8;
-  transform: translateY(-1px);
+.login-btn-nav:hover {
+  background: #006bb8;
 }
 
 /* Main Container */
@@ -488,10 +458,6 @@
   flex-direction: column;
 }
 
-.brand-col .logo {
-  margin-bottom: 16px;
-}
-
 .brand-col .logo-brand {
   color: #ffffff;
 }
@@ -500,7 +466,7 @@
   font-size: 14px;
   color: #94a3b8;
   line-height: 1.6;
-  margin: 0 0 20px;
+  margin: 16px 0 20px;
 }
 
 .social-links {
@@ -520,11 +486,6 @@
   text-decoration: none;
   font-size: 13px;
   font-weight: 700;
-  transition: background 0.2s ease;
-}
-
-.social-icon:hover {
-  background-color: #00b4d8;
 }
 
 .footer-heading {
@@ -548,7 +509,6 @@
   color: #94a3b8;
   text-decoration: none;
   font-size: 14px;
-  font-weight: 500;
   transition: color 0.2s ease;
 }
 
@@ -562,7 +522,6 @@
   gap: 12px;
   font-size: 14px;
   color: #94a3b8;
-  line-height: 1.5;
 }
 
 .contact-info-list p {
@@ -573,7 +532,6 @@
   color: #ffffff;
 }
 
-/* Footer Bottom */
 .footer-bottom {
   background-color: #04172a;
   border-top: 1px solid #0f365d;
@@ -605,16 +563,10 @@
   color: #94a3b8;
   text-decoration: none;
   font-size: 13px;
-  transition: color 0.2s ease;
-}
-
-.legal-links a:hover {
-  color: #ffffff;
 }
 
 .pipe {
   color: #334155;
-  font-size: 12px;
 }
 
 /* Responsive Breakpoints */

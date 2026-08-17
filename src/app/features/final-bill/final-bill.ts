@@ -69,12 +69,12 @@ export class FinalBill implements OnInit {
     // Handle both Angular Form data and Spring Boot REST API DTO formats (camelCase & snake_case)
     const patientId = data.patientId || data.patient_id || data.patientCode || '';
     const patientName = data.patientName || data.patient_name || data.name || '';
-    const doctorName = data.doctorName || data.doctor_name || '';
-    const specialization = data.specialization || data.doctor_specialization || data.dept || '';
+    const doctorName = data.doctorConsultation?.doctorName || data.doctorName || data.doctor_name || '';
+    const specialization = data.doctorConsultation?.specialization || data.specialization || data.doctor_specialization || data.dept || '';
     const invoiceNumber = data.invoiceNumber || data.invoice_number || data.invoiceNo || '';
     const invoiceDate = data.invoiceDate || data.invoice_date || data.date || '';
 
-    const doctorFee = parseFloat(data.doctorFee || data.doctor_fee || 0) || 0;
+    const doctorFee = parseFloat(data.doctorConsultation?.doctorFee || data.doctorFee || data.doctor_fee || 0) || 0;
     const serviceCharge = parseFloat(data.serviceCharge || data.service_charge || 0) || 0;
     const tax = parseFloat(data.tax || data.tax_amount || 0) || 0;
 

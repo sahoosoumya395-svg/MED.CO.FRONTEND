@@ -2,9 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
+
+import {
+  PrescriptionRequest,
+  PrescriptionResponse
+} from '../../../models/prescription.model';
+
 import {
   PrescriptionService,
-  PrescriptionRequest,
+  
 } from '../../../services/prescription';
 
 @Component({
@@ -19,7 +25,6 @@ export class PrescriptionAdd implements OnInit {
   // ===========================
   // Patient Details
   // ===========================
-
   patientName = '';
   age = '';
   address = '';
@@ -29,7 +34,6 @@ export class PrescriptionAdd implements OnInit {
   // ===========================
   // Doctor Details
   // ===========================
-
   doctorName = '';
   specialization = '';
   hospitalName = 'MED.Co';
@@ -38,7 +42,6 @@ export class PrescriptionAdd implements OnInit {
   // ===========================
   // Prescription Details
   // ===========================
-
   appointmentId!: number;
 
   diagnosis = '';
@@ -54,7 +57,6 @@ export class PrescriptionAdd implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     const id = this.route.snapshot.paramMap.get('appointmentId');
 
     if (id) {
@@ -95,15 +97,16 @@ export class PrescriptionAdd implements OnInit {
 
         console.log('Prescription Saved Successfully', response);
 
-        // Store HTML received from backend
+        // Save HTML returned by backend
         this.prescriptionHtml = response.prescriptionHtml;
 
-        alert('Prescription saved successfully!');
+        alert('Prescription Saved Successfully');
 
-        // Optional: Clear form
+        // Optional: Clear the form
         this.diagnosis = '';
         this.medicines = '';
         this.advice = '';
+
       },
 
       error: (error) => {
@@ -115,8 +118,11 @@ export class PrescriptionAdd implements OnInit {
         } else {
           alert('Unable to save prescription.');
         }
+
       }
+
     });
+
   }
 
   printPrescription(): void {
@@ -135,5 +141,7 @@ export class PrescriptionAdd implements OnInit {
       printWindow.focus();
       printWindow.print();
     }
+
   }
+
 }

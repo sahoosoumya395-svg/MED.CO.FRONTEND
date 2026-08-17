@@ -29,10 +29,13 @@ describe('Billing', () => {
   });
 
   it('should remove a medicine row when removeMedicine() is called', () => {
-    // ensure at least two rows
+    // Ensure at least two rows
     component.addMedicine();
+
     const initial = component.medicines.length;
+
     component.removeMedicine(0);
+
     expect(component.medicines.length).toBe(initial - 1);
   });
 
@@ -41,11 +44,14 @@ describe('Billing', () => {
     await fixture.whenStable();
 
     const initial = component.medicines.length;
-    // find the add button (first visible add button in the table)
+
+    // Find the add button in the table
     const addBtn = fixture.debugElement.query(By.css('.add-btn'));
+
     expect(addBtn).toBeTruthy();
 
     addBtn.nativeElement.click();
+
     fixture.detectChanges();
     await fixture.whenStable();
 

@@ -1,94 +1,99 @@
 import { Routes } from '@angular/router';
 
-// Prescription
-import { PrescriptionAdd } from './features/prescription/prescription-add/prescription-add';
-
-// Doctor
-import { DoctorLeave } from './features/doctor/doctor-leave/doctor-leave';
-import { DoctorLeaveRequest } from './features/doctor/doctor-leave-request/doctor-leave-request';
-import { DoctorAdd } from './features/doctor/doctor-add/doctor-add';
-import { DoctorManagement } from './features/doctor/doctor-management/doctor-management';
-import { DoctorDashboard } from './features/doctor/doctor-dashboard/doctor-dashboard';
-
-// Patient
-import { PatientRegistration } from './features/patient/patient-registration/patient-registration';
-
-// Appointment
-import { AppointmentBooking } from './features/appointment/appointment-booking/appointment-booking';
-
+// ==============================
 // Public Pages
+// ==============================
 import { LandingPage } from './features/landing-page/landing-page';
 import { AboutUs } from './features/about-us/about-us';
 import { PreRegister } from './features/pre-register/pre-register';
 import { ContactUs } from './features/contact-us/contact-us';
-import { Services } from './features/services/services';
+import { Services } from './features/app-services/app-services';
 import { Language } from './features/language/language';
 
+// ==============================
 // Authentication
+// ==============================
 import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
 import { ForgotPassword } from './features/auth/forgot-password/forgot-password';
 import { ResetPassword } from './features/auth/reset-password/reset-password';
 import { ResetPasswordSuccess } from './features/auth/reset-password-success/reset-password-success';
 
-// Billing, Medicine, Reports, Profile, Settings
+// ==============================
+// Dashboards
+// ==============================
+import { AdminDashboard } from './features/dashboard/admin-dashboard/admin-dashboard';
+import { DoctorDashboard } from './features/doctor/doctor-dashboard/doctor-dashboard';
+import { PatientDashboard } from './features/dashboard/patient-dashboard/patient-dashboard';
+
+// ==============================
+// Patient
+// ==============================
+import { PatientRegistration } from './features/patient/patient-registration/patient-registration';
+import { PatientAdd } from './features/patient/patient-add/patient-add';
+import { PatientEdit } from './features/patient/patient-edit/patient-edit';
+import { PatientList } from './features/patient/patient-list/patient-list';
+import { PatientDetails } from './features/patient/patient-details/patient-details';
+
+// ==============================
+// Doctor
+// ==============================
+import { DoctorManagement } from './features/doctor/doctor-management/doctor-management';
+import { DoctorAdd } from './features/doctor/doctor-add/doctor-add';
+import { DoctorEdit } from './features/doctor/doctor-edit/doctor-edit';
+import { DoctorList } from './features/doctor/doctor-list/doctor-list';
+import { DoctorProfile } from './features/doctor/doctor-profile/doctor-profile';
+import { DoctorStatus } from './features/doctor/doctor-status/doctor-status';
+import { DepartmentAvailability } from './features/doctor/department-availability/department-availability';
+import { LeaveRequest } from './features/doctor/leave-request/leave-request';
+import { LeaveHistory } from './features/doctor/leave-history/leave-history';
+import { DoctorLeave } from './features/doctor/doctor-leave/doctor-leave';
+import { DoctorLeaveRequest } from './features/doctor/doctor-leave-request/doctor-leave-request';
+import { MyProfile } from './features/doctor/my-profile/my-profile';
+import { MyShedule } from './features/doctor/my-shedule/my-shedule';
+
+// ==============================
+// Appointment
+// ==============================
+import { AppointmentBooking } from './features/appointment/appointment-booking/appointment-booking';
+import { AppointmentAdd } from './features/appointment/appointment-add/appointment-add';
+import { AppointmentList } from './features/appointment/appointment-list/appointment-list';
+import { AppointmentCalendar } from './features/appointment/appointment-calendar/appointment-calendar';
+
+// ==============================
+// Prescription
+// ==============================
+import { PrescriptionAdd } from './features/prescription/prescription-add/prescription-add';
+import { PrescriptionList } from './features/prescription/prescription-list/prescription-list';
+import { PrescriptionView } from './features/prescription/prescription-view/prescription-view';
+
+// ==============================
+// Financial
+// ==============================
 import { Billing } from './features/billing/billing';
+import { PatientBillingDetails } from './features/patient-billing-details/patient-billing-details';
 import { FinalBill } from './features/final-bill/final-bill';
+
+// ==============================
+// Other
+// ==============================
 import { Medicine } from './features/medicine/medicine';
 import { Reports } from './features/reports/reports';
 import { Profile } from './features/profile/profile';
 import { Settings } from './features/settings/settings';
 
+
+ 
 export const routes: Routes = [
 
-  // Default Route
+  // ================= HOME =================
   {
     path: '',
-    redirectTo: 'appointment',
+    component: LandingPage,
     pathMatch: 'full'
   },
 
-  // Prescription
-  {
-    path: 'prescription/add/:appointmentId',
-    component: PrescriptionAdd
-  },
-
-  // Doctor
-  {
-    path: 'doctor/add',
-    component: DoctorAdd
-  },
-  {
-    path: 'doctor',
-    component: DoctorManagement
-  },
-  {
-    path: 'doctor-dashboard',
-    component: DoctorDashboard
-  },
-  {
-    path: 'doctor/leave',
-    component: DoctorLeave
-  },
-  {
-    path: 'doctor/leave-requests',
-    component: DoctorLeaveRequest
-  },
-
-  // Patient
-  {
-    path: 'patient',
-    component: PatientRegistration
-  },
-
-  // Appointment
-  {
-    path: 'appointment',
-    component: AppointmentBooking
-  },
-
-  // Public Pages
+  // ================= PUBLIC =================
   {
     path: 'about-us',
     component: AboutUs
@@ -106,9 +111,15 @@ export const routes: Routes = [
     component: Services
   },
   {
+    path: 'app-services',
+    component: Services
+  },
+  {
     path: 'language',
     component: Language
   },
+
+  // ================= AUTH =================
   {
     path: 'login',
     component: Login
@@ -130,15 +141,147 @@ export const routes: Routes = [
     component: ResetPasswordSuccess
   },
 
-  // Financial & Medical
+  // ================= DASHBOARD =================
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboard
+  },
+  {
+    path: 'doctor-dashboard',
+    component: DoctorDashboard
+  },
+  {
+    path: 'patient-dashboard',
+    component: PatientDashboard
+  },
+
+  // ================= PATIENT =================
+  {
+    path: 'patient',
+    component: PatientRegistration
+  },
+  {
+    path: 'patient/register',
+    component: PatientRegistration
+  },
+  {
+    path: 'patient/add',
+    component: PatientAdd
+  },
+  {
+    path: 'patient/edit',
+    component: PatientEdit
+  },
+  {
+    path: 'patient/list',
+    component: PatientList
+  },
+  {
+    path: 'patient/details',
+    component: PatientDetails
+  },
+
+  // ================= DOCTOR =================
+  {
+    path: 'doctor',
+    component: DoctorManagement
+  },
+  {
+    path: 'doctor/add',
+    component: DoctorAdd
+  },
+  {
+    path: 'doctor/edit',
+    component: DoctorEdit
+  },
+  {
+    path: 'doctor/list',
+    component: DoctorList
+  },
+  {
+    path: 'doctor/profile',
+    component: DoctorProfile
+  },
+  {
+    path: 'doctor/status',
+    component: DoctorStatus
+  },
+  {
+    path: 'doctor/department-availability',
+    component: DepartmentAvailability
+  },
+  {
+    path: 'doctor/leave',
+    component: DoctorLeave
+  },
+  {
+    path: 'doctor/leave-request',
+    component: LeaveRequest
+  },
+  {
+    path: 'doctor/leave-history',
+    component: LeaveHistory
+  },
+  {
+    path: 'doctor/leave-requests',
+    component: DoctorLeaveRequest
+  },
+  {
+    path: 'doctor/my-profile',
+    component: MyProfile
+  },
+  {
+    path: 'doctor/my-schedule',
+    component: MyShedule
+  },
+
+  // ================= APPOINTMENT =================
+  {
+    path: 'appointment',
+    component: AppointmentBooking
+  },
+  {
+    path: 'appointment/add',
+    component: AppointmentAdd
+  },
+  {
+    path: 'appointment/list',
+    component: AppointmentList
+  },
+  {
+    path: 'appointment/calendar',
+    component: AppointmentCalendar
+  },
+
+  // ================= PRESCRIPTION =================
+  {
+    path: 'prescription/add/:appointmentId',
+    component: PrescriptionAdd
+  },
+  {
+    path: 'prescription/list',
+    component: PrescriptionList
+  },
+  {
+    path: 'prescription/view',
+    component: PrescriptionView
+  },
+
+  // ================= BILLING =================
   {
     path: 'billing',
     component: Billing
   },
   {
+    path: 'patient-billing-details',
+    component: PatientBillingDetails
+  },
+  {
     path: 'final-bill',
     component: FinalBill
   },
+
+  // ================= OTHER =================
   {
     path: 'medicine',
     component: Medicine
@@ -156,16 +299,10 @@ export const routes: Routes = [
     component: Settings
   },
 
-  // Landing Page
-  {
-    path: 'landing',
-    component: LandingPage
-  },
-
-  // Wildcard Route
+  // ================= FALLBACK =================
   {
     path: '**',
-    redirectTo: 'appointment'
+    redirectTo: ''
   }
 
 ];

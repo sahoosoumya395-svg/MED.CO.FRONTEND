@@ -289,14 +289,18 @@ body {
 
 .registration-card {
   background: #ffffff;
-
   margin: 35px;
-
   padding: 35px;
-
   border-radius: 18px;
-
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.reg-no-corner {
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  width: 200px;
 }
 
 .registration-card h1 {
@@ -713,8 +717,13 @@ body {
 
   .registration-card {
     margin: 15px;
-
     padding: 22px;
+  }
+
+  .reg-no-corner {
+    position: static;
+    width: 100%;
+    margin-bottom: 20px;
   }
 
   .topbar {

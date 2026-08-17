@@ -6,8 +6,8 @@ import { RouterLink } from '@angular/router';
   selector: 'app-services',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './services.html',
-  styleUrls: ['./services.css']
+  templateUrl: './app-services.html',
+  styleUrls: ['./app-services.css']
 })
 export class Services {
 

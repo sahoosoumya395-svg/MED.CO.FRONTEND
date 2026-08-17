@@ -13,26 +13,31 @@
 
 /* Top Accent Bar */
 .top-bar {
-  height: 44px;
-  background-color: #063b63;
+  height: 48px;
+  background-color: #03365c;
   width: 100%;
 }
 
-/* Navbar */
-.navbar {
+/* Custom Navbar Header */
+.custom-navbar {
+  position: sticky;
+  top: 0;
   width: 100%;
   background-color: #ffffff;
-  border-bottom: 1px solid #f0f4f8;
-  padding: 14px 0;
+  border-bottom: 1px solid #eef2f6;
+  padding: 16px 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .nav-container {
+  width: 100%;
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
 }
 
 .logo {
@@ -53,53 +58,55 @@
   font-size: 28px;
   font-weight: 800;
   letter-spacing: -0.5px;
+  color: #073559;
 }
 
 .brand-med {
-  color: #0c365a;
+  color: #073559;
 }
 
 .brand-dot {
-  color: #0c365a;
+  color: #073559;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
   gap: 32px;
+  margin-left: auto !important;
 }
 
 .nav-item {
   text-decoration: none;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 600;
-  color: #7b8d9c;
+  color: #8fa0b5;
   transition: color 0.2s ease;
 }
 
 .nav-item:hover,
 .nav-item.active {
-  color: #0c365a;
+  color: #073559;
+  font-weight: 700;
 }
 
 .login-btn {
-  background: linear-gradient(180deg, #6ea6df 0%, #518dcb 100%);
-  color: #ffffff !important;
-  padding: 8px 30px;
+  background-color: #6da2db;
+  color: #073559 !important;
+  padding: 7px 28px;
   border-radius: 20px;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 14.5px;
   text-decoration: none;
-  box-shadow: 0 4px 10px rgba(81, 141, 203, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .login-btn:hover {
+  background-color: #5b92cb;
   transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(81, 141, 203, 0.45);
 }
 
 /* Hero Section */

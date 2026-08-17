@@ -1,1 +1,456 @@
-<p>patient-dashboard works!</p>
+<div class="patient-dashboard-layout">
+
+  <!-- ================= TOP HEADER NAVBAR ================= -->
+  <header class="top-navbar">
+    <div class="header-left" routerLink="/" style="cursor: pointer;">
+      <div class="brand-logo">
+        <img src="assets/logo/logo.png" alt="Health Bridge Logo" class="brand-img" onerror="this.src='assets/image/logo.jpeg'">
+        <div class="brand-text">
+          <h1 class="brand-title">HEALTH BRIDGE</h1>
+          <p class="brand-subtitle">Your Health, Our Priority</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center Search Input -->
+    <div class="header-search">
+      <div class="search-input-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input 
+          type="text" 
+          placeholder="Search anything..." 
+          [(ngModel)]="searchQuery" 
+          class="search-field">
+      </div>
+    </div>
+
+    <!-- Right Profile & Notifications -->
+    <div class="header-right">
+      <!-- Notification Bell -->
+      <div class="notification-wrapper">
+        <button type="button" class="icon-btn" (click)="toggleNotifications()" title="Notifications">
+          <svg class="bell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          @if (dashboardData.unreadNotificationsCount > 0) {
+            <span class="notification-badge">{{ dashboardData.unreadNotificationsCount }}</span>
+          }
+        </button>
+
+        @if (showNotificationsDropdown) {
+          <div class="dropdown-menu notifications-dropdown">
+            <div class="dropdown-header">
+              <h3>Notifications</h3>
+              <span class="badge-count">{{ dashboardData.unreadNotificationsCount }} New</span>
+            </div>
+            <ul class="notification-list">
+              @for (notif of notifications; track $index) {
+                <li class="notification-item">
+                  <span class="notif-dot"></span>
+                  <div class="notif-content">
+                    <p class="notif-title">{{ notif.title }}</p>
+                    <span class="notif-time">{{ notif.time }}</span>
+                  </div>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+
+      <!-- User Profile -->
+      <div class="user-profile-wrapper">
+        <div class="user-profile-trigger" (click)="toggleProfileMenu()">
+          <img [src]="dashboardData.avatarUrl" alt="User Avatar" class="user-avatar">
+          <div class="user-info">
+            <span class="user-name">{{ dashboardData.patientName }}</span>
+            <span class="user-role">{{ dashboardData.role }}</span>
+          </div>
+          <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
+
+        @if (showProfileDropdown) {
+          <div class="dropdown-menu profile-dropdown">
+            <a routerLink="/profile" class="dropdown-item">
+              <span>👤</span> My Profile
+            </a>
+            <div class="dropdown-item static-dropdown-item">
+              <span>⚙️</span> Settings
+            </div>
+            <div class="dropdown-divider"></div>
+            <button (click)="logout()" class="dropdown-item logout-item">
+              <span>🚪</span> Logout
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </header>
+
+  <div class="dashboard-body">
+
+    <!-- ================= LEFT SIDEBAR ================= -->
+    <aside class="sidebar">
+      <nav class="sidebar-menu">
+        <a routerLink="/patient-dashboard" routerLinkActive="active" class="menu-item active">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a routerLink="/appointment" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <line x1="12" y1="14" x2="12" y2="18"></line>
+            <line x1="10" y1="16" x2="14" y2="16"></line>
+          </svg>
+          <span>Book Appointment</span>
+        </a>
+
+        <a routerLink="/appointment-list" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+            <polyline points="9 16 11 18 15 14"></polyline>
+          </svg>
+          <span>My Appointments</span>
+        </a>
+
+        <div class="menu-item static-menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+            <line x1="9" y1="12" x2="15" y2="12"></line>
+            <line x1="9" y1="16" x2="13" y2="16"></line>
+          </svg>
+          <span>Medical History</span>
+        </div>
+
+        <a routerLink="/doctor-list" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Doctors</span>
+        </a>
+
+        <a routerLink="/patient-dashboard" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          <span>Messages</span>
+        </a>
+
+        <div class="menu-item static-menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Settings</span>
+        </div>
+
+        <button type="button" (click)="logout()" class="menu-item logout-btn">
+          <svg class="menu-icon logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Logout</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Support Widget -->
+      <div class="sidebar-help-widget">
+        <div class="help-content">
+          <h4 class="help-title">Need Help?</h4>
+          <p class="help-sub">We are here to help you</p>
+          <a routerLink="/contact-us" class="contact-support-btn">Contact Support</a>
+        </div>
+        <div class="help-illustration">
+          <svg class="doctor-svg" viewBox="0 0 100 120" fill="none">
+            <!-- Doctor Avatar Vector Illustration -->
+            <circle cx="50" cy="40" r="22" fill="#fed7aa"/>
+            <path d="M30 35C30 20 40 15 50 15C60 15 70 20 70 35" stroke="#1e293b" stroke-width="8" stroke-linecap="round"/>
+            <path d="M25 110C25 80 35 70 50 70C65 70 75 80 75 110" fill="#2563eb"/>
+            <path d="M42 70L50 85L58 70" stroke="#ffffff" stroke-width="3"/>
+            <circle cx="50" cy="92" r="5" fill="#e2e8f0" stroke="#0284c7" stroke-width="2"/>
+            <path d="M70 75C80 80 85 90 82 100" stroke="#fed7aa" stroke-width="6" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ================= MAIN CONTENT AREA ================= -->
+    <main class="main-content">
+
+      <!-- HERO WELCOME BANNER CARD -->
+      <section class="welcome-hero-card">
+        <div class="hero-text-wrap">
+          <h2 class="hero-title">Welcome Back, {{ dashboardData.patientName }}! 👋</h2>
+          <p class="hero-subtitle">Here's your health overview for today.</p>
+        </div>
+
+        <div class="hero-illustration">
+          <!-- Family Healthcare Vector Art -->
+          <svg class="family-svg" viewBox="0 0 280 140" fill="none">
+            <!-- Background Soft Orbs -->
+            <circle cx="230" cy="70" r="55" fill="#dbeafe" opacity="0.6"/>
+            <!-- Father -->
+            <circle cx="120" cy="45" r="16" fill="#fde68a"/>
+            <path d="M104 42C104 30 112 25 120 25C128 25 136 30 136 42" stroke="#1e293b" stroke-width="6"/>
+            <path d="M100 130C100 90 108 80 120 80C132 80 140 90 140 130" fill="#2563eb"/>
+            <!-- Mother -->
+            <circle cx="190" cy="50" r="16" fill="#fde68a"/>
+            <path d="M174 52C170 30 180 25 190 25C200 25 210 30 206 52" stroke="#000000" stroke-width="7"/>
+            <path d="M172 130C172 95 180 85 190 85C200 85 208 95 208 130" fill="#ef4444"/>
+            <!-- Child -->
+            <circle cx="155" cy="70" r="12" fill="#fde68a"/>
+            <path d="M145 130C145 105 150 98 155 98C160 98 165 105 165 130" fill="#f59e0b"/>
+            <!-- Health Shield Icon -->
+            <g transform="translate(210, 65)">
+              <path d="M18 0C30 5 36 10 36 22C36 38 24 48 18 52C12 48 0 38 0 22C0 10 6 5 18 0Z" fill="#1d4ed8"/>
+              <path d="M18 16V34M9 25H27" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+      </section>
+
+      <!-- STAT CARDS GRID (ROW 1) -->
+      <section class="stats-cards-grid">
+        <!-- Card 1: Total Appointments -->
+        <div class="stat-card">
+          <div class="stat-icon-box icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+              <line x1="12" y1="14" x2="12" y2="18"></line>
+              <line x1="10" y1="16" x2="14" y2="16"></line>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Total Appointments</span>
+            <h3 class="stat-value">{{ dashboardData.stats.totalAppointments }}</h3>
+            <span class="stat-subtext">All time</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Upcoming -->
+        <div class="stat-card">
+          <div class="stat-icon-box icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Upcoming</span>
+            <h3 class="stat-value">{{ dashboardData.stats.upcomingAppointments }}</h3>
+            <span class="stat-subtext">Next 7 days</span>
+          </div>
+        </div>
+
+        <!-- Card 3: Doctors Consulted -->
+        <div class="stat-card">
+          <div class="stat-icon-box icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Doctors Consulted</span>
+            <h3 class="stat-value">{{ dashboardData.stats.doctorsConsulted }}</h3>
+            <span class="stat-subtext">All time</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Health Score -->
+        <div class="stat-card">
+          <div class="stat-icon-box icon-orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Health Score</span>
+            <h3 class="stat-value">{{ dashboardData.stats.healthScore }}</h3>
+            <span class="stat-status text-green">{{ dashboardData.stats.healthScoreStatus }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- MIDDLE SECTION GRID (3 COLUMNS) -->
+      <section class="middle-overview-grid">
+
+        <!-- Column 1: Health Overview -->
+        <div class="dashboard-panel health-overview-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">
+              Health Overview
+              <svg class="pulse-icon" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </h3>
+          </div>
+
+          <div class="vitals-row">
+            <div class="vital-item">
+              <span class="vital-label">Blood Group</span>
+              <span class="vital-value text-red">{{ dashboardData.healthOverview.bloodGroup }}</span>
+            </div>
+            <div class="vital-divider"></div>
+            <div class="vital-item">
+              <span class="vital-label">Height</span>
+              <span class="vital-value">{{ dashboardData.healthOverview.height }}</span>
+            </div>
+            <div class="vital-divider"></div>
+            <div class="vital-item">
+              <span class="vital-label">Weight</span>
+              <span class="vital-value">{{ dashboardData.healthOverview.weight }}</span>
+            </div>
+          </div>
+
+          <div class="hydration-tip-box">
+            <svg class="drop-icon" viewBox="0 0 24 24" fill="#0284c7">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+            </svg>
+            <p class="tip-text">{{ dashboardData.healthOverview.hydrationTip }}</p>
+          </div>
+        </div>
+
+        <!-- Column 2: Quick Actions -->
+        <div class="dashboard-panel quick-actions-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Quick Actions</h3>
+          </div>
+
+          <div class="quick-actions-grid">
+            <!-- Action 1: Book Appointment -->
+            <a routerLink="/appointment" class="action-card">
+              <div class="action-icon-box icon-light-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <line x1="12" y1="11" x2="12" y2="17"></line>
+                  <line x1="9" y1="14" x2="15" y2="14"></line>
+                </svg>
+              </div>
+              <span class="action-text">Book Appointment</span>
+            </a>
+
+            <!-- Action 2: My Appointments -->
+            <a routerLink="/appointment-list" class="action-card">
+              <div class="action-icon-box icon-light-green">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="16" y1="2" x2="16" y2="6"></line>
+                  <line x1="8" y1="2" x2="8" y2="6"></line>
+                  <polyline points="9 14 11 16 15 12"></polyline>
+                </svg>
+              </div>
+              <span class="action-text">My Appointments</span>
+            </a>
+
+            <!-- Action 3: Medical History -->
+            <div class="action-card static-action-card">
+              <div class="action-icon-box icon-light-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2">
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                  <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                  <line x1="9" y1="12" x2="15" y2="12"></line>
+                </svg>
+              </div>
+              <span class="action-text">Medical History</span>
+            </div>
+
+            <!-- Action 4: Find Doctors -->
+            <a routerLink="/doctor-list" class="action-card">
+              <div class="action-icon-box icon-light-blue">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <span class="action-text">Find Doctors</span>
+            </a>
+
+            <!-- Action 5: Billing & Payments -->
+            <a routerLink="/patient-billing-details" class="action-card">
+              <div class="action-icon-box icon-light-purple">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                  <line x1="1" y1="10" x2="23" y2="10"></line>
+                </svg>
+              </div>
+              <span class="action-text">Billing & Payments</span>
+            </a>
+
+            <!-- Action 6: Profile Settings -->
+            <div class="action-card static-action-card">
+              <div class="action-icon-box icon-light-orange">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+              </div>
+              <span class="action-text">Profile Settings</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Daily Health Tip -->
+        <div class="dashboard-panel daily-tip-card-panel">
+          <img src="assets/images/patientdb.png" alt="Daily Health Tip" class="daily-tip-full-img">
+        </div>
+      </section>
+
+      <!-- BOTTOM BANNER -->
+      <section class="bottom-support-banner">
+        <div class="banner-motivation">
+          <div class="small-yoga-icon">
+            <svg viewBox="0 0 60 60" fill="none">
+              <circle cx="30" cy="30" r="24" fill="#ddd6fe"/>
+              <path d="M22 38C22 30 25 26 30 26C35 26 38 30 38 38" fill="#7c3aed"/>
+              <circle cx="30" cy="20" r="6" fill="#fde047"/>
+            </svg>
+          </div>
+          <div class="motivation-text">
+            <h3 class="banner-heading">Stay Healthy, Stay Happy!</h3>
+            <p class="banner-subtext">Small steps today lead to a healthier tomorrow.</p>
+          </div>
+        </div>
+
+        <div class="banner-divider-line"></div>
+
+        <div class="banner-support">
+          <div class="headphones-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+            </svg>
+          </div>
+          <div class="support-text">
+            <h4 class="support-heading">We are here for you!</h4>
+            <p class="support-subtext">Your health is our priority.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
