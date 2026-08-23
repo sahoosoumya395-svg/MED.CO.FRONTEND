@@ -1,6 +1,12 @@
 :host {
   display: block;
-  font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  font-family:
+    'Segoe UI',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    Roboto,
+    sans-serif;
   background: linear-gradient(180deg, #f4f8fb 0%, #ebf2f8 100%);
   min-height: 100vh;
   color: #1e293b;
@@ -33,16 +39,17 @@
 }
 
 .brand-logo-box {
-  width: 44px;
-  height: 44px;
+  width: 70px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.brand-icon {
-  width: 42px;
-  height: 42px;
+.brand-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
 }
 
 .brand-text {
@@ -115,7 +122,9 @@
   overflow: hidden;
   box-shadow: 0 12px 36px rgba(13, 40, 71, 0.06);
   border: 1px solid #e5edf5;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .role-card:hover {
@@ -136,15 +145,21 @@
 }
 
 .doctor-pattern {
-  background-image: radial-gradient(#d6e8fa 2px, transparent 2px), radial-gradient(#d6e8fa 2px, #ffffff 2px);
+  background-image:
+    radial-gradient(#d6e8fa 2px, transparent 2px), radial-gradient(#d6e8fa 2px, #ffffff 2px);
   background-size: 24px 24px;
-  background-position: 0 0, 12px 12px;
+  background-position:
+    0 0,
+    12px 12px;
 }
 
 .patient-pattern {
-  background-image: radial-gradient(#dcf2e5 2px, transparent 2px), radial-gradient(#dcf2e5 2px, #ffffff 2px);
+  background-image:
+    radial-gradient(#dcf2e5 2px, transparent 2px), radial-gradient(#dcf2e5 2px, #ffffff 2px);
   background-size: 24px 24px;
-  background-position: 0 0, 12px 12px;
+  background-position:
+    0 0,
+    12px 12px;
 }
 
 /* Avatar Container */
@@ -205,7 +220,6 @@
   align-items: center;
   position: relative;
   z-index: 2;
-
 }
 
 /* Continue / Sign Up Button */
