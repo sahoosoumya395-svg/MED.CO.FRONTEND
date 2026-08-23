@@ -240,6 +240,9 @@ if (name) {
   this.authService.saveUserName(name);
 }
 
+// Save email so patient dashboard can look up the patient profile
+this.authService.saveUserEmail(this.email);
+
 if (doctorId != null) {
   localStorage.setItem('doctorId', doctorId.toString());
 }

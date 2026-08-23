@@ -1,302 +1,470 @@
-<div class="dashboard-container">
+<div class="leave-request-layout">
 
-    <!-- ===========================
-            SIDEBAR
-    ============================ -->
-
-    <aside class="sidebar">
-
-        <div class="logo-section">
-
-            <img src="assets/images/HEALTH-BRIDGE2.png" alt="Logo">
-
-            <h2>HEALTH BRIDGE</h2>
-
+  <!-- ================= TOP HEADER NAVBAR ================= -->
+  <header class="top-navbar">
+    <div class="header-left">
+      <div class="brand-logo" routerLink="/" style="cursor:pointer;">
+        <img src="assets/logo/logo.png" alt="Health Bridge Logo" class="brand-img" onerror="this.src='assets/image/logo.jpeg'">
+        <div class="brand-text">
+          <h1 class="brand-title">HEALTH BRIDGE</h1>
+          <p class="brand-subtitle">Hospital Management System</p>
         </div>
+      </div>
+    </div>
 
-        <nav>
+    <div class="header-search">
+      <div class="search-input-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" placeholder="Search anything..." class="search-field"
+          [(ngModel)]="searchText" (input)="applyFilters()">
+      </div>
+    </div>
 
-            <button class="dashboard-btn">
-                Dashboard
-            </button>
+    <div class="header-right">
+      <div class="notification-wrapper">
+        <button type="button" class="icon-btn" title="Notifications">
+          <svg class="bell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="user-profile-trigger">
+        <div class="admin-avatar">A</div>
+        <div class="user-info">
+          <span class="user-name">Admin</span>
+          <span class="user-role">Super Admin</span>
+        </div>
+        <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </div>
+    </div>
+  </header>
 
-            <div class="menu">
+  <div class="dashboard-body">
 
-                <h3>Management</h3>
+    <!-- ================= LEFT SIDEBAR ================= -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
 
-                <a href="#">Patient Management</a>
+        <div class="nav-section-label">MAIN</div>
 
-                <a href="#">Doctor Management</a>
+        <a routerLink="/admin-dashboard" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+          <span>Dashboard</span>
+        </a>
 
-            </div>
+        <a routerLink="/appointment/list" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <polyline points="9 16 11 18 15 14"></polyline>
+          </svg>
+          <span>Appointments</span>
+        </a>
 
-            <div class="menu">
+        <a routerLink="/patient/list" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Patients</span>
+        </a>
 
-                <h3>Settings</h3>
+        <a routerLink="/doctor/list" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Doctors</span>
+        </a>
 
-                <a href="#">Users</a>
+        <a routerLink="/doctor/department-availability" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Departments</span>
+        </a>
 
-                <a href="#">System Settings</a>
+        <a routerLink="/doctor/leave-history" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+            <rect x="8" y="2" width="8" height="4" rx="1"></rect>
+          </svg>
+          <span>Staff Leaves</span>
+        </a>
 
-                <a href="#">Profile</a>
+        <a routerLink="/doctor/leave-request" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="9" y1="13" x2="15" y2="13"></line>
+            <line x1="9" y1="17" x2="12" y2="17"></line>
+          </svg>
+          <span>Leave Requests</span>
+          <span class="menu-badge pending-badge">Pending</span>
+        </a>
 
-                <a href="#">Logout</a>
+        <div class="nav-section-label">MANAGEMENT</div>
 
-            </div>
+        <a routerLink="/appointment/booking" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="12" y1="11" x2="12" y2="17"></line>
+            <line x1="9" y1="14" x2="15" y2="14"></line>
+          </svg>
+          <span>Book Appointment</span>
+        </a>
 
-        </nav>
+        <a routerLink="/patient/add" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="8.5" cy="7" r="4"></circle>
+            <line x1="20" y1="8" x2="20" y2="14"></line>
+            <line x1="23" y1="11" x2="17" y2="11"></line>
+          </svg>
+          <span>Add Patient</span>
+        </a>
 
+        <a routerLink="/doctor/add" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+            <line x1="18" y1="11" x2="18" y2="17"></line>
+            <line x1="15" y1="14" x2="21" y2="14"></line>
+          </svg>
+          <span>Add Doctor</span>
+        </a>
+
+        <a routerLink="/billing" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+          <span>Billing & Payments</span>
+        </a>
+
+        <a routerLink="/reports" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <span>Reports</span>
+        </a>
+
+        <div class="nav-section-label">SYSTEM</div>
+
+        <a routerLink="/settings" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Settings</span>
+        </a>
+
+        <a routerLink="/login" class="menu-item logout-btn">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Logout</span>
+        </a>
+      </nav>
     </aside>
 
-    <!-- ===========================
-            MAIN CONTENT
-    ============================ -->
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main-content">
 
-    <main class="content">
+      <!-- Page Title Bar -->
+      <div class="page-title-bar">
+        <div>
+          <h2 class="page-title">Doctor Leave Requests</h2>
+          <p class="page-subtitle">Review, approve or reject doctor leave applications</p>
+        </div>
+        <div class="page-actions">
+          <button class="refresh-btn" (click)="loadLeaves()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+            Refresh
+          </button>
+          <div class="admin-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            Admin Panel
+          </div>
+        </div>
+      </div>
 
-        <div class="page-header">
+      <!-- STAT SUMMARY CARDS -->
+      <section class="stats-cards-grid">
 
-            <h1>Leave Requests</h1>
-
-            <p>
-                Review and manage leave applications submitted by doctors.
-            </p>
-
+        <div class="stat-card">
+          <div class="stat-icon-box icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Total Requests</span>
+            <h3 class="stat-value">{{ leaves.length }}</h3>
+            <span class="stat-sub">All submissions</span>
+          </div>
         </div>
 
-        <!-- ===========================
-                FILTERS
-        ============================ -->
+        <div class="stat-card">
+          <div class="stat-icon-box icon-orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Pending</span>
+            <h3 class="stat-value">{{ getPendingCount() }}</h3>
+            <span class="stat-sub">Awaiting review</span>
+          </div>
+        </div>
 
-        <div class="filters">
+        <div class="stat-card">
+          <div class="stat-icon-box icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Approved</span>
+            <h3 class="stat-value">{{ getApprovedCount() }}</h3>
+            <span class="stat-sub">Leaves granted</span>
+          </div>
+        </div>
 
-            <input
-                type="text"
-                placeholder="Search by doctor name or email..."
-            >
+        <div class="stat-card">
+          <div class="stat-icon-box icon-red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="15" y1="9" x2="9" y2="15"></line>
+              <line x1="9" y1="9" x2="15" y2="15"></line>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Rejected</span>
+            <h3 class="stat-value">{{ getRejectedCount() }}</h3>
+            <span class="stat-sub">Leaves denied</span>
+          </div>
+        </div>
 
-            <select>
+      </section>
 
-                <option>All Status</option>
-                <option>Pending</option>
-                <option>Approved</option>
-                <option>Rejected</option>
+      <!-- FILTERS PANEL -->
+      <section class="filters-panel">
+        <div class="filters-grid">
 
+          <div class="filter-group">
+            <label class="filter-label">Search Doctor</label>
+            <div class="filter-input-wrap">
+              <svg class="filter-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" class="filter-input" placeholder="Doctor name..."
+                [(ngModel)]="searchText" (input)="applyFilters()">
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label">Status</label>
+            <select class="filter-select" [(ngModel)]="selectedStatus" (change)="applyFilters()">
+              <option value="">All Statuses</option>
+              <option value="PENDING">Pending</option>
+              <option value="APPROVED">Approved</option>
+              <option value="REJECTED">Rejected</option>
             </select>
+          </div>
 
-            <select>
-
-                <option>All Leave Types</option>
-                <option>Casual</option>
-                <option>Sick</option>
-                <option>Emergency</option>
-                <option>Maternity</option>
-
+          <div class="filter-group">
+            <label class="filter-label">Leave Type</label>
+            <select class="filter-select" [(ngModel)]="selectedLeaveType" (change)="applyFilters()">
+              <option value="">All Types</option>
+              <option value="SICK">Sick Leave</option>
+              <option value="CASUAL">Casual Leave</option>
+              <option value="EMERGENCY">Emergency</option>
+              <option value="VACATION">Vacation</option>
             </select>
+          </div>
 
-            <input type="date">
+          <div class="filter-group">
+            <label class="filter-label">From Date</label>
+            <input type="date" class="filter-input" [(ngModel)]="fromDate" (change)="applyFilters()">
+          </div>
 
-            <input type="date">
+          <div class="filter-group">
+            <label class="filter-label">To Date</label>
+            <input type="date" class="filter-input" [(ngModel)]="toDate" (change)="applyFilters()">
+          </div>
 
-            <button class="reset-btn">
-                Reset
+          <div class="filter-group filter-btn-group">
+            <label class="filter-label">&nbsp;</label>
+            <button class="reset-btn" (click)="resetFilters()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <polyline points="1 4 1 10 7 10"></polyline>
+                <path d="M3.51 15a9 9 0 1 0 .49-3.87"></path>
+              </svg>
+              Reset
             </button>
+          </div>
 
         </div>
+      </section>
 
-        <!-- ===========================
-                TABLE
-        ============================ -->
+      <!-- RESULTS SUMMARY -->
+      <div class="results-bar">
+        <span class="results-count">
+          Showing <strong>{{ filteredLeaves.length }}</strong> of <strong>{{ leaves.length }}</strong> requests
+        </span>
+      </div>
 
-        <div class="table-container">
+      <!-- LOADING STATE -->
+      @if (loading) {
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Loading leave requests...</p>
+        </div>
+      }
 
-            <table>
+      <!-- ERROR STATE -->
+      @if (errorMessage && !loading) {
+        <div class="error-banner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="error-icon">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>{{ errorMessage }}</span>
+          <button class="retry-btn" (click)="loadLeaves()">Retry</button>
+        </div>
+      }
 
+      <!-- LEAVE REQUESTS TABLE -->
+      @if (!loading && !errorMessage) {
+        <section class="dashboard-panel table-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">
+              Leave Request Log
+              <svg class="pulse-icon" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+            </h3>
+          </div>
+
+          @if (filteredLeaves.length === 0) {
+            <div class="empty-state">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5" class="empty-icon">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              <p>No leave requests match your filters.</p>
+              <button class="reset-btn" (click)="resetFilters()">Clear Filters</button>
+            </div>
+          }
+
+          @if (filteredLeaves.length > 0) {
+            <div class="table-wrapper">
+              <table class="data-table">
                 <thead>
-
-                    <tr>
-
-                        <th>Request ID</th>
-                        <th>Doctor</th>
-                        <th>Leave Type</th>
-                        <th>From Date</th>
-                        <th>To Date</th>
-                        <th>Reason</th>
-                        <th>Status Action</th>
-
-                    </tr>
-
+                  <tr>
+                    <th>#</th>
+                    <th>Doctor</th>
+                    <th>Leave Type</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Days</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
                 </thead>
-
                 <tbody>
-
+                  @for (leave of filteredLeaves; track leave.leaveId; let i = $index) {
                     <tr>
-
-                        <td>LV001</td>
-                        <td>Dr. Rahul</td>
-                        <td>Sick</td>
-                        <td>22 Jul</td>
-                        <td>30 Jul</td>
-                        <td>Fever</td>
-
-                        <td>
-
-                            <button class="accept-btn">
-                                ACCEPT
-                            </button>
-
-                            <button class="reject-btn">
-                                REJECT
-                            </button>
-
-                        </td>
-
+                      <td class="row-num">{{ i + 1 }}</td>
+                      <td>
+                        <div class="doctor-cell">
+                          <div class="doctor-avatar">{{ leave.doctorName?.charAt(0) || 'D' }}</div>
+                          <span class="doctor-name">{{ leave.doctorName || '—' }}</span>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="type-pill">{{ formatLeaveType(leave.leaveType) }}</span>
+                      </td>
+                      <td>{{ leave.fromDate || '—' }}</td>
+                      <td>{{ leave.toDate || '—' }}</td>
+                      <td>
+                        <strong>{{ getDays(leave.fromDate, leave.toDate) }}</strong>
+                      </td>
+                      <td class="reason-col" title="{{ leave.reason }}">
+                        {{ leave.reason | slice:0:40 }}{{ (leave.reason?.length || 0) > 40 ? '...' : '' }}
+                      </td>
+                      <td>
+                        <span class="badge"
+                          [class.badge-pending]="leave.status?.toUpperCase() === 'PENDING'"
+                          [class.badge-approved]="leave.status?.toUpperCase() === 'APPROVED'"
+                          [class.badge-rejected]="leave.status?.toUpperCase() === 'REJECTED'">
+                          {{ formatStatus(leave.status) }}
+                        </span>
+                      </td>
+                      <td>
+                        <div class="action-btns">
+                          <button class="btn-approve"
+                            [disabled]="leave.status?.toUpperCase() === 'APPROVED'"
+                            (click)="acceptLeave(leave)"
+                            title="Approve">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14">
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Approve
+                          </button>
+                          <button class="btn-reject"
+                            [disabled]="leave.status?.toUpperCase() === 'REJECTED'"
+                            (click)="rejectLeave(leave)"
+                            title="Reject">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14">
+                              <line x1="18" y1="6" x2="6" y2="18"></line>
+                              <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                            Reject
+                          </button>
+                        </div>
+                      </td>
                     </tr>
-
-                    <tr>
-
-                        <td>LV002</td>
-                        <td>Dr. Sruti</td>
-                        <td>Casual</td>
-                        <td>22 Jul</td>
-                        <td>30 Jul</td>
-                        <td>Marriage</td>
-
-                        <td>
-
-                            <button class="accept-btn">
-                                ACCEPT
-                            </button>
-
-                            <button class="reject-btn">
-                                REJECT
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>LV003</td>
-                        <td>Dr. Jinu</td>
-                        <td>Emergency</td>
-                        <td>29 Jul</td>
-                        <td>22 Aug</td>
-                        <td>Medical Emergency</td>
-
-                        <td>
-
-                            <button class="accept-btn">
-                                ACCEPT
-                            </button>
-
-                            <button class="reject-btn">
-                                REJECT
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>LV004</td>
-                        <td>Dr. Happy</td>
-                        <td>Emergency</td>
-                        <td>22 Aug</td>
-                        <td>22 Sep</td>
-                        <td>Medical Emergency</td>
-
-                        <td>
-
-                            <button class="accept-btn">
-                                ACCEPT
-                            </button>
-
-                            <button class="reject-btn">
-                                REJECT
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>LV005</td>
-                        <td>Dr. Sumudu</td>
-                        <td>Maternity</td>
-                        <td>14 Aug</td>
-                        <td>01 Sep</td>
-                        <td>Child Birth</td>
-
-                        <td>
-
-                            <button class="accept-btn">
-                                ACCEPT
-                            </button>
-
-                            <button class="reject-btn">
-                                REJECT
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>LV006</td>
-                        <td>Dr. Aditya</td>
-                        <td>Casual</td>
-                        <td>30 Jul</td>
-                        <td>03 Aug</td>
-                        <td>Family Function</td>
-
-                        <td>
-
-                            <button class="accept-btn">
-                                ACCEPT
-                            </button>
-
-                            <button class="reject-btn">
-                                REJECT
-                            </button>
-
-                        </td>
-
-                    </tr>
-
-                    <tr>
-
-                        <td>LV007</td>
-                        <td>Dr. Soumya</td>
-                        <td>Casual</td>
-                        <td>22 Jul</td>
-                        <td>25 Jul</td>
-                        <td>Marriage</td>
-
-                        <td>
-
-                            <button class="accept-btn">
-                                ACCEPT
-                            </button>
-
-                            <button class="reject-btn">
-                                REJECT
-                            </button>
-
-                        </td>
-
-                    </tr>
-
+                  }
                 </tbody>
-
-            </table>
-
-        </div>
+              </table>
+            </div>
+          }
+        </section>
+      }
 
     </main>
-
+  </div>
 </div>
