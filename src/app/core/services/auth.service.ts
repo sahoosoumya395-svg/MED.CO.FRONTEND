@@ -133,6 +133,19 @@ export class AuthService {
     }
   }
 
+  saveUserEmail(email: string): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('user_email', email);
+    }
+  }
+
+  getUserEmail(): string | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return localStorage.getItem('user_email');
+    }
+    return null;
+  }
+
   getToken(): string | null {
     if (typeof window !== 'undefined' && window.localStorage) {
       return localStorage.getItem('auth_token');
@@ -152,6 +165,7 @@ export class AuthService {
       localStorage.removeItem('auth_token');
       localStorage.removeItem('user_role');
       localStorage.removeItem('user_name');
+      localStorage.removeItem('user_email');
     }
   }
 }

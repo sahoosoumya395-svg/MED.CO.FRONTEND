@@ -360,6 +360,16 @@
   color: #0066ff;
 }
 
+.static-menu-item {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.static-menu-item:hover {
+  background: transparent;
+  color: #475569;
+}
+
 .menu-item.active {
   background: #0066ff;
   color: #ffffff;
@@ -385,6 +395,79 @@
 .logout-btn:hover {
   background-color: #fef2f2;
   color: #dc2626;
+}
+
+/* Highlighted Menu Items (for Doctor Management & Appointment Booking) */
+.menu-item-highlight {
+  background: linear-gradient(135deg, #eff6ff 0%, #e0edff 100%);
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+  position: relative;
+}
+
+.menu-item-highlight:hover {
+  background: linear-gradient(135deg, #dbeafe 0%, #c7d2fe 100%);
+  color: #1d4ed8;
+  border-color: #93c5fd;
+}
+
+.menu-item-highlight.active {
+  background: #0066ff;
+  border-color: #0066ff;
+  color: #ffffff;
+}
+
+/* Menu Badge (New label) */
+.menu-badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 20px;
+  background-color: #2563eb;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+.menu-badge-purple {
+  background-color: #7c3aed;
+}
+
+@keyframes badgePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.05); }
+}
+
+/* Sidebar Section Divider */
+.sidebar-section-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 4px 4px;
+  margin-top: 4px;
+}
+
+.sidebar-section-divider::before,
+.sidebar-section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e2e8f0);
+}
+
+.sidebar-section-divider::after {
+  background: linear-gradient(to left, transparent, #e2e8f0);
+}
+
+.divider-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
 }
 
 /* Sidebar Help Widget */
@@ -540,6 +623,10 @@
 
 .icon-orange {
   background-color: #fff7ed;
+}
+
+.icon-red {
+  background-color: #fef2f2;
 }
 
 .stat-content {
@@ -917,3 +1004,58 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* API Error Banner */
+.api-error-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: #991b1b;
+}
+
+.api-error-banner .error-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: #dc2626;
+}
+
+.error-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+}
+
+.error-text strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.error-text span {
+  color: #b91c1c;
+  font-weight: 500;
+}
+
+.retry-btn {
+  padding: 8px 18px;
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.retry-btn:hover {
+  background: #b91c1c;
+}
+
