@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { FormsModule, } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { PatientService } from '../../../services/patient';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-patient-registration',
   standalone: true,
-  imports: [FormsModule,RouterLink],
+  imports: [FormsModule, RouterLink, RouterLinkActive],
   templateUrl: './patient-registration.html',
   styleUrl: './patient-registration.css'
 })

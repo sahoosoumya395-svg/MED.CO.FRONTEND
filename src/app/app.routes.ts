@@ -1,3 +1,4 @@
+
 import { Routes } from '@angular/router';
 
 // ==============================
@@ -45,10 +46,9 @@ import { DoctorList } from './features/doctor/doctor-list/doctor-list';
 import { DoctorProfile } from './features/doctor/doctor-profile/doctor-profile';
 import { DoctorStatus } from './features/doctor/doctor-status/doctor-status';
 import { DepartmentAvailability } from './features/doctor/department-availability/department-availability';
-import { LeaveRequest } from './features/doctor/leave-request/leave-request';
+import { DoctorLeaveRequest } from './features/doctor/doctor-leave-request/doctor-leave-request';
 import { LeaveHistory } from './features/doctor/leave-history/leave-history';
 import { DoctorLeave } from './features/doctor/doctor-leave/doctor-leave';
-import { DoctorLeaveRequest } from './features/doctor/doctor-leave-request/doctor-leave-request';
 import { MyProfile } from './features/doctor/my-profile/my-profile';
 import { MyShedule } from './features/doctor/my-shedule/my-shedule';
 
@@ -68,28 +68,35 @@ import { PrescriptionList } from './features/prescription/prescription-list/pres
 import { PrescriptionView } from './features/prescription/prescription-view/prescription-view';
 
 // ==============================
-// Financial
+// Billing & Medical
 // ==============================
 import { Billing } from './features/billing/billing';
 import { PatientBillingDetails } from './features/patient-billing-details/patient-billing-details';
 import { FinalBill } from './features/final-bill/final-bill';
-
-// ==============================
-// Other
-// ==============================
 import { Medicine } from './features/medicine/medicine';
 import { Reports } from './features/reports/reports';
+
+// ==============================
+// Profile & Settings
+// ==============================
 import { Profile } from './features/profile/profile';
 import { Settings } from './features/settings/settings';
 
-
- 
+// ==============================
+// Routes
+// ==============================
 export const routes: Routes = [
 
   // ================= HOME =================
   {
     path: '',
     component: LandingPage,
+    pathMatch: 'full'
+  },
+
+  {
+    path: 'landing-page',
+    redirectTo: '',
     pathMatch: 'full'
   },
 
@@ -141,7 +148,7 @@ export const routes: Routes = [
     component: ResetPasswordSuccess
   },
 
-  // ================= DASHBOARD =================
+  // ================= DASHBOARDS =================
   {
     path: 'admin-dashboard',
     component: AdminDashboard
@@ -187,6 +194,10 @@ export const routes: Routes = [
     component: DoctorManagement
   },
   {
+    path: 'doctor/management',
+    component: DoctorManagement
+  },
+  {
     path: 'doctor/add',
     component: DoctorAdd
   },
@@ -196,6 +207,14 @@ export const routes: Routes = [
   },
   {
     path: 'doctor/list',
+    component: DoctorList
+  },
+  {
+    path: 'doctor-list',
+    component: DoctorList
+  },
+  {
+    path: 'doctors',
     component: DoctorList
   },
   {
@@ -211,20 +230,16 @@ export const routes: Routes = [
     component: DepartmentAvailability
   },
   {
-    path: 'doctor/leave',
-    component: DoctorLeave
-  },
-  {
     path: 'doctor/leave-request',
-    component: LeaveRequest
+    component: DoctorLeaveRequest
   },
   {
     path: 'doctor/leave-history',
     component: LeaveHistory
   },
   {
-    path: 'doctor/leave-requests',
-    component: DoctorLeaveRequest
+    path: 'doctor/leave',
+    component: DoctorLeave
   },
   {
     path: 'doctor/my-profile',
@@ -241,11 +256,27 @@ export const routes: Routes = [
     component: AppointmentBooking
   },
   {
+    path: 'appointment/booking',
+    component: AppointmentBooking
+  },
+  {
+    path: 'appointment-booking',
+    component: AppointmentBooking
+  },
+  {
     path: 'appointment/add',
     component: AppointmentAdd
   },
   {
     path: 'appointment/list',
+    component: AppointmentList
+  },
+  {
+    path: 'appointment-list',
+    component: AppointmentList
+  },
+  {
+    path: 'my-appointments',
     component: AppointmentList
   },
   {
@@ -256,6 +287,10 @@ export const routes: Routes = [
   // ================= PRESCRIPTION =================
   {
     path: 'prescription/add/:appointmentId',
+    component: PrescriptionAdd
+  },
+  {
+    path: 'prescription/add',
     component: PrescriptionAdd
   },
   {
@@ -277,11 +312,15 @@ export const routes: Routes = [
     component: PatientBillingDetails
   },
   {
+    path: 'billing-details',
+    component: PatientBillingDetails
+  },
+  {
     path: 'final-bill',
     component: FinalBill
   },
 
-  // ================= OTHER =================
+  // ================= MEDICAL =================
   {
     path: 'medicine',
     component: Medicine
@@ -291,12 +330,28 @@ export const routes: Routes = [
     component: Reports
   },
   {
+    path: 'medical-history',
+    component: Reports
+  },
+
+  // ================= PROFILE & SETTINGS =================
+  {
     path: 'profile',
+    component: Profile
+  },
+  {
+    path: 'patient-profile',
     component: Profile
   },
   {
     path: 'settings',
     component: Settings
+  },
+
+  // ================= MISCELLANEOUS =================
+  {
+    path: 'messages',
+    component: PatientDashboard
   },
 
   // ================= FALLBACK =================
@@ -306,3 +361,4 @@ export const routes: Routes = [
   }
 
 ];
+

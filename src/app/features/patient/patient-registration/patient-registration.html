@@ -13,19 +13,19 @@
     <h3>Management</h3>
   <ul>
   <li>
-    <a routerLink="/patient" class="menu-link">
+    <a routerLink="/patient" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="menu-link active">
       Patient Register
     </a>
   </li>
 
   <li>
-    <a routerLink="/doctor" class="menu-link">
+    <a routerLink="/doctor" routerLinkActive="active" class="menu-link">
       Doctor Management
     </a>
   </li>
 
   <li>
-    <a routerLink="/appointment" class="menu-link">
+    <a routerLink="/appointment" routerLinkActive="active" class="menu-link">
       Appointment Booking
     </a>
   </li>
@@ -45,8 +45,11 @@
 
     <!-- Topbar -->
     <div class="topbar">
-      <span>Already have an account?</span>
-      <button class="login-btn">Login</button>
+      <div class="topbar-copy">
+        <span>Already have an account?</span>
+        <p>Sign in to access previous bookings and faster registration.</p>
+      </div>
+      <a routerLink="/login" class="login-btn">Login</a>
     </div>
 
     <!-- Heading -->
@@ -58,17 +61,22 @@
     <!-- Registration Card -->
     <div class="registration-card">
 
-      <!-- Personal Information -->
-      <h2 class="section-title">Personal Information</h2>
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Personal Information</h2>
+          <p class="section-subtitle">Capture the patient's personal details in a clean layout.</p>
+        </div>
+        <span class="section-badge">Step 1</span>
+      </div>
 
-      <div class="form-grid">
+      <div class="form-grid grid-3">
 
         <div class="form-group">
-  <label>First Name *</label>
-  <input type="text" placeholder="First Name"
-         [(ngModel)]="patient.firstName"
-         name="firstName">
-</div>
+          <label>First Name *</label>
+          <input type="text" placeholder="First Name"
+                 [(ngModel)]="patient.firstName"
+                 name="firstName">
+        </div>
 
 <div class="form-group">
   <label>Middle Name</label>
@@ -127,15 +135,21 @@
 
       <hr>
 
-      <!-- Contact Information -->
-       <h2 class="section-titel">Contact Information</h2>
-       <div class="from-grid">
-      <div class="form-group">
-  <label>Mobile Number *</label>
-  <input type="text" placeholder="Mobile Number"
-         [(ngModel)]="patient.mobileNumber"
-         name="mobileNumber">
-</div>
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Contact Information</h2>
+          <p class="section-subtitle">Add contact details for easy follow-up.</p>
+        </div>
+        <span class="section-badge">Step 2</span>
+      </div>
+
+      <div class="form-grid grid-2">
+        <div class="form-group">
+          <label>Mobile Number *</label>
+          <input type="text" placeholder="Mobile Number"
+                 [(ngModel)]="patient.mobileNumber"
+                 name="mobileNumber">
+        </div>
 
 <div class="form-group">
   <label>Alternate Number</label>
@@ -255,40 +269,40 @@
 
       <hr>
 
-      <!-- Account Information -->
-      <h2 class="section-title">Account Information</h2>
-
-      <div class="form-grid">
-
-
-<div class="form-group">
-  <label>Password *</label>
-  <input type="password" placeholder="Password"
-         [(ngModel)]="patient.password"
-         name="password">
-</div>
-
-<div class="form-group">
-  <label>Confirm Password *</label>
-  <input type="password" placeholder="Confirm Password"
-         [(ngModel)]="confirmPassword"
-         name="confirmPassword">
-</div>
-
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Account Information</h2>
+          <p class="section-subtitle">Create access details for the patient portal.</p>
+        </div>
+        <span class="section-badge">Step 4</span>
       </div>
 
-      <br>
+      <div class="form-grid grid-2">
+        <div class="form-group">
+          <label>Password *</label>
+          <input type="password" placeholder="Password"
+                 [(ngModel)]="patient.password"
+                 name="password">
+        </div>
 
-      <label>
-        <input type="checkbox">
-        I agree to the Terms & Conditions and Privacy Policy
-      </label>
+        <div class="form-group">
+          <label>Confirm Password *</label>
+          <input type="password" placeholder="Confirm Password"
+                 [(ngModel)]="confirmPassword"
+                 name="confirmPassword">
+        </div>
+      </div>
 
-      <br><br>
+      <div class="form-actions">
+        <label class="terms-checkbox">
+          <input type="checkbox">
+          I agree to the Terms & Conditions and Privacy Policy
+        </label>
 
-     <button class="register-btn" (click)="register()">
-      Register Now
-      </button>
+        <button class="register-btn" (click)="register()">
+          Register Now
+        </button>
+      </div>
     </div>
 
   </main>

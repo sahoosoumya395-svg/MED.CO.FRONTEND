@@ -62,27 +62,28 @@
             <!-- Department -->
 
             <div class="card">
+                <div class="card-header">
+                    <h3>Select Department</h3>
+                </div>
 
-    <h3>Select Department</h3>
+                <div class="select-wrapper">
+                    <select
+                        [(ngModel)]="selectedDepartmentId"
+                        (change)="loadDoctors()">
+                        <option [ngValue]="null">Select Department</option>
+                        <option
+                            *ngFor="let dept of departments"
+                            [ngValue]="dept.departmentId ?? dept.id">
+                            {{ dept.departmentName ?? dept.name }}
+                        </option>
+                    </select>
+                </div>
 
-
-    <select
-    [(ngModel)]="selectedDepartmentId"
-    (change)="loadDoctors()">
-
-        <option [ngValue]="null">Select Department</option>
-
-        <option
-            *ngFor="let dept of departments"
-            [ngValue]="dept.departmentId">
-
-            {{ dept.departmentName }}
-
-        </option>
-
-    </select>
-
-</div>
+                <div class="helper-row">
+                    <p class="helper-text">Choose a department to load its doctors quickly.</p>
+                    <span *ngIf="loadingDoctors" class="loading-pill">Loading...</span>
+                </div>
+            </div>
 
             <!-- Doctor -->
 
@@ -90,25 +91,36 @@
 
 <div class="card">
 
-    <h3>Choose Doctor</h3>
+    <div class="card-header">
+        <h3>Choose Doctor</h3>
+    </div>
 
-    <div class="doctor-list">
-
-        <div
-            *ngFor="let doctor of doctors"
-            class="doctor-item"
-            (click)="selectDoctor(doctor.id)">
-
-            <h4>
-                Dr. {{ doctor.firstName }} {{ doctor.lastName }}
-            </h4>
-
-            <p>{{ doctor.specialization }}</p>
-
-            <p>{{ doctor.experience }} Years Experience</p>
-
+    <div class="doctor-card-content">
+        <div *ngIf="loadingDoctors" class="status-message">
+            Loading doctors for the selected department...
         </div>
 
+        <div *ngIf="!loadingDoctors && doctors.length === 0" class="status-message">
+            Select a department to view available doctors.
+        </div>
+
+        <div class="doctor-list" *ngIf="!loadingDoctors && doctors.length > 0">
+            <div
+                *ngFor="let doctor of doctors; trackBy: trackByDoctorId"
+                class="doctor-item"
+                [class.active]="selectedDoctorId === (doctor.id ?? doctor.doctorId)"
+                (click)="selectDoctor(doctor.id ?? doctor.doctorId)">
+
+                <h4>
+                    Dr. {{ doctor.firstName || doctor.name || doctor.doctorName }} {{ doctor.lastName || '' }}
+                </h4>
+
+                <p>{{ doctor.specialization }}</p>
+
+                <p>{{ doctor.experience }} Years Experience</p>
+
+            </div>
+        </div>
     </div>
 
 </div>
@@ -162,120 +174,64 @@
 
             <div class="card patient-card">
 
-                <h3>Patient Details</h3>
-
-                <label>MRN Number</label>
-
-                <div class="search-box">
-
-
-                    <input
-    type="text"
-    [(ngModel)]="mrnNo"
-    placeholder="Enter MRN Number">
-
-                    <input type="text" placeholder="Enter MRN Number">
-
-                    <button>Search</button>
-
-
-<button (click)="searchPatient()">
-    Search
-</button>
+                <div class="patient-header">
+                    <h3>Patient Details</h3>
+                    <p>Search by MRN to auto-fill patient information before booking.</p>
                 </div>
 
-                <label>Patient Name</label>
+                <label>MRN Number</label>
+                <div class="search-box">
+                    <input
+                        type="text"
+                        [(ngModel)]="mrnNo"
+                        placeholder="Enter MRN Number">
+                    <button class="search-btn" (click)="searchPatient()">
+                        Search
+                    </button>
+                </div>
 
+                <div class="patient-grid">
+                    <div>
+                        <label>Patient Name</label>
+                        <input type="text" [(ngModel)]="patientName" readonly>
+                    </div>
 
-               <input
-    type="text"
-    [(ngModel)]="patientName"
-    readonly>
-                <label>Age</label>
+                    <div>
+                        <label>Age</label>
+                        <input type="number" [(ngModel)]="age" readonly>
+                    </div>
 
-                <input
-    type="number"
-    [(ngModel)]="age"
-    readonly>
+                    <div>
+                        <label>Gender</label>
+                        <input type="text" [(ngModel)]="gender" readonly>
+                    </div>
 
-                <label>Gender</label>
-
-                <input
-    type="text"
-    [(ngModel)]="gender"
-    readonly>
-                <label>Mobile Number</label>
-
-               <input
-    type="text"
-    [(ngModel)]="mobileNumber"
-    readonly>
-
-                <label>Email</label>
-
-              <input
-    type="email"
-    [(ngModel)]="email">
-                <label>Address</label>
-
-                <textarea
-    rows="3"
-    [(ngModel)]="address"
-    readonly>
-</textarea>
-
-<label>Reason</label>
-
-<textarea
-    rows="3"
-    [(ngModel)]="reason"
-    placeholder="Enter appointment reason">
-</textarea>
-
-<button
-    class="book-btn"
-    (click)="bookAppointment()"
-    [disabled]="
-        !patientId ||
-        !selectedDoctorId ||
-        !selectedDate ||
-        !selectedTime ||
-        !reason">
-
-    Book Appointment
-
-</button>
-
-                <input type="text" readonly>
-
-                <label>Age</label>
-
-                <input type="number" readonly>
-
-                <label>Gender</label>
-
-                <input type="text" readonly>
-
-                <label>Mobile Number</label>
-
-                <input type="text" readonly>
+                    <div>
+                        <label>Mobile Number</label>
+                        <input type="text" [(ngModel)]="mobileNumber" readonly>
+                    </div>
+                </div>
 
                 <label>Email</label>
-
-                <input type="email" readonly>
+                <input type="email" [(ngModel)]="email">
 
                 <label>Address</label>
+                <textarea rows="3" [(ngModel)]="address" readonly></textarea>
 
-                <textarea rows="3" readonly>
-                </textarea>
+                <label>Reason</label>
+                <textarea rows="3" [(ngModel)]="reason" placeholder="Enter appointment reason"></textarea>
 
-                <button class="book-btn">
-
+                <button
+                    class="book-btn"
+                    (click)="bookAppointment()"
+                    [disabled]="
+                        !patientId ||
+                        !selectedDoctorId ||
+                        !selectedDate ||
+                        !selectedTime ||
+                        !reason">
                     Book Appointment
-
                 </button>
-
-
             </div>
 
         </div>

@@ -1,230 +1,381 @@
-<div class="admin-layout" [class.sidebar-collapsed]="isSidebarCollapsed">
-  <!-- SIDEBAR NAVIGATION -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="brand-logo">
-        <div class="logo-icon">
-          <i class="bi bi-hospital"></i>
-        </div>
+<div class="admin-dashboard-layout" [class.sidebar-collapsed]="isSidebarCollapsed">
+
+  <!-- ================= TOP HEADER NAVBAR ================= -->
+  <header class="top-navbar">
+    <div class="header-left">
+      <button class="sidebar-toggle-btn" (click)="toggleSidebar()" title="Toggle Sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <div class="brand-logo" routerLink="/" style="cursor:pointer;">
+        <img src="assets/logo/logo.png" alt="Health Bridge Logo" class="brand-img" onerror="this.src='assets/image/logo.jpeg'">
         <div class="brand-text">
-          <span class="brand-name">HealthBridge</span>
-          <span class="brand-sub">HOSPITAL</span>
+          <h1 class="brand-title">HEALTH BRIDGE</h1>
+          <p class="brand-subtitle">Hospital Management System</p>
         </div>
       </div>
     </div>
 
-    <div class="sidebar-nav">
-      <!-- MAIN SECTION -->
-      <div class="nav-section-title">MAIN</div>
-      <a routerLink="/admin-dashboard" class="nav-item active">
-        <i class="bi bi-grid-fill"></i>
-        <span>Dashboard</span>
-      </a>
-      <a routerLink="/appointment" class="nav-item">
-        <i class="bi bi-calendar-event"></i>
-        <span>Appointments</span>
-      </a>
-      <a routerLink="/patient" class="nav-item">
-        <i class="bi bi-people"></i>
-        <span>Patients</span>
-      </a>
-      <a routerLink="/doctor" class="nav-item">
-        <i class="bi bi-person-badge"></i>
-        <span>Doctors</span>
-      </a>
-      <a routerLink="/doctor/department-availability" class="nav-item">
-        <i class="bi bi-building"></i>
-        <span>Departments</span>
-      </a>
-      <a routerLink="/doctor/leave-history" class="nav-item">
-        <i class="bi bi-person-lines-fill"></i>
-        <span>Staff</span>
-      </a>
-
-      <!-- MANAGEMENT SECTION -->
-      <div class="nav-section-title">MANAGEMENT</div>
-      <a routerLink="/doctor/department-availability" class="nav-item">
-        <i class="bi bi-door-open"></i>
-        <span>Bed Management</span>
-      </a>
-      <a routerLink="/medicine" class="nav-item">
-        <i class="bi bi-capsule"></i>
-        <span>Pharmacy</span>
-      </a>
-      <a routerLink="/billing" class="nav-item">
-        <i class="bi bi-receipt"></i>
-        <span>Billing & Payments</span>
-      </a>
-      <a routerLink="/reports" class="nav-item">
-        <i class="bi bi-file-earmark-bar-graph"></i>
-        <span>Reports</span>
-      </a>
-
-      <!-- COMMUNICATION SECTION -->
-      <div class="nav-section-title">COMMUNICATION</div>
-      <a routerLink="/messages" class="nav-item">
-        <i class="bi bi-chat-dots"></i>
-        <span>Messages</span>
-        <span class="nav-badge red-badge">{{ unreadMessagesCount }}</span>
-      </a>
-      <a routerLink="/notifications" class="nav-item">
-        <i class="bi bi-bell"></i>
-        <span>Notifications</span>
-      </a>
-
-      <!-- SYSTEM SECTION -->
-      <div class="nav-section-title">SYSTEM</div>
-      <a routerLink="/settings" class="nav-item">
-        <i class="bi bi-gear"></i>
-        <span>Settings</span>
-      </a>
-      <a routerLink="/audit-logs" class="nav-item">
-        <i class="bi bi-shield-check"></i>
-        <span>Audit Logs</span>
-      </a>
+    <div class="header-search">
+      <div class="search-input-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" placeholder="Search anything..." class="search-field">
+      </div>
     </div>
 
-    <!-- SIDEBAR FOOTER / LOGOUT -->
-    <div class="sidebar-footer">
-      <a routerLink="/login" class="logout-btn">
-        <i class="bi bi-box-arrow-left"></i>
-        <span>Log Out</span>
-      </a>
-    </div>
-  </aside>
+    <div class="header-right">
+      <!-- Date Badge -->
+      <div class="date-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        <span>{{ currentDate }}</span>
+      </div>
 
-  <!-- MAIN CONTENT CONTAINER -->
-  <main class="main-content">
-    <!-- TOP HEADER BAR -->
-    <header class="top-header">
-      <div class="header-left">
-        <button class="toggle-btn" (click)="toggleSidebar()" title="Toggle Sidebar">
-          <i class="bi bi-list"></i>
+      <!-- Notification Bell -->
+      <div class="notification-wrapper">
+        <button type="button" class="icon-btn" title="Notifications">
+          <svg class="bell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+          @if (unreadNotificationsCount > 0) {
+            <span class="notif-dot">{{ unreadNotificationsCount }}</span>
+          }
         </button>
       </div>
 
-      <div class="header-right">
-        <!-- Search Box -->
-        <div class="search-box">
-          <input type="text" placeholder="Search here..." />
-          <i class="bi bi-search search-icon"></i>
-        </div>
+      <!-- Message -->
+      <div class="notification-wrapper">
+        <button type="button" class="icon-btn" title="Messages">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+          @if (unreadMessagesCount > 0) {
+            <span class="notif-dot blue-dot">{{ unreadMessagesCount }}</span>
+          }
+        </button>
+      </div>
 
-        <!-- Notification Bell -->
-        <div class="icon-btn">
-          <i class="bi bi-bell"></i>
-          <span class="badge-dot red">{{ unreadNotificationsCount }}</span>
-        </div>
-
-        <!-- Message Envelope -->
-        <div class="icon-btn">
-          <i class="bi bi-envelope"></i>
-          <span class="badge-dot red">3</span>
-        </div>
-
-        <!-- Admin Profile Avatar -->
-        <div class="user-profile">
-          <div class="avatar-circle">A</div>
+      <!-- Admin Profile -->
+      <div class="user-profile-wrapper">
+        <div class="user-profile-trigger">
+          <div class="admin-avatar">A</div>
           <div class="user-info">
             <span class="user-name">Admin</span>
             <span class="user-role">Super Admin</span>
           </div>
+          <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <!-- DASHBOARD CONTENT AREA -->
-    <div class="dashboard-body">
-      <!-- DASHBOARD TITLE & DATE -->
-      <div class="dashboard-title-bar">
+  <div class="dashboard-body">
+
+    <!-- ================= LEFT SIDEBAR ================= -->
+    <aside class="sidebar">
+      <nav class="sidebar-nav">
+
+        <!-- MAIN -->
+        <div class="nav-section-label">MAIN</div>
+
+        <a routerLink="/admin-dashboard" routerLinkActive="active" class="menu-item active">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a routerLink="/appointment/list" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <polyline points="9 16 11 18 15 14"></polyline>
+          </svg>
+          <span>Appointments</span>
+          <span class="menu-badge">{{ stats.appointmentsToday }}</span>
+        </a>
+
+        <a routerLink="/patient/list" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Patients</span>
+        </a>
+
+        <a routerLink="/doctor/list" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Doctors</span>
+        </a>
+
+        <a routerLink="/doctor/department-availability" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Departments</span>
+        </a>
+
+        <a routerLink="/doctor/leave-history" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+            <rect x="8" y="2" width="8" height="4" rx="1"></rect>
+          </svg>
+          <span>Staff Leaves</span>
+        </a>
+
+        <a routerLink="/doctor/leave-request" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="9" y1="13" x2="15" y2="13"></line>
+            <line x1="9" y1="17" x2="12" y2="17"></line>
+            <line x1="9" y1="9" x2="10" y2="9"></line>
+          </svg>
+          <span>Leave Requests</span>
+          <span class="menu-badge pending-badge">Pending</span>
+        </a>
+
+        <!-- MANAGEMENT -->
+        <div class="nav-section-label">MANAGEMENT</div>
+
+        <a routerLink="/appointment/booking" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="12" y1="11" x2="12" y2="17"></line>
+            <line x1="9" y1="14" x2="15" y2="14"></line>
+          </svg>
+          <span>Book Appointment</span>
+        </a>
+
+        <a routerLink="/patient/add" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="8.5" cy="7" r="4"></circle>
+            <line x1="20" y1="8" x2="20" y2="14"></line>
+            <line x1="23" y1="11" x2="17" y2="11"></line>
+          </svg>
+          <span>Add Patient</span>
+        </a>
+
+        <a routerLink="/doctor/add" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+            <line x1="18" y1="11" x2="18" y2="17"></line>
+            <line x1="15" y1="14" x2="21" y2="14"></line>
+          </svg>
+          <span>Add Doctor</span>
+        </a>
+
+        <a routerLink="/medicine" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.5 20H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H20a2 2 0 0 1 2 2v3"></path>
+            <circle cx="18" cy="18" r="4"></circle>
+            <path d="M18 14v4"></path>
+            <path d="M14 18h4"></path>
+          </svg>
+          <span>Pharmacy</span>
+        </a>
+
+        <a routerLink="/billing" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+          <span>Billing & Payments</span>
+        </a>
+
+        <a routerLink="/prescription/list" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 12h6M9 16h6M9 8h6M5 20h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"></path>
+          </svg>
+          <span>Prescriptions</span>
+        </a>
+
+        <a routerLink="/reports" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          <span>Reports</span>
+        </a>
+
+        <!-- SYSTEM -->
+        <div class="nav-section-label">SYSTEM</div>
+
+        <a routerLink="/settings" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Settings</span>
+        </a>
+
+        <a routerLink="/profile" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Admin Profile</span>
+        </a>
+
+        <button type="button" (click)="logout()" class="menu-item logout-btn">
+          <svg class="menu-icon logout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Logout</span>
+        </button>
+
+      </nav>
+    </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="main-content">
+
+      <!-- Page Title Bar -->
+      <div class="page-title-bar">
         <div>
-          <h1 class="page-title">Admin Dashboard</h1>
-          <p class="page-subtitle">Overview of hospital operations and key statistics</p>
+          <h2 class="page-title">Admin Dashboard</h2>
+          <p class="page-subtitle">Overview of hospital operations and key metrics</p>
         </div>
-        <div class="date-picker-badge">
-          <i class="bi bi-calendar3"></i>
-          <span>{{ currentDate }}</span>
-        </div>
-      </div>
-
-      <!-- TOP 5 STAT CARDS GRID -->
-      <div class="stats-grid">
-        <!-- Stat Card 1: Appointments Today -->
-        <div class="stat-card">
-          <div class="stat-icon-wrapper blue-bg">
-            <i class="bi bi-calendar-check"></i>
-          </div>
-          <div class="stat-info">
-            <div class="stat-value">{{ stats.appointmentsToday }}</div>
-            <div class="stat-label">Appointments Today</div>
-
-          </div>
-        </div>
-
-        <!-- Stat Card 2: Total Patients -->
-        <div class="stat-card">
-          <div class="stat-icon-wrapper green-bg">
-            <i class="bi bi-people"></i>
-          </div>
-          <div class="stat-info">
-            <div class="stat-value">{{ stats.totalPatients | number }}</div>
-            <div class="stat-label">Total Patients</div>
-
-          </div>
-        </div>
-
-        <!-- Stat Card 3: Total Doctors -->
-        <div class="stat-card">
-          <div class="stat-icon-wrapper purple-bg">
-            <i class="bi bi-person-badge"></i>
-          </div>
-          <div class="stat-info">
-            <div class="stat-value">{{ stats.totalDoctors }}</div>
-            <div class="stat-label">Total Doctors</div>
-            <a routerLink="/doctor/list" class="stat-link">View all doctors</a>
-          </div>
-        </div>
-
-        <!-- Stat Card 4: Total Beds -->
-        <div class="stat-card">
-          <div class="stat-icon-wrapper orange-bg">
-            <i class="bi bi-door-closed"></i>
-          </div>
-          <div class="stat-info">
-            <div class="stat-value">{{ stats.totalBeds }}</div>
-            <div class="stat-label">Total Beds</div>
-            <div class="stat-pill green-pill">{{ stats.availableBeds }} Available</div>
-          </div>
-        </div>
-
-        <!-- Stat Card 5: Total Revenue -->
-        <div class="stat-card">
-          <div class="stat-icon-wrapper rose-bg">
-            <i class="bi bi-currency-rupee"></i>
-          </div>
-          <div class="stat-info">
-            <div class="stat-value">{{ stats.totalRevenue }}</div>
-            <div class="stat-label">Total Revenue</div>
-
-          </div>
+        <div class="admin-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Super Admin Access</span>
         </div>
       </div>
 
-      <!-- MIDDLE ROW: APPOINTMENTS CHART, STATUS BREAKDOWN, RECENT APPOINTMENTS -->
-      <div class="middle-row-grid">
-        <!-- Appointments Overview Line/Area Chart -->
-        <div class="dashboard-card chart-card">
-          <div class="card-header">
-            <h3 class="card-title">Appointments Overview</h3>
-            <div class="dropdown-filter">
-              <select>
-                <option>This Week</option>
-                <option>This Month</option>
-                <option>This Year</option>
-              </select>
-            </div>
+      <!-- ===== STAT CARDS ===== -->
+      <section class="stats-cards-grid">
+
+        <!-- Appointments Today -->
+        <div class="stat-card">
+          <div class="stat-icon-box icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <polyline points="9 16 11 18 15 14"></polyline>
+            </svg>
           </div>
-          <div class="card-body">
+          <div class="stat-content">
+            <span class="stat-label">Appointments Today</span>
+            <h3 class="stat-value">{{ stats.appointmentsToday }}</h3>
+            <span class="stat-growth positive">↑ {{ stats.appointmentsGrowth }}% this week</span>
+          </div>
+        </div>
+
+        <!-- Total Patients -->
+        <div class="stat-card">
+          <div class="stat-icon-box icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Total Patients</span>
+            <h3 class="stat-value">{{ stats.totalPatients | number }}</h3>
+            <span class="stat-growth positive">↑ {{ stats.patientsGrowth }}% this month</span>
+          </div>
+        </div>
+
+        <!-- Total Doctors -->
+        <div class="stat-card">
+          <div class="stat-icon-box icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Total Doctors</span>
+            <h3 class="stat-value">{{ stats.totalDoctors }}</h3>
+            <a routerLink="/doctor/list" class="stat-link">View all doctors →</a>
+          </div>
+        </div>
+
+        <!-- Beds Available -->
+        <div class="stat-card">
+          <div class="stat-icon-box icon-orange">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
+              <rect x="2" y="7" width="20" height="14" rx="2"></rect>
+              <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path>
+              <line x1="12" y1="12" x2="12" y2="16"></line>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Beds Available</span>
+            <h3 class="stat-value">{{ stats.availableBeds }}<span class="stat-of">/ {{ stats.totalBeds }}</span></h3>
+            <span class="stat-growth">{{ stats.totalBeds - stats.availableBeds }} occupied</span>
+          </div>
+        </div>
+
+        <!-- Total Revenue -->
+        <div class="stat-card">
+          <div class="stat-icon-box icon-rose">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#e11d48" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Total Revenue</span>
+            <h3 class="stat-value rev-value">{{ stats.totalRevenue }}</h3>
+            <span class="stat-growth positive">↑ {{ stats.revenueGrowth }}% vs last month</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ===== MIDDLE ROW ===== -->
+      <section class="middle-row-grid">
+
+        <!-- Appointments Overview Chart -->
+        <div class="dashboard-panel chart-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">
+              Appointments Overview
+              <svg class="pulse-icon" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+              </svg>
+            </h3>
+            <select class="filter-select">
+              <option>This Week</option>
+              <option>This Month</option>
+              <option>This Year</option>
+            </select>
+          </div>
+          <div class="chart-area">
             @if (isBrowser && appointmentsChartOptions) {
               <apx-chart
                 [series]="appointmentsChartOptions.series"
@@ -242,14 +393,14 @@
           </div>
         </div>
 
-        <!-- Appointments by Status -->
-        <div class="dashboard-card status-card">
-          <div class="card-header">
-            <h3 class="card-title">Appointments by Status</h3>
+        <!-- Appointments by Status Donut -->
+        <div class="dashboard-panel status-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">By Status</h3>
           </div>
-          <div class="card-body status-card-body">
-            <div class="status-chart-wrapper">
-              @if (isBrowser) {
+          <div class="status-body">
+            <div class="donut-center">
+              @if (isBrowser && appointmentStatusChartOptions) {
                 <apx-chart
                   [series]="appointmentStatusChartOptions.series"
                   [chart]="appointmentStatusChartOptions.chart"
@@ -261,17 +412,13 @@
                 ></apx-chart>
               }
             </div>
-            <div class="status-legend-list">
+            <div class="status-legend">
               @for (item of appointmentsByStatus; track item.label) {
-                <div class="status-legend-item">
-                  <div class="status-legend-left">
-                    <span class="status-color-dot" [style.backgroundColor]="item.color"></span>
-                    <span class="status-label">{{ item.label }}</span>
-                  </div>
-                  <div class="status-legend-right">
-                    <strong class="status-count">{{ item.count }}</strong>
-                    <span class="status-percentage">({{ item.percentage }})</span>
-                  </div>
+                <div class="legend-row">
+                  <span class="legend-dot" [style.backgroundColor]="item.color"></span>
+                  <span class="legend-label">{{ item.label }}</span>
+                  <span class="legend-count">{{ item.count }}</span>
+                  <span class="legend-pct">{{ item.percentage }}</span>
                 </div>
               }
             </div>
@@ -279,57 +426,66 @@
         </div>
 
         <!-- Recent Appointments -->
-        <div class="dashboard-card recent-card">
-          <div class="card-header">
-            <h3 class="card-title">Recent Appointments</h3>
-            <a routerLink="/appointment/list" class="view-all-link">View All</a>
+        <div class="dashboard-panel recent-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Recent Appointments</h3>
+            <a routerLink="/appointment/list" class="view-all-btn">View All</a>
           </div>
-          <div class="card-body recent-list">
+          <div class="recent-list">
             @for (item of recentAppointments; track item.patient) {
               <div class="recent-item">
                 <div class="recent-avatar" [style.backgroundColor]="item.avatarColor" [style.color]="item.textColor">
-                  <i class="bi bi-person"></i>
+                  {{ item.patient.charAt(0) }}
                 </div>
                 <div class="recent-details">
-                  <div class="recent-patient-name">{{ item.patient }}</div>
-                  <div class="recent-doctor-sub">{{ item.department }} - {{ item.doctor }}</div>
+                  <div class="recent-patient">{{ item.patient }}</div>
+                  <div class="recent-meta">{{ item.department }} · {{ item.doctor }}</div>
                 </div>
                 <div class="recent-time">{{ item.time }}</div>
               </div>
             }
-            <div class="card-footer-link">
-              <a routerLink="/appointment/list">View All Appointments</a>
-            </div>
+          </div>
+          <div class="panel-footer">
+            <a routerLink="/appointment/list" class="footer-link">View All Appointments →</a>
           </div>
         </div>
-      </div>
 
-      <!-- BOTTOM ROW: DEPARTMENT PATIENT COUNT, STAFF LEAVE STATUS, BED OCCUPANCY & QUICK ACTIONS -->
-      <div class="bottom-row-grid">
-        <!-- Department Wise Patient Count Table -->
-        <div class="dashboard-card dept-card">
-          <div class="card-header">
-            <h3 class="card-title">Department Wise Patient Count</h3>
-            <a routerLink="/doctor/department-availability" class="view-all-link">View All</a>
+      </section>
+
+      <!-- ===== BOTTOM ROW ===== -->
+      <section class="bottom-row-grid">
+
+        <!-- Department Patient Count Table -->
+        <div class="dashboard-panel dept-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">
+              Dept. Patient Count
+              <svg class="pulse-icon" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              </svg>
+            </h3>
+            <a routerLink="/doctor/department-availability" class="view-all-btn">View All</a>
           </div>
-          <div class="card-body table-responsive">
-            <table class="custom-table">
+          <div class="table-wrapper">
+            <table class="data-table">
               <thead>
                 <tr>
                   <th>Department</th>
                   <th>Patients</th>
-                  <th>Percentage</th>
+                  <th>Share</th>
                 </tr>
               </thead>
               <tbody>
                 @for (item of departmentPatients; track item.department) {
                   <tr>
-                    <td class="dept-name">{{ item.department }}</td>
-                    <td class="dept-count">{{ item.patients }}</td>
-                    <td class="dept-pct-col">
-                      <span class="pct-text">{{ item.percentage }}%</span>
-                      <div class="progress-bar-track">
-                        <div class="progress-bar-fill" [style.width.%]="item.percentage" [style.backgroundColor]="item.barColor"></div>
+                    <td><strong>{{ item.department }}</strong></td>
+                    <td>{{ item.patients }}</td>
+                    <td>
+                      <div class="progress-wrap">
+                        <div class="progress-bar">
+                          <div class="progress-fill" [style.width.%]="item.percentage" [style.backgroundColor]="item.barColor"></div>
+                        </div>
+                        <span class="progress-pct">{{ item.percentage }}%</span>
                       </div>
                     </td>
                   </tr>
@@ -345,50 +501,47 @@
         </div>
 
         <!-- Staff Leave Status Table -->
-        <div class="dashboard-card leave-card">
-          <div class="card-header">
-            <h3 class="card-title">Staff Leave Status</h3>
-            <a routerLink="/doctor/leave-history" class="view-all-link">View All</a>
+        <div class="dashboard-panel leave-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Staff Leave Status</h3>
+            <a routerLink="/doctor/leave-history" class="view-all-btn">View All</a>
           </div>
-          <div class="card-body table-responsive">
-            <table class="custom-table">
+          <div class="table-wrapper">
+            <table class="data-table">
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>From Date</th>
-                  <th>To Date</th>
+                  <th>From</th>
+                  <th>To</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody>
                 @for (staff of staffLeaves; track staff.name) {
                   <tr>
-                    <td class="staff-name">{{ staff.name }}</td>
+                    <td><strong>{{ staff.name }}</strong></td>
                     <td>{{ staff.fromDate }}</td>
                     <td>{{ staff.toDate }}</td>
                     <td>
-                      <span class="badge-status" [ngClass]="staff.statusClass">{{ staff.status }}</span>
+                      <span class="badge" [ngClass]="staff.statusClass">{{ staff.status }}</span>
                     </td>
                   </tr>
                 }
               </tbody>
             </table>
-            <div class="card-footer-link">
-              <a routerLink="/doctor/leave-history">View All Leaves</a>
-            </div>
           </div>
         </div>
 
-        <!-- Bed Occupancy & Quick Actions Side Container -->
-        <div class="side-widgets-container">
-          <!-- Bed Occupancy Donut Widget -->
-          <div class="dashboard-card occupancy-card">
-            <div class="card-header">
-              <h3 class="card-title">Bed Occupancy</h3>
-              <a routerLink="/doctor/department-availability" class="view-all-link">View All</a>
+        <!-- Right Column: Bed Occupancy + Quick Actions -->
+        <div class="right-widgets">
+
+          <!-- Bed Occupancy -->
+          <div class="dashboard-panel bed-panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Bed Occupancy</h3>
             </div>
-            <div class="card-body donut-wrapper">
-              <div class="donut-chart-container">
+            <div class="bed-body">
+              <div class="donut-center">
                 @if (isBrowser && bedOccupancyChartOptions) {
                   <apx-chart
                     [series]="bedOccupancyChartOptions.series"
@@ -401,56 +554,51 @@
                   ></apx-chart>
                 }
               </div>
-
-              <div class="occupancy-legend">
-                <div class="legend-item">
-                  <div class="legend-row">
-                    <span class="dot total-dot"></span>
-                    <span class="legend-label">Total Beds</span>
-                  </div>
-                  <span class="legend-value">{{ totalBedsCount }}</span>
+              <div class="bed-legend">
+                <div class="bed-legend-row">
+                  <span class="bed-dot" style="background:#cbd5e1"></span>
+                  <span>Total</span>
+                  <strong>{{ totalBedsCount }}</strong>
                 </div>
-                <div class="legend-item">
-                  <div class="legend-row">
-                    <span class="dot occupied-dot"></span>
-                    <span class="legend-label">Occupied Beds</span>
-                  </div>
-                  <span class="legend-value">{{ occupiedBedsCount }}</span>
+                <div class="bed-legend-row">
+                  <span class="bed-dot" style="background:#2563eb"></span>
+                  <span>Occupied</span>
+                  <strong>{{ occupiedBedsCount }}</strong>
                 </div>
-                <div class="legend-item">
-                  <div class="legend-row">
-                    <span class="dot available-dot"></span>
-                    <span class="legend-label">Available Beds</span>
-                  </div>
-                  <span class="legend-value">{{ availableBedsCount }}</span>
+                <div class="bed-legend-row">
+                  <span class="bed-dot" style="background:#10b981"></span>
+                  <span>Available</span>
+                  <strong>{{ availableBedsCount }}</strong>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Quick Actions Grid Widget -->
-          <div class="dashboard-card quick-actions-card">
-            <div class="card-header">
-              <h3 class="card-title">Quick Actions</h3>
+          <!-- Quick Actions -->
+          <div class="dashboard-panel quick-panel">
+            <div class="panel-header">
+              <h3 class="panel-title">Quick Actions</h3>
             </div>
-            <div class="card-body quick-actions-grid">
+            <div class="quick-grid">
               @for (action of quickActions; track action.title) {
-                <a [routerLink]="action.link" class="action-item">
-                  <div class="action-icon" [style.backgroundColor]="action.bg" [style.color]="action.color">
-                    <i class="bi" [ngClass]="action.icon"></i>
+                <a [routerLink]="action.link" class="quick-action-item">
+                  <div class="quick-icon" [style.backgroundColor]="action.bg" [style.color]="action.color">
+                    <span class="quick-icon-emoji">{{ action.emoji }}</span>
                   </div>
-                  <span class="action-title">{{ action.title }}</span>
+                  <span class="quick-title">{{ action.title }}</span>
                 </a>
               }
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- FOOTER -->
+        </div>
+      </section>
+
+      <!-- Footer -->
       <footer class="dashboard-footer">
-        <p>© 2025 HealthBridge Hospital Management System. All rights reserved.</p>
+        <p>© 2025 HealthBridge Hospital Management System. All rights reserved. | Super Admin Panel</p>
       </footer>
-    </div>
-  </main>
+
+    </main>
+  </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { DepartmentService } from '../../../services/department';
 import { DoctorService } from '../../../services/doctor';
@@ -24,6 +25,9 @@ export class AppointmentBooking implements OnInit {
   // Doctor
   doctors: any[] = [];
   selectedDoctorId: number | null = null;
+  doctorCache = new Map<number, any[]>();
+  loadingDoctors = false;
+  private doctorsRequest?: Subscription;
 
   // Availability
   availability: any[] = [];
@@ -58,56 +62,105 @@ export class AppointmentBooking implements OnInit {
   }
 
   // Load Departments
-loadDepartments(): void {
+  loadDepartments(): void {
 
     this.departmentService.getAllDepartments().subscribe({
 
       next: (response) => {
-        this.departments = response.data;
-        console.log("Departments:", this.departments);
+        const departments = response?.data ?? response;
+        this.departments = Array.isArray(departments) ? departments : [];
+        console.log('Departments:', this.departments);
+
+        if (this.departments.length > 0) {
+          const firstDepartmentId = this.departments[0].departmentId ?? this.departments[0].id;
+          if (firstDepartmentId != null) {
+            this.prefetchDoctors(firstDepartmentId);
+          }
+        }
       },
 
       error: (error) => {
-        console.error("Error loading departments", error);
+        console.error('Error loading departments', error);
       }
 
     });
 
   }
+
   // Load Doctors
   loadDoctors(): void {
 
     if (!this.selectedDepartmentId) {
-
       this.doctors = [];
       this.selectedDoctorId = null;
       this.availability = [];
       this.timeSlots = [];
-
       return;
-
     }
 
-    this.doctorService
+    const cached = this.doctorCache.get(this.selectedDepartmentId);
+    if (cached) {
+      this.doctors = cached;
+      return;
+    }
+
+    this.loadingDoctors = true;
+    this.doctors = [];
+    this.selectedDoctorId = null;
+    this.availability = [];
+    this.timeSlots = [];
+
+    if (this.doctorsRequest) {
+      this.doctorsRequest.unsubscribe();
+    }
+
+    this.doctorsRequest = this.doctorService
       .getDoctorsByDepartment(this.selectedDepartmentId)
       .subscribe({
-
         next: (response) => {
+          const doctors = response?.data ?? response;
+          this.doctors = Array.isArray(doctors) ? doctors : [];
+          this.doctorCache.set(this.selectedDepartmentId!, this.doctors);
+          console.log('Doctors:', this.doctors);
 
-          this.doctors = response;
-
-          console.log("Doctors:", this.doctors);
-
+          if (this.doctors.length === 0) {
+            console.warn('No doctors returned for department', this.selectedDepartmentId);
+          }
         },
-
         error: (error) => {
-
-          console.error("Error loading doctors", error);
-
+          console.error('Error loading doctors', error);
+          this.doctors = [];
+        },
+        complete: () => {
+          this.loadingDoctors = false;
+          this.doctorsRequest = undefined;
         }
-
       });
 
+  }
+
+  // Prefetch doctors for a department in the background
+  prefetchDoctors(departmentId: number): void {
+    if (!departmentId || this.doctorCache.has(departmentId)) {
+      return;
+    }
+
+    this.doctorService.getDoctorsByDepartment(departmentId).subscribe({
+      next: (response) => {
+        const doctors = response?.data ?? response;
+        if (Array.isArray(doctors)) {
+          this.doctorCache.set(departmentId, doctors);
+          console.log(`Prefetched doctors for department ${departmentId}`, doctors);
+        }
+      },
+      error: (error) => {
+        console.error('Error prefetching doctors', error);
+      }
+    });
+  }
+
+  trackByDoctorId(index: number, doctor: any): number {
+    return doctor?.id ?? doctor?.doctorId ?? index;
   }
 
   // Select Doctor
