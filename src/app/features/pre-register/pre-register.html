@@ -1,10 +1,16 @@
+```html
 <div class="pre-register-wrapper">
   <!-- Top Header Branding -->
   <header class="page-header">
     <div class="brand-container" routerLink="/">
       <div class="brand-logo-box">
-        <img src="assets/images/healthBridgeLogo.jpeg" alt="Health Bridge Logo" class="brand-logo" />
+        <img
+          src="assets/images/healthBridgeLogo.jpeg"
+          alt="Health Bridge Logo"
+          class="brand-logo"
+        />
       </div>
+
       <div class="brand-text">
         <h1 class="brand-name">HEALTH BRIDGE</h1>
         <p class="brand-tagline">WHERE CARE MEETS TECHNOLOGY</p>
@@ -20,12 +26,17 @@
 
   <!-- Registration Option Cards -->
   <div class="cards-grid">
+
     <!-- Doctor Registration Card -->
     <div class="role-card doctor-card">
       <div class="watermark-pattern doctor-pattern"></div>
 
       <div class="avatar-container">
-        <img src="assets/images/doctor-profile.png" alt="Register as Doctor" class="avatar-image" />
+        <img
+          src="assets/images/doctor-profile.png"
+          alt="Register as Doctor"
+          class="avatar-image"
+        />
       </div>
 
       <div class="card-info">
@@ -34,12 +45,12 @@
       </div>
 
       <div class="card-actions">
-
-        <a [routerLink]="['/doctor/add']" class="continue-btn doctor-btn">
-
-        <a routerLink="/doctor/add" class="continue-btn doctor-btn">
-
+        <a
+          [routerLink]="['/doctor/add']"
+          class="continue-btn doctor-btn"
+        >
           <span>Sign Up</span>
+
           <svg
             class="btn-arrow"
             viewBox="0 0 24 24"
@@ -47,7 +58,11 @@
             stroke="currentColor"
             stroke-width="2.5"
           >
-            <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M5 12h14M12 5l7 7-7 7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </a>
 
@@ -57,8 +72,9 @@
             [routerLink]="['/login']"
             [queryParams]="{ role: 'doctor' }"
             class="signin-link doctor-link"
-            >Sign In</a
           >
+            Sign In
+          </a>
         </div>
       </div>
     </div>
@@ -81,10 +97,12 @@
       </div>
 
       <div class="card-actions">
-
-        <a [routerLink]="['/patient/register']" class="continue-btn patient-btn">
-        <a routerLink="/patient/register" class="continue-btn patient-btn">
+        <a
+          [routerLink]="['/patient/register']"
+          class="continue-btn patient-btn"
+        >
           <span>Sign Up</span>
+
           <svg
             class="btn-arrow"
             viewBox="0 0 24 24"
@@ -92,7 +110,11 @@
             stroke="currentColor"
             stroke-width="2.5"
           >
-            <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M5 12h14M12 5l7 7-7 7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </a>
 
@@ -102,10 +124,13 @@
             [routerLink]="['/login']"
             [queryParams]="{ role: 'patient' }"
             class="signin-link patient-link"
-            >Sign In</a
           >
+            Sign In
+          </a>
         </div>
       </div>
     </div>
+
   </div>
 </div>
+```

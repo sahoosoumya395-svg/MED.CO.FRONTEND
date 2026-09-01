@@ -53,6 +53,81 @@
     margin-bottom: 0;
 }
 
+
+.dashboard-btn{
+    width:100%;
+    padding:12px;
+
+    border:none;
+    border-radius:8px;
+    background:#2b6672;
+    color:white;
+
+    
+    border:none;
+    border-radius:6px;
+
+    cursor:pointer;
+    font-size:16px;
+    margin-bottom:30px;
+}
+.sidebar h3{
+    margin:20px 0 10px;
+    color:#444;
+    font-size:18px;
+    font-weight:600;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar li{
+    padding:8px 0;
+    color:#555;
+    cursor:pointer;
+    transition:.3s;
+    font-size:16px;
+    font-weight:400;
+    margin-bottom: 8px;
+}
+.sidebar li:hover{
+    color:#2196f3;
+    padding-left:6px;
+}
+
+
+.menu-link{
+    text-decoration:none;
+    color:#555;
+    display:block;
+    width:100%;
+    font-size: 16px;
+    white-space:nowrap;
+}
+
+
+.menu-link:hover{
+    color:#2196f3;
+}
+
+.sidebar li.active{
+    background:#eaf3ff;
+    border-radius:8px;
+    padding:12px;
+}
+
+.sidebar li.active .menu-link{
+    color:#2196f3;
+    font-weight:bold;
+}
+
+
+
+.active{
+    color: hsl(0, 0%, 100%);
+}
+
 .logo h2 {
     font-size: 20px;
     font-weight: 800;
@@ -93,6 +168,7 @@
 
 .menu-link {
     display: none;
+
 }
 
 /* ===========================
@@ -145,7 +221,7 @@
 
 .card h3{
     margin-bottom:20px;
-    color:#2196f3;
+    color:#2b6672;
 }
 
 .card label{
@@ -209,6 +285,21 @@ textarea[readonly] {
     padding: 12px 14px;
 }
 
+
+.search-box button{
+    width:110px;
+    border:none;
+    border-radius:8px;
+    background:#2b6672;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.search-box button:hover{
+    background:#63959d;
+}
+
 .search-btn {
     min-width: 120px;
     border: none;
@@ -253,6 +344,7 @@ textarea[readonly] {
 
 .patient-grid label{
     margin-top: 0;
+
 }
 
 /* ===========================
@@ -368,6 +460,21 @@ textarea[readonly] {
 }
 
 .time-grid button{
+
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#2b6672;
+    color:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.time-grid button:hover{
+
+    background:#63959d;
+
+
     padding: 12px 14px;
     border: 1px solid #e2e8f0;
     border-radius: 10px;
@@ -383,6 +490,7 @@ textarea[readonly] {
     background: #e0f2fe;
     border-color: #0066ff;
 }
+
 
 .time-grid button.selected{
     background: #0066ff;

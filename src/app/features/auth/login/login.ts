@@ -1,6 +1,8 @@
+
 import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { Router, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AuthService } from '../../../core/services/auth.service';
@@ -292,4 +294,8 @@ if (doctorId != null) {
   forgotPassword(): void {
     this.router.navigate(['/forgot-password']);
   }
+
+
 }
+
+

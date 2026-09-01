@@ -57,6 +57,22 @@
   letter-spacing: -0.3px;
 }
 
+.dashboard-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:#2b6672;
+    color:white;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-bottom:45px;
+}
+
+.dashboard-btn:hover{
+    background:#4b7b83;
+}
 .brand-subtitle {
   font-size: 11px;
   font-weight: 600;
@@ -66,6 +82,7 @@
 
 .header-search {
   flex: 0 1 440px;
+
 }
 
 .search-input-wrap {
@@ -135,7 +152,7 @@
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 8px;
-  transition: background 0.2s ease;
+  transition:0.2s ease;
 }
 
 .user-profile-trigger:hover { background-color: #f8fafc; }
@@ -194,6 +211,23 @@
   margin-top: 4px;
 }
 
+
+.reset-btn{
+    height:45px;
+    padding:0 20px;
+    border:1px solid #2b6672;
+    background:white;
+    color:#2b6672;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.reset-btn:hover{
+    background:#2b6672;
+    color:white;
+}
+
 .menu-item {
   display: flex;
   align-items: center;
@@ -215,6 +249,7 @@
 .menu-item:hover {
   background-color: #f1f5f9;
   color: #0066ff;
+
 }
 
 .menu-item.active {
