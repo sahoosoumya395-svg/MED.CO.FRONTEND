@@ -1,5 +1,8 @@
+
+
 import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
@@ -46,6 +49,9 @@ export class ForgotPassword implements OnDestroy {
       clearInterval(this.timerInterval);
     }
   }
+
+
+
 
   getOtp(): void {
     if (!this.email) {
@@ -243,3 +249,4 @@ export class ForgotPassword implements OnDestroy {
     }
   }
 }
+

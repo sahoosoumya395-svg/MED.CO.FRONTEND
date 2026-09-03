@@ -1,4 +1,6 @@
+
 import { Component, OnInit } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -39,6 +41,8 @@ export class ResetPassword implements OnInit {
       this.otp = sessionStorage.getItem('reset_otp') || '';
     }
   }
+
+
 
   ngOnInit(): void {
   }

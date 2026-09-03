@@ -1,6 +1,8 @@
+
 import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { Router, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AuthService } from '../../../core/services/auth.service';
@@ -240,6 +242,9 @@ if (name) {
   this.authService.saveUserName(name);
 }
 
+// Save email so patient dashboard can look up the patient profile
+this.authService.saveUserEmail(this.email);
+
 if (doctorId != null) {
   localStorage.setItem('doctorId', doctorId.toString());
 }
@@ -289,4 +294,8 @@ if (doctorId != null) {
   forgotPassword(): void {
     this.router.navigate(['/forgot-password']);
   }
+
+
 }
+
+

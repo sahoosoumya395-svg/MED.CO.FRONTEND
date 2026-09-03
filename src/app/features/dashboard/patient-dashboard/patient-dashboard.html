@@ -19,10 +19,10 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input 
-          type="text" 
-          placeholder="Search anything..." 
-          [(ngModel)]="searchQuery" 
+        <input
+          type="text"
+          placeholder="Search anything..."
+          [(ngModel)]="searchQuery"
           class="search-field">
       </div>
     </div>
@@ -31,44 +31,26 @@
     <div class="header-right">
       <!-- Notification Bell -->
       <div class="notification-wrapper">
-        <button type="button" class="icon-btn" (click)="toggleNotifications()" title="Notifications">
+        <button type="button" class="icon-btn" title="Notifications">
           <svg class="bell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
           </svg>
-          @if (dashboardData.unreadNotificationsCount > 0) {
-            <span class="notification-badge">{{ dashboardData.unreadNotificationsCount }}</span>
-          }
         </button>
-
-        @if (showNotificationsDropdown) {
-          <div class="dropdown-menu notifications-dropdown">
-            <div class="dropdown-header">
-              <h3>Notifications</h3>
-              <span class="badge-count">{{ dashboardData.unreadNotificationsCount }} New</span>
-            </div>
-            <ul class="notification-list">
-              @for (notif of notifications; track $index) {
-                <li class="notification-item">
-                  <span class="notif-dot"></span>
-                  <div class="notif-content">
-                    <p class="notif-title">{{ notif.title }}</p>
-                    <span class="notif-time">{{ notif.time }}</span>
-                  </div>
-                </li>
-              }
-            </ul>
-          </div>
-        }
       </div>
 
       <!-- User Profile -->
       <div class="user-profile-wrapper">
         <div class="user-profile-trigger" (click)="toggleProfileMenu()">
-          <img [src]="dashboardData.avatarUrl" alt="User Avatar" class="user-avatar">
+          <div class="user-avatar-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
           <div class="user-info">
-            <span class="user-name">{{ dashboardData.patientName }}</span>
-            <span class="user-role">{{ dashboardData.role }}</span>
+            <span class="user-name">{{ patient?.firstName }} {{ patient?.lastName }}</span>
+            <span class="user-role">Patient</span>
           </div>
           <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="6 9 12 15 18 9"></polyline>
@@ -105,19 +87,8 @@
           <span>Dashboard</span>
         </a>
 
-        <a routerLink="/appointment" class="menu-item">
-          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-            <line x1="12" y1="14" x2="12" y2="18"></line>
-            <line x1="10" y1="16" x2="14" y2="16"></line>
-          </svg>
-          <span>Book Appointment</span>
-        </a>
-
-        <a routerLink="/appointment-list" class="menu-item">
+        <!-- My Appointments -->
+        <a routerLink="/appointment-list" routerLinkActive="active" class="menu-item">
           <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
             <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -128,6 +99,35 @@
           <span>My Appointments</span>
         </a>
 
+        <!-- Appointment Booking -->
+        <a routerLink="/appointment-booking" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path>
+          </svg>
+          <span>Appointment Booking</span>
+        </a>
+
+        <!-- Doctor Management -->
+        <a routerLink="/doctor/management" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Doctor Management</span>
+        </a>
+
+        <!-- Find Doctors -->
+        <a routerLink="/doctor-list" routerLinkActive="active" class="menu-item">
+          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Find Doctors</span>
+        </a>
+
+        <!-- Medical History -->
         <div class="menu-item static-menu-item">
           <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
@@ -138,14 +138,7 @@
           <span>Medical History</span>
         </div>
 
-        <a routerLink="/doctor-list" class="menu-item">
-          <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          <span>Doctors</span>
-        </a>
-
+        <!-- Messages -->
         <a routerLink="/patient-dashboard" class="menu-item">
           <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -153,6 +146,7 @@
           <span>Messages</span>
         </a>
 
+        <!-- Settings -->
         <div class="menu-item static-menu-item">
           <svg class="menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="3"></circle>
@@ -198,7 +192,7 @@
       <!-- HERO WELCOME BANNER CARD -->
       <section class="welcome-hero-card">
         <div class="hero-text-wrap">
-          <h2 class="hero-title">Welcome Back, {{ dashboardData.patientName }}! 👋</h2>
+          <h2 class="hero-title">Welcome Back, {{ patient?.firstName }} {{ patient?.lastName }}! 👋</h2>
           <p class="hero-subtitle">Here's your health overview for today.</p>
         </div>
 
@@ -227,68 +221,80 @@
         </div>
       </section>
 
-      <!-- STAT CARDS GRID (ROW 1) -->
+      <!-- API ERROR BANNER -->
+      @if (loadError) {
+        <div class="api-error-banner">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="error-icon">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <div class="error-text">
+            <strong>Could not load your profile.</strong>
+            <span>Please check that the backend server is running on port 8082.</span>
+          </div>
+          <button class="retry-btn" (click)="loadDashboard()">Retry</button>
+        </div>
+      }
       <section class="stats-cards-grid">
-        <!-- Card 1: Total Appointments -->
+        <!-- MRN Card -->
         <div class="stat-card">
           <div class="stat-icon-box icon-blue">
             <svg viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-              <line x1="12" y1="14" x2="12" y2="18"></line>
-              <line x1="10" y1="16" x2="14" y2="16"></line>
+              <line x1="8" y1="10" x2="16" y2="10"></line>
+              <line x1="8" y1="14" x2="14" y2="14"></line>
             </svg>
           </div>
           <div class="stat-content">
-            <span class="stat-label">Total Appointments</span>
-            <h3 class="stat-value">{{ dashboardData.stats.totalAppointments }}</h3>
-            <span class="stat-subtext">All time</span>
+            <span class="stat-label">MRN No.</span>
+            <h3 class="stat-value">{{ patient?.mrnNO || '—' }}</h3>
+            <span class="stat-subtext">Medical Record</span>
           </div>
         </div>
 
-        <!-- Card 2: Upcoming -->
+        <!-- Blood Group Card -->
+        <div class="stat-card">
+          <div class="stat-icon-box icon-red">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-label">Blood Group</span>
+            <h3 class="stat-value">{{ patient?.bloodGroup || '—' }}</h3>
+            <span class="stat-subtext">Blood type</span>
+          </div>
+        </div>
+
+        <!-- Height Card -->
         <div class="stat-card">
           <div class="stat-icon-box icon-green">
             <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
+              <line x1="12" y1="2" x2="12" y2="22"></line>
+              <path d="M7 7l5-5 5 5"></path>
+              <path d="M7 17l5 5 5-5"></path>
             </svg>
           </div>
           <div class="stat-content">
-            <span class="stat-label">Upcoming</span>
-            <h3 class="stat-value">{{ dashboardData.stats.upcomingAppointments }}</h3>
-            <span class="stat-subtext">Next 7 days</span>
+            <span class="stat-label">Height</span>
+            <h3 class="stat-value">{{ patient?.height ? patient.height + ' cm' : '—' }}</h3>
+            <span class="stat-subtext">Centimetres</span>
           </div>
         </div>
 
-        <!-- Card 3: Doctors Consulted -->
+        <!-- Weight Card -->
         <div class="stat-card">
           <div class="stat-icon-box icon-purple">
             <svg viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
+              <path d="M12 2a4 4 0 0 1 4 4H8a4 4 0 0 1 4-4z"></path>
+              <rect x="3" y="6" width="18" height="14" rx="2"></rect>
             </svg>
           </div>
           <div class="stat-content">
-            <span class="stat-label">Doctors Consulted</span>
-            <h3 class="stat-value">{{ dashboardData.stats.doctorsConsulted }}</h3>
-            <span class="stat-subtext">All time</span>
-          </div>
-        </div>
-
-        <!-- Card 4: Health Score -->
-        <div class="stat-card">
-          <div class="stat-icon-box icon-orange">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-            </svg>
-          </div>
-          <div class="stat-content">
-            <span class="stat-label">Health Score</span>
-            <h3 class="stat-value">{{ dashboardData.stats.healthScore }}</h3>
-            <span class="stat-status text-green">{{ dashboardData.stats.healthScoreStatus }}</span>
+            <span class="stat-label">Weight</span>
+            <h3 class="stat-value">{{ patient?.weight ? patient.weight + ' kg' : '—' }}</h3>
+            <span class="stat-subtext">Kilograms</span>
           </div>
         </div>
       </section>
@@ -310,26 +316,26 @@
           <div class="vitals-row">
             <div class="vital-item">
               <span class="vital-label">Blood Group</span>
-              <span class="vital-value text-red">{{ dashboardData.healthOverview.bloodGroup }}</span>
+              <span class="vital-value text-red">{{ patient?.bloodGroup || '—' }}</span>
             </div>
             <div class="vital-divider"></div>
             <div class="vital-item">
               <span class="vital-label">Height</span>
-              <span class="vital-value">{{ dashboardData.healthOverview.height }}</span>
+              <span class="vital-value">{{ patient?.height ? patient.height + ' cm' : '—' }}</span>
             </div>
             <div class="vital-divider"></div>
             <div class="vital-item">
               <span class="vital-label">Weight</span>
-              <span class="vital-value">{{ dashboardData.healthOverview.weight }}</span>
+              <span class="vital-value">{{ patient?.weight ? patient.weight + ' kg' : '—' }}</span>
+            </div>
+            <div class="vital-divider"></div>
+            <div class="vital-item">
+              <span class="vital-label">MRN</span>
+              <span class="vital-value">{{ patient?.mrnNO || '—' }}</span>
             </div>
           </div>
 
-          <div class="hydration-tip-box">
-            <svg class="drop-icon" viewBox="0 0 24 24" fill="#0284c7">
-              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
-            </svg>
-            <p class="tip-text">{{ dashboardData.healthOverview.hydrationTip }}</p>
-          </div>
+
         </div>
 
         <!-- Column 2: Quick Actions -->
@@ -413,10 +419,7 @@
           </div>
         </div>
 
-        <!-- Column 3: Daily Health Tip -->
-        <div class="dashboard-panel daily-tip-card-panel">
-          <img src="assets/images/patientdb.png" alt="Daily Health Tip" class="daily-tip-full-img">
-        </div>
+
       </section>
 
       <!-- BOTTOM BANNER -->

@@ -1,11 +1,11 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "newProjectRoot": "projects",
   "cli": {
     "packageManager": "npm",
     "analytics": "4bf938d3-4724-4810-8486-0256cd26fe08"
   },
-  "newProjectRoot": "projects",
   "projects": {
     "Health_bridge_ui": {
       "projectType": "application",
@@ -87,7 +87,14 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
         }
       }
     }
